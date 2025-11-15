@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -13,11 +12,10 @@ import { toast } from 'sonner';
 
 export default function Index() {
   const [showModal, setShowModal] = useState(false);
+  const [isDemoModal, setIsDemoModal] = useState(false);
   const [formData, setFormData] = useState({
+    name: '',
     product: '',
-    dosage: '',
-    speed: '',
-    packageType: '',
     phone: '',
     email: '',
     consent: false,
@@ -25,8 +23,23 @@ export default function Index() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.name || !formData.phone) {
+      toast.error('Заполните обязательные поля: Имя и Телефон');
+      return;
+    }
     toast.success('Заявка отправлена! Мы свяжемся с вами в течение 15 минут.');
     setShowModal(false);
+    setIsDemoModal(false);
+  };
+
+  const openCalculator = () => {
+    setIsDemoModal(false);
+    setShowModal(true);
+  };
+
+  const openDemo = () => {
+    setShowModal(false);
+    setIsDemoModal(true);
   };
 
   return (
@@ -34,7 +47,7 @@ export default function Index() {
       <header className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src="https://cdn.poehali.dev/files/fec45e66-45c2-4c6a-8b0f-74188df1e0db.png" alt="ПакТех" className="h-8" />
+            <img src="https://cdn.poehali.dev/files/fec45e66-45c2-4c6a-8b0f-74188df1e0db.png" alt="ПакТех" className="h-12" />
           </div>
           <nav className="hidden md:flex items-center gap-6">
             <a href="#equipment" className="text-sm font-medium hover:text-primary transition-colors">Оборудование</a>
@@ -42,7 +55,7 @@ export default function Index() {
             <a href="#options" className="text-sm font-medium hover:text-primary transition-colors">Опции</a>
             <a href="#service" className="text-sm font-medium hover:text-primary transition-colors">Сервис</a>
             <a href="#faq" className="text-sm font-medium hover:text-primary transition-colors">FAQ</a>
-            <Button size="sm" className="bg-accent hover:bg-accent/90" onClick={() => setShowModal(true)}>Получить расчет</Button>
+            <Button size="sm" className="bg-accent hover:bg-accent/90" onClick={openCalculator}>Получить расчет</Button>
           </nav>
         </div>
       </header>
@@ -52,7 +65,7 @@ export default function Index() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-secondary leading-tight">
-                Вертикальные фасовочные автоматы под ваш продукт за 15 дней
+                Вертикальные фасовочные автоматы под ваш продукт
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
                 Производительность до 60 пак/мин. Точность фасовки до 1%. Надежная запайка швов и работа с BOPP, барьерными пленками и ламинированной бумагой. Бесплатный запуск и тест в демозале
@@ -74,11 +87,11 @@ export default function Index() {
               </div>
 
               <div className="flex flex-wrap gap-3">
-                <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={() => setShowModal(true)}>
+                <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={openCalculator}>
                   <Icon name="Calculator" className="w-5 h-5 mr-2" />
                   Получить расчет
                 </Button>
-                <Button size="lg" variant="outline" onClick={() => setShowModal(true)}>
+                <Button size="lg" variant="outline" onClick={openDemo}>
                   <Icon name="Calendar" className="w-5 h-5 mr-2" />
                   Записаться в демозал
                 </Button>
@@ -93,6 +106,17 @@ export default function Index() {
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
+                    <Label htmlFor="name">Имя <span className="text-red-500">*</span></Label>
+                    <Input 
+                      id="name" 
+                      placeholder="Иван Иванов"
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      required
+                    />
+                  </div>
+
+                  <div>
                     <Label htmlFor="product">Продукт</Label>
                     <Input 
                       id="product" 
@@ -101,53 +125,16 @@ export default function Index() {
                       onChange={(e) => setFormData({...formData, product: e.target.value})}
                     />
                   </div>
-                  
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="dosage">Дозировка (г/мл)</Label>
-                      <Input 
-                        id="dosage" 
-                        placeholder="100"
-                        value={formData.dosage}
-                        onChange={(e) => setFormData({...formData, dosage: e.target.value})}
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="speed">Скорость (пак/мин)</Label>
-                      <Input 
-                        id="speed" 
-                        placeholder="40"
-                        value={formData.speed}
-                        onChange={(e) => setFormData({...formData, speed: e.target.value})}
-                      />
-                    </div>
-                  </div>
 
                   <div>
-                    <Label htmlFor="packageType">Тип пакета</Label>
-                    <Select value={formData.packageType} onValueChange={(value) => setFormData({...formData, packageType: value})}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Выберите тип" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="pillow">Пакет «подушка»</SelectItem>
-                        <SelectItem value="gusset">С боковыми фальцами</SelectItem>
-                        <SelectItem value="brick">Пакет-брикет</SelectItem>
-                        <SelectItem value="sachet">Саше</SelectItem>
-                        <SelectItem value="stick">Стик</SelectItem>
-                        <SelectItem value="doypack">Дой-пак</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="phone">Телефон</Label>
+                    <Label htmlFor="phone">Телефон <span className="text-red-500">*</span></Label>
                     <Input 
                       id="phone" 
                       type="tel" 
                       placeholder="+7 (999) 123-45-67"
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      required
                     />
                   </div>
 
@@ -196,16 +183,16 @@ export default function Index() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { name: 'Пакет «подушка»', desc: 'Классический формат для снеков, чипсов, конфет', img: 'https://placehold.co/120x120/e0e7ff/4f46e5?text=Подушка' },
-              { name: 'Пакет с боковыми фальцами', desc: 'Увеличенный объем для кофе, круп', img: 'https://placehold.co/120x120/e0e7ff/4f46e5?text=Фальцы' },
-              { name: 'Пакет-брикет', desc: 'Квадро/стабило с плоским дном для стабильности', img: 'https://placehold.co/120x120/e0e7ff/4f46e5?text=Брикет' },
-              { name: 'Саше (3/4-шов)', desc: 'Порционные пакеты для специй, сахара, соусов', img: 'https://placehold.co/120x120/e0e7ff/4f46e5?text=Саше' },
-              { name: 'Стик (многорядный)', desc: 'Узкие пакеты для жидкостей и порошков', img: 'https://placehold.co/120x120/e0e7ff/4f46e5?text=Стик' },
-              { name: 'Дой-пак', desc: 'Из рулонной пленки с zip-замком и еврослотом', img: 'https://placehold.co/120x120/e0e7ff/4f46e5?text=Дой-пак' },
+              { name: 'Пакет «подушка»', desc: 'Классический формат для снеков, чипсов, конфет', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/07950130-d534-4336-993b-1d36c5fce56f.jpg' },
+              { name: 'Пакет с боковыми фальцами', desc: 'Увеличенный объем для кофе, круп', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/e7e8231a-494b-490f-8853-49e443a38ea2.jpg' },
+              { name: 'Пакет-брикет', desc: 'Квадро/стабило с плоским дном для стабильности', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/66d12319-99ac-4252-b52c-68838c233955.jpg' },
+              { name: 'Саше (3/4-шов)', desc: 'Порционные пакеты для специй, сахара, соусов', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/81608fce-ab16-4109-9101-15c0dbc33113.jpg' },
+              { name: 'Стик (многорядный)', desc: 'Узкие пакеты для жидкостей и порошков', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/471ddd1b-0f2a-45b0-9b61-e53ada444474.jpg' },
+              { name: 'Дой-пак', desc: 'Из рулонной пленки с zip-замком и еврослотом', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/e3c8852c-6e59-426c-9b96-f9d03f1976ae.jpg' },
             ].map((pkg, idx) => (
               <Card key={idx} className="hover:shadow-lg transition-shadow hover-scale">
                 <CardHeader>
-                  <div className="w-24 h-24 rounded-lg overflow-hidden mb-4 mx-auto">
+                  <div className="w-full h-48 rounded-lg overflow-hidden mb-4">
                     <img src={pkg.img} alt={pkg.name} className="w-full h-full object-cover" />
                   </div>
                   <CardTitle className="text-xl">{pkg.name}</CardTitle>
@@ -219,7 +206,7 @@ export default function Index() {
             <p className="text-sm text-muted-foreground mb-4">
               Материалы: BOPP, многослойные барьерные пленки, ламинированная бумага
             </p>
-            <Button variant="outline" size="lg" onClick={() => setShowModal(true)}>
+            <Button variant="outline" size="lg" onClick={openCalculator}>
               Подобрать формат и цену
             </Button>
           </div>
@@ -239,16 +226,16 @@ export default function Index() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {[
-              { type: 'Весовой линейный', products: 'Крупные фракции, орехи, сухофрукты', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Весовой' },
-              { type: 'Весовой мультиголовочный', products: 'Снеки, пельмени, заморозка, конфеты', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Мульти' },
-              { type: 'Объемный (чашечный)', products: 'Крупы, рис, сахар', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Объемный' },
-              { type: 'Шнековый', products: 'Порошки, кофе, какао, протеины, специи', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Шнековый' },
-              { type: 'Поршневой/насосный', products: 'Соусы, пасты, майонез, шампуни', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Поршневой' },
-              { type: 'Штучный/счетчик', products: 'Таблетки, капсулы, метизы', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Счетчик' },
+              { type: 'Весовой линейный', products: 'Крупные фракции, орехи, сухофрукты', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/ba15cd39-ea07-4f1a-8ab7-fcfabb926de0.jpg' },
+              { type: 'Весовой мультиголовочный', products: 'Снеки, пельмени, заморозка, конфеты', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/b515c22f-39ab-4b58-a0ec-6d77718b1100.jpg' },
+              { type: 'Объемный (чашечный)', products: 'Крупы, рис, сахар', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/ee3ec9d3-1d20-462b-b10d-0c8020ee17a6.jpg' },
+              { type: 'Шнековый', products: 'Порошки, кофе, какао, протеины, специи', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/9e042c3c-749c-41a7-b9ec-1b9d0a88c920.jpg' },
+              { type: 'Поршневой/насосный', products: 'Соусы, пасты, майонез, шампуни', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/54b5b6c9-d9ee-4336-a92e-391aef8f0e1e.jpg' },
+              { type: 'Штучный/счетчик', products: 'Таблетки, капсулы, метизы', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/ffd4f22f-0763-464c-9e4d-1eab2b3df108.jpg' },
             ].map((dosator, idx) => (
               <Card key={idx} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-20 h-20 rounded-lg overflow-hidden mb-4 mx-auto">
+                  <div className="w-full h-40 rounded-lg overflow-hidden mb-4">
                     <img src={dosator.img} alt={dosator.type} className="w-full h-full object-cover" />
                   </div>
                   <CardTitle className="text-lg">{dosator.type}</CardTitle>
@@ -270,7 +257,7 @@ export default function Index() {
           </Card>
 
           <div className="text-center mt-8">
-            <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={() => setShowModal(true)}>
+            <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={openCalculator}>
               Подобрать дозатор и получить КП
             </Button>
           </div>
@@ -306,7 +293,7 @@ export default function Index() {
           </div>
 
           <div className="text-center mt-8">
-            <Button size="lg" variant="outline" className="bg-white text-secondary hover:bg-white/90" onClick={() => setShowModal(true)}>
+            <Button size="lg" variant="outline" className="bg-white text-secondary hover:bg-white/90" onClick={openCalculator}>
               Узнать, как повысить скорость без потери качества
             </Button>
           </div>
@@ -326,19 +313,19 @@ export default function Index() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: 'Газовая среда (MAP)', img: 'https://placehold.co/100x100/fef3c7/d97706?text=MAP' },
-              { name: 'Откачка воздуха', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Вакуум' },
-              { name: 'Впрыск спирта', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Спирт' },
-              { name: 'Принтеры маркировки', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Принтер' },
-              { name: 'Аппликаторы этикетки', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Этикетка' },
-              { name: 'Перфорация пленки', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Перфорация' },
-              { name: 'Чеквейер', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Чеквейер' },
-              { name: 'Металлоискатель', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Металл' },
-              { name: 'Удаленный доступ', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Remote' },
+              { name: 'Газовая среда (MAP)', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/4545914e-a1fd-4fe1-b1f3-3c1146396b94.jpg' },
+              { name: 'Откачка воздуха', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/b549a6dd-f916-423d-9840-8e7aefea8ccd.jpg' },
+              { name: 'Впрыск спирта', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/ca0677bd-f999-4b3a-846c-009904a64e26.jpg' },
+              { name: 'Принтеры маркировки', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/a4105a41-e681-48d3-b38d-4da80549bcbe.jpg' },
+              { name: 'Аппликаторы этикетки', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/121f6228-1c4b-4c40-84ab-c8565f3ab708.jpg' },
+              { name: 'Перфорация пленки', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/f122190b-eea6-4dcc-91ec-c3f1de9649b8.jpg' },
+              { name: 'Чеквейер', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/71a36b21-f65b-4edc-803e-6bda4ac6f02c.jpg' },
+              { name: 'Металлоискатель', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/161e0920-2870-420a-b8fc-82586661bf6d.jpg' },
+              { name: 'Удаленный доступ', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/6a7cff5b-16c9-4642-86fb-0ee3774e7a28.jpg' },
             ].map((option, idx) => (
               <Card key={idx} className="hover:shadow-md transition-shadow text-center">
                 <CardContent className="pt-6">
-                  <div className="w-16 h-16 rounded-lg overflow-hidden mx-auto mb-3">
+                  <div className="w-full h-32 rounded-lg overflow-hidden mx-auto mb-3">
                     <img src={option.img} alt={option.name} className="w-full h-full object-cover" />
                   </div>
                   <p className="font-medium">{option.name}</p>
@@ -348,7 +335,7 @@ export default function Index() {
           </div>
 
           <div className="text-center mt-8">
-            <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={() => setShowModal(true)}>
+            <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={openCalculator}>
               Собрать комплектацию и получить смету
             </Button>
           </div>
@@ -368,16 +355,16 @@ export default function Index() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { category: 'Снеки/чипсы/кондитерка', speed: 'до 60 пак/мин', type: 'пакет подушка', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Снеки' },
-              { category: 'Крупы/сахар/рис', speed: 'стабильная геометрия', type: 'пакет-брикет', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Крупы' },
-              { category: 'Порошки/специи/кофе', speed: 'шнековый дозатор', type: 'барьерные пленки', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Порошки' },
-              { category: 'Заморозка/пельмени', speed: 'мультиголовочный', type: 'усиленные швы', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Заморозка' },
-              { category: 'Соусы/майонез', speed: 'поршневой дозатор', type: 'саше/дой-пак', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Соусы' },
-              { category: 'Метизы/таблетки', speed: 'штучный учет', type: 'саше/стик', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Метизы' },
+              { category: 'Снеки/чипсы/кондитерка', speed: 'до 60 пак/мин', type: 'пакет подушка', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/d7f6bf18-dc88-42f7-a66e-15d33f6eaace.jpg' },
+              { category: 'Крупы/сахар/рис', speed: 'стабильная геометрия', type: 'пакет-брикет', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/bfed9f90-05b2-4871-9efe-39a022f26f10.jpg' },
+              { category: 'Порошки/специи/кофе', speed: 'шнековый дозатор', type: 'барьерные пленки', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/02f48de1-9022-47d9-8017-b3b250ae21d9.jpg' },
+              { category: 'Заморозка/пельмени', speed: 'мультиголовочный', type: 'усиленные швы', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/75d03e5d-fde3-4370-9b71-a68c9a8b7df6.jpg' },
+              { category: 'Соусы/майонез', speed: 'поршневой дозатор', type: 'саше/дой-пак', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/3d12122b-2a9b-43e2-9aa8-813e5edfdb59.jpg' },
+              { category: 'Метизы/таблетки', speed: 'штучный учет', type: 'саше/стик', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/32f9abb7-d618-4057-9d73-caefe4f81605.jpg' },
             ].map((industry, idx) => (
               <Card key={idx} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-20 h-20 rounded-lg overflow-hidden mb-4 mx-auto">
+                  <div className="w-full h-40 rounded-lg overflow-hidden mb-4">
                     <img src={industry.img} alt={industry.category} className="w-full h-full object-cover" />
                   </div>
                   <CardTitle className="text-xl mb-2">{industry.category}</CardTitle>
@@ -426,7 +413,7 @@ export default function Index() {
           </div>
 
           <div className="text-center mt-8">
-            <Button size="lg" variant="outline" onClick={() => setShowModal(true)}>
+            <Button size="lg" variant="outline" onClick={openCalculator}>
               Узнать условия сервиса
             </Button>
           </div>
@@ -463,7 +450,7 @@ export default function Index() {
           </div>
 
           <div className="text-center">
-            <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={() => setShowModal(true)}>
+            <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={openCalculator}>
               Получить расчет и условия лизинга
             </Button>
           </div>
@@ -510,11 +497,11 @@ export default function Index() {
           </p>
           
           <div className="flex flex-wrap justify-center gap-4 mb-12">
-            <Button size="lg" className="bg-white text-primary hover:bg-white/90" onClick={() => setShowModal(true)}>
+            <Button size="lg" className="bg-white text-primary hover:bg-white/90" onClick={openCalculator}>
               <Icon name="Send" className="w-5 h-5 mr-2" />
               Оставить заявку
             </Button>
-            <Button size="lg" variant="outline" className="bg-transparent border-2 border-white text-white hover:bg-white/10" onClick={() => setShowModal(true)}>
+            <Button size="lg" variant="outline" className="bg-transparent border-2 border-white text-white hover:bg-white/10" onClick={openDemo}>
               <Icon name="Calendar" className="w-5 h-5 mr-2" />
               Записаться в демозал
             </Button>
@@ -544,7 +531,7 @@ export default function Index() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="mb-4">
-                <img src="https://cdn.poehali.dev/files/fec45e66-45c2-4c6a-8b0f-74188df1e0db.png" alt="ПакТех" className="h-8 brightness-0 invert" />
+                <img src="https://cdn.poehali.dev/files/fec45e66-45c2-4c6a-8b0f-74188df1e0db.png" alt="ПакТех" className="h-12 brightness-0 invert" />
               </div>
               <p className="text-sm opacity-80">
                 Профессиональное фасовочное оборудование с 2010 года
@@ -581,7 +568,7 @@ export default function Index() {
           </div>
 
           <div className="border-t border-white/10 pt-6 flex flex-wrap justify-between items-center gap-4 text-sm opacity-80">
-            <p>© 2024 ПакТех. Все права защищены.</p>
+            <p>© 2025 Техно-Сиб. Все права защищены.</p>
             <div className="flex gap-6">
               <a href="#" className="hover:opacity-100">Политика конфиденциальности</a>
               <a href="#" className="hover:opacity-100">Согласие на обработку ПДн</a>
@@ -600,6 +587,17 @@ export default function Index() {
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
+              <Label htmlFor="modal-name">Имя <span className="text-red-500">*</span></Label>
+              <Input 
+                id="modal-name" 
+                placeholder="Иван Иванов"
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                required
+              />
+            </div>
+
+            <div>
               <Label htmlFor="modal-product">Продукт</Label>
               <Input 
                 id="modal-product" 
@@ -608,53 +606,16 @@ export default function Index() {
                 onChange={(e) => setFormData({...formData, product: e.target.value})}
               />
             </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="modal-dosage">Дозировка (г/мл)</Label>
-                <Input 
-                  id="modal-dosage" 
-                  placeholder="100"
-                  value={formData.dosage}
-                  onChange={(e) => setFormData({...formData, dosage: e.target.value})}
-                />
-              </div>
-              <div>
-                <Label htmlFor="modal-speed">Скорость (пак/мин)</Label>
-                <Input 
-                  id="modal-speed" 
-                  placeholder="40"
-                  value={formData.speed}
-                  onChange={(e) => setFormData({...formData, speed: e.target.value})}
-                />
-              </div>
-            </div>
 
             <div>
-              <Label htmlFor="modal-packageType">Тип пакета</Label>
-              <Select value={formData.packageType} onValueChange={(value) => setFormData({...formData, packageType: value})}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Выберите тип" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="pillow">Пакет «подушка»</SelectItem>
-                  <SelectItem value="gusset">С боковыми фальцами</SelectItem>
-                  <SelectItem value="brick">Пакет-брикет</SelectItem>
-                  <SelectItem value="sachet">Саше</SelectItem>
-                  <SelectItem value="stick">Стик</SelectItem>
-                  <SelectItem value="doypack">Дой-пак</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div>
-              <Label htmlFor="modal-phone">Телефон</Label>
+              <Label htmlFor="modal-phone">Телефон <span className="text-red-500">*</span></Label>
               <Input 
                 id="modal-phone" 
                 type="tel" 
                 placeholder="+7 (999) 123-45-67"
                 value={formData.phone}
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                required
               />
             </div>
 
@@ -682,6 +643,56 @@ export default function Index() {
 
             <Button type="submit" className="w-full bg-accent hover:bg-accent/90" size="lg">
               Получить расчет
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isDemoModal} onOpenChange={setIsDemoModal}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Записаться в демозал</DialogTitle>
+            <DialogDescription>
+              Заполните форму и мы свяжемся с вами для согласования времени
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Label htmlFor="demo-name">Имя <span className="text-red-500">*</span></Label>
+              <Input 
+                id="demo-name" 
+                placeholder="Иван Иванов"
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                required
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="demo-phone">Телефон <span className="text-red-500">*</span></Label>
+              <Input 
+                id="demo-phone" 
+                type="tel" 
+                placeholder="+7 (999) 123-45-67"
+                value={formData.phone}
+                onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                required
+              />
+            </div>
+
+            <div className="flex items-start space-x-2">
+              <Checkbox 
+                id="demo-consent" 
+                checked={formData.consent}
+                onCheckedChange={(checked) => setFormData({...formData, consent: checked as boolean})}
+              />
+              <label htmlFor="demo-consent" className="text-xs text-muted-foreground leading-tight cursor-pointer">
+                Согласен на обработку персональных данных
+              </label>
+            </div>
+
+            <Button type="submit" className="w-full bg-accent hover:bg-accent/90" size="lg">
+              Записаться
             </Button>
           </form>
         </DialogContent>

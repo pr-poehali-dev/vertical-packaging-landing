@@ -56,6 +56,25 @@ export default function Index() {
     setIsDemoModal(true);
   };
 
+  // Helper function to extract technical specs from description
+  const extractTechnicalSpecs = (description: string) => {
+    if (!description) return null;
+    
+    // Try to find table in HTML
+    const tableMatch = description.match(/<table[^>]*>(.*?)<\/table>/is);
+    if (tableMatch) {
+      return <div dangerouslySetInnerHTML={{ __html: tableMatch[0] }} className="prose prose-sm max-w-none" />;
+    }
+    
+    // Try to find list items that look like specs
+    const listMatch = description.match(/<ul[^>]*>(.*?)<\/ul>/is);
+    if (listMatch) {
+      return <div dangerouslySetInnerHTML={{ __html: listMatch[0] }} className="prose prose-sm max-w-none" />;
+    }
+    
+    return null;
+  };
+
   // Group products by category
   const productsByCategory = products.reduce((acc: any, product: any) => {
     const category = product.category_name || 'Другое';
@@ -97,11 +116,15 @@ export default function Index() {
                   <a href="#options" className="text-lg font-medium hover:text-primary transition-colors">Опции</a>
                   <a href="#service" className="text-lg font-medium hover:text-primary transition-colors">Сервис</a>
                   <a href="#faq" className="text-lg font-medium hover:text-primary transition-colors">FAQ</a>
+                  <a href="tel:88005337522" className="text-lg font-medium text-accent hover:text-accent/80 transition-colors flex items-center gap-2">
+                    <Icon name="Phone" className="w-5 h-5" />
+                    8 800 533-75-22
+                  </a>
                   <Button className="bg-accent hover:bg-accent/90 mt-4" onClick={openCalculator}>Получить расчет</Button>
                 </nav>
               </SheetContent>
             </Sheet>
-            <img src="https://cdn.poehali.dev/files/fec45e66-45c2-4c6a-8b0f-74188df1e0db.png" alt="ПакТех" className="h-12" />
+            <img src="https://cdn.poehali.dev/files/fec45e66-45c2-4c6a-8b0f-74188df1e0db.png" alt="Техно-Сиб" className="h-12" />
           </div>
           <nav className="hidden md:flex items-center gap-6">
             <a href="#packages" className="text-sm font-medium hover:text-primary transition-colors">Пакеты</a>
@@ -110,12 +133,16 @@ export default function Index() {
             <a href="#options" className="text-sm font-medium hover:text-primary transition-colors">Опции</a>
             <a href="#service" className="text-sm font-medium hover:text-primary transition-colors">Сервис</a>
             <a href="#faq" className="text-sm font-medium hover:text-primary transition-colors">FAQ</a>
+            <a href="tel:88005337522" className="text-sm font-medium text-accent hover:text-accent/80 transition-colors flex items-center gap-2">
+              <Icon name="Phone" className="w-5 h-5" />
+              8 800 533-75-22
+            </a>
             <Button size="sm" className="bg-accent hover:bg-accent/90" onClick={openCalculator}>Получить расчет</Button>
           </nav>
         </div>
       </header>
 
-      <section id="hero" className="py-16 md:py-24 bg-gradient-to-br from-primary/5 via-white to-accent/5">
+      <section id="hero" className="py-12 md:py-16 bg-gradient-to-br from-primary/5 via-white to-accent/5">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -186,7 +213,7 @@ export default function Index() {
                     <Input 
                       id="phone" 
                       type="tel" 
-                      placeholder="+7 (999) 123-45-67"
+                      placeholder="+7 (___) ___-__-__"
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
                       required
@@ -194,11 +221,11 @@ export default function Index() {
                   </div>
 
                   <div>
-                    <Label htmlFor="email">E-mail</Label>
+                    <Label htmlFor="email">Email</Label>
                     <Input 
                       id="email" 
                       type="email" 
-                      placeholder="mail@example.com"
+                      placeholder="your@email.com"
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
                     />
@@ -210,13 +237,13 @@ export default function Index() {
                       checked={formData.consent}
                       onCheckedChange={(checked) => setFormData({...formData, consent: checked as boolean})}
                     />
-                    <Label htmlFor="consent" className="text-sm text-muted-foreground leading-tight cursor-pointer">
-                      Я согласен на обработку персональных данных в соответствии с политикой конфиденциальности
-                    </Label>
+                    <label htmlFor="consent" className="text-sm text-muted-foreground leading-snug cursor-pointer">
+                      Я согласен на обработку персональных данных и получение коммерческих предложений
+                    </label>
                   </div>
 
                   <Button type="submit" className="w-full bg-accent hover:bg-accent/90">
-                    Отправить заявку
+                    Получить расчет
                   </Button>
                 </form>
               </CardContent>
@@ -225,70 +252,59 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="packages" className="py-16 md:py-24 bg-gradient-to-br from-white to-primary/5">
+      <section id="packages" className="py-12 md:py-16 bg-slate-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">Типы пакетов</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Наше оборудование работает с любыми типами пакетов и видами пленок
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Подходим к работе с любым упаковочным материалом: от эконом-решений до премиальных барьерных пленок
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {[
-              { title: 'Пакет «подушка»', image: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/07950130-d534-4336-993b-1d36c5fce56f.jpg', desc: 'Универсальный тип упаковки для сыпучих продуктов' },
-              { title: 'Пакет с боковыми фальцами', image: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/e7e8231a-494b-490f-8853-49e443a38ea2.jpg', desc: 'Увеличенный объем при компактных размерах' },
-              { title: 'Пакет-брикет', image: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/66d12319-99ac-4252-b52c-68838c233955.jpg', desc: 'Прямоугольная форма для удобного хранения' },
-              { title: 'Саше (3/4-шов)', image: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/81608fce-ab16-4109-9101-15c0dbc33113.jpg', desc: 'Порционная упаковка для разовой дозировки' },
-              { title: 'Стик (многорядный)', image: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/471ddd1b-0f2a-45b0-9b61-e53ada444474.jpg', desc: 'Компактная упаковка для жидких и сыпучих продуктов' },
-              { title: 'Дой-пак', image: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/e3c8852c-6e59-426c-9b96-f9d03f1976ae.jpg', desc: 'Пакет с устойчивым дном и зип-локом' },
+              {
+                title: 'Pillow (подушка)',
+                icon: 'Package',
+                description: 'Классический формат для сыпучих продуктов',
+                features: ['Быстрая фасовка', 'Экономичное решение', 'Для круп, снеков, специй'],
+                image: 'https://cdn.poehali.dev/files/bc3c44ac-7d26-45db-b6ad-e34b2af0a62b.png'
+              },
+              {
+                title: 'Doy-Pack (стой-пак)',
+                icon: 'ShoppingBag',
+                description: 'Пакеты с плоским дном для премиальных товаров',
+                features: ['Устойчивые на полке', 'Зип-лок / клапан дегазации', 'Для кофе, чая, сухофруктов'],
+                image: 'https://cdn.poehali.dev/files/75a6d70f-4d7f-421f-bf77-57126ae41d0f.png'
+              },
+              {
+                title: 'Quad Seal (четырехшовный)',
+                icon: 'Box',
+                description: 'Объемный пакет с боковыми складками',
+                features: ['Большой объем', 'Премиальный вид', 'Для крупы, макарон, кормов'],
+                image: 'https://cdn.poehali.dev/files/7db9bb67-3f5c-4f64-88a2-eea24dd02c77.png'
+              },
             ].map((pkg, idx) => (
-              <Card key={idx} className="overflow-hidden hover-scale">
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img 
-                    src={pkg.image} 
-                    alt={pkg.title}
-                    className="w-full h-full object-cover"
-                  />
+              <Card key={idx} className="hover-scale overflow-hidden border-2 hover:border-accent transition-all">
+                <div className="h-48 bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
+                  <img src={pkg.image} alt={pkg.title} className="max-h-full max-w-full object-contain" />
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-xl">{pkg.title}</CardTitle>
-                  <CardDescription>{pkg.desc}</CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="dosators" className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">Виды дозаторов</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Выберите подходящий тип дозатора в зависимости от специфики вашего продукта
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: 'Scale', title: 'Мультиголовочный весовой', desc: 'Для сыпучих продуктов неоднородной формы: орехи, сухофрукты, снеки', accuracy: '±0.5-1%' },
-              { icon: 'CircleDot', title: 'Объемный (шнековый)', desc: 'Для порошкообразных продуктов: мука, специи, сухое молоко', accuracy: '±1-2%' },
-              { icon: 'Droplet', title: 'Дозатор жидкости', desc: 'Для жидких и вязких продуктов: соусы, масло, мед, паста', accuracy: '±0.5%' },
-              { icon: 'Maximize2', title: 'Линейный весовой', desc: 'Для крупных фракций: макароны, крупы, гранулы', accuracy: '±1%' },
-            ].map((dosator, idx) => (
-              <Card key={idx} className="hover-scale">
-                <CardHeader>
-                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
-                    <Icon name={dosator.icon} className="w-6 h-6 text-accent" />
+                  <div className="flex items-start justify-between">
+                    <CardTitle className="text-xl">{pkg.title}</CardTitle>
+                    <Icon name={pkg.icon} className="w-6 h-6 text-accent flex-shrink-0" />
                   </div>
-                  <CardTitle className="text-xl">{dosator.title}</CardTitle>
-                  <CardDescription className="text-sm leading-relaxed">{dosator.desc}</CardDescription>
+                  <CardDescription>{pkg.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="secondary" className="text-xs">Точность {dosator.accuracy}</Badge>
-                  </div>
+                  <ul className="space-y-2">
+                    {pkg.features.map((feat, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <Icon name="Check" className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </CardContent>
               </Card>
             ))}
@@ -296,60 +312,136 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="products" className="py-16 md:py-24 bg-gradient-to-br from-white to-primary/5">
+      <section id="dosators" className="py-12 md:py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">Типы дозаторов</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Выбор дозирующей системы под ваш продукт: от сыпучих до жидких веществ
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                title: 'Объемный',
+                icon: 'Beaker',
+                description: 'Для сыпучих и гранулированных продуктов',
+                features: ['Крупы, семена', 'Гранулы, снеки', 'Кофе, чай'],
+                accuracy: '±1-2%'
+              },
+              {
+                title: 'Весовой',
+                icon: 'Scale',
+                description: 'Мультиголовочные весы для высокой точности',
+                features: ['Орехи, сухофрукты', 'Конфеты, печенье', 'Замороженные продукты'],
+                accuracy: '±0.5-1%'
+              },
+              {
+                title: 'Шнековый',
+                icon: 'Cylinder',
+                description: 'Для порошкообразных продуктов',
+                features: ['Мука, специи', 'Сухое молоко', 'Протеиновые смеси'],
+                accuracy: '±1-2%'
+              },
+              {
+                title: 'Жидкостный',
+                icon: 'Droplet',
+                description: 'Поршневой или перистальтический насос',
+                features: ['Соусы, кетчупы', 'Масла, мед', 'Жидкие корма'],
+                accuracy: '±0.5-1%'
+              },
+            ].map((dosator, idx) => (
+              <Card key={idx} className="hover-scale border-2 hover:border-primary transition-all">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <CardTitle className="text-lg">{dosator.title}</CardTitle>
+                    <Icon name={dosator.icon} className="w-6 h-6 text-primary flex-shrink-0" />
+                  </div>
+                  <CardDescription>{dosator.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <ul className="space-y-2">
+                    {dosator.features.map((feat, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <Icon name="Check" className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Badge variant="secondary" className="w-full justify-center">
+                    Точность: {dosator.accuracy}
+                  </Badge>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="products" className="py-12 md:py-16 bg-slate-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">Модельный ряд оборудования</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Полный каталог фасовочного оборудования для любых задач
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Широкий выбор вертикальных автоматов для различных потребностей и бюджетов
             </p>
           </div>
 
           {productsLoading ? (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">Загрузка каталога...</p>
+            <div className="flex justify-center items-center min-h-[400px]">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
             </div>
           ) : Object.keys(productsByCategory).length > 0 ? (
             <Tabs defaultValue={Object.keys(productsByCategory)[0]} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-8">
-                {Object.keys(productsByCategory).map(category => (
-                  <TabsTrigger key={category} value={category}>
-                    {category}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
+              <div className="overflow-x-auto pb-2 mb-8">
+                <TabsList className="inline-flex w-full min-w-max bg-white border-2 border-border p-1 rounded-lg">
+                  {Object.keys(productsByCategory).map((category) => (
+                    <TabsTrigger 
+                      key={category} 
+                      value={category}
+                      className="flex-1 min-w-[150px] data-[state=active]:bg-accent data-[state=active]:text-white px-6 py-3 rounded-md font-medium transition-all"
+                    >
+                      {category}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </div>
 
-              {Object.keys(productsByCategory).map(category => (
-                <TabsContent key={category} value={category}>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {productsByCategory[category].map((product: any) => (
-                      <Card key={product.id} className="overflow-hidden hover-scale">
-                        {product.image && (
-                          <div className="aspect-[4/3] overflow-hidden">
+              {Object.entries(productsByCategory).map(([category, categoryProducts]: [string, any]) => (
+                <TabsContent key={category} value={category} className="mt-0">
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {categoryProducts.map((product: any) => (
+                      <Card key={product.id} className="hover-scale overflow-hidden border-2 hover:border-accent transition-all flex flex-col">
+                        {product.picture && (
+                          <div className="h-64 bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
                             <img 
-                              src={product.image} 
-                              alt={product.name}
-                              className="w-full h-full object-cover"
+                              src={product.picture} 
+                              alt={product.name} 
+                              className="max-h-full max-w-full object-contain"
                             />
                           </div>
                         )}
-                        <CardHeader>
-                          <CardTitle className="text-xl">{product.name}</CardTitle>
-                          {product.description && (
-                            <CardDescription>{product.description}</CardDescription>
+                        <CardHeader className="flex-grow">
+                          <CardTitle className="text-xl line-clamp-2">{product.name}</CardTitle>
+                          {product.price && (
+                            <div className="text-2xl font-bold text-accent mt-2">
+                              {product.price.toLocaleString('ru-RU')} руб.
+                            </div>
                           )}
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          {product.price && (
-                            <div className="text-2xl font-bold text-accent">
-                              {product.price.toLocaleString('ru-RU')} ₽
+                          {extractTechnicalSpecs(product.description) && (
+                            <div className="bg-slate-50 p-4 rounded-lg">
+                              <h4 className="font-semibold mb-2 text-sm">Технические характеристики:</h4>
+                              {extractTechnicalSpecs(product.description)}
                             </div>
                           )}
                           <Button 
                             className="w-full bg-accent hover:bg-accent/90"
                             onClick={openCalculator}
                           >
-                            Получить расчет
+                            Оставить заявку
                           </Button>
                         </CardContent>
                       </Card>
@@ -359,230 +451,222 @@ export default function Index() {
               ))}
             </Tabs>
           ) : (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">Каталог временно недоступен</p>
+            <div className="text-center text-muted-foreground py-12">
+              Продукты не найдены
             </div>
           )}
         </div>
       </section>
 
-      <section id="performance" className="py-16 md:py-24 bg-white">
+      <section id="options" className="py-12 md:py-16">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">Характеристики оборудования</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Высокая производительность и точность фасовки для вашего бизнеса
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
+              Опции под ваш процесс — без лишней сложности
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Готовые модули интегрируются на этапе поставки
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { value: '60', unit: 'пак/мин', label: 'Производительность' },
-              { value: '±1', unit: '%', label: 'Точность фасовки' },
-              { value: '24/7', unit: '', label: 'Режим работы' },
-              { value: '2', unit: 'года', label: 'Гарантия' },
-            ].map((stat, idx) => (
-              <div key={idx} className="text-center p-6 bg-gradient-to-br from-primary/5 to-accent/5 rounded-lg hover-scale">
-                <div className="text-4xl md:text-5xl font-bold text-accent mb-2">
-                  {stat.value}<span className="text-2xl">{stat.unit}</span>
-                </div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="options" className="py-16 md:py-24 bg-gradient-to-br from-white to-primary/5">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">Дополнительные опции</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Расширьте возможности оборудования для решения специфических задач
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { icon: 'Wind', title: 'MAP система', desc: 'Модифицированная газовая среда для увеличения срока хранения продукции' },
-              { icon: 'Waves', title: 'Вакуумирование', desc: 'Удаление воздуха из упаковки для максимальной свежести продукта' },
-              { icon: 'Fingerprint', title: 'Датчик печати', desc: 'Позиционирование упаковки для точной печати и нарезки' },
-              { icon: 'Calendar', title: 'Датер', desc: 'Автоматическая печать даты производства и срока годности' },
-              { icon: 'Zap', title: 'Ионизатор', desc: 'Снятие статического электричества с пленки' },
-              { icon: 'Layers', title: 'Мультилинк', desc: 'Объединение нескольких упаковок в одну пачку' },
+              { name: 'Газовая среда (MAP)', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/4545914e-a1fd-4fe1-b1f3-3c1146396b94.jpg' },
+              { name: 'Откачка воздуха', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/b549a6dd-f916-423d-9840-8e7aefea8ccd.jpg' },
+              { name: 'Впрыск спирта', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/ca0677bd-f999-4b3a-846c-009904a64e26.jpg' },
+              { name: 'Принтеры маркировки', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/a4105a41-e681-48d3-b38d-4da80549bcbe.jpg' },
+              { name: 'Аппликаторы этикетки', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/121f6228-1c4b-4c40-84ab-c8565f3ab708.jpg' },
+              { name: 'Перфорация пленки', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/f122190b-eea6-4dcc-91ec-c3f1de9649b8.jpg' },
+              { name: 'Чеквейер', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/71a36b21-f65b-4edc-803e-6bda4ac6f02c.jpg' },
+              { name: 'Металлоискатель', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/161e0920-2870-420a-b8fc-82586661bf6d.jpg' },
+              { name: 'Удаленный доступ', img: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/6a7cff5b-16c9-4642-86fb-0ee3774e7a28.jpg' },
             ].map((option, idx) => (
-              <Card key={idx} className="hover-scale">
-                <CardHeader>
-                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
-                    <Icon name={option.icon} className="w-6 h-6 text-accent" />
+              <Card key={idx} className="hover:shadow-md transition-shadow text-center">
+                <CardContent className="pt-6">
+                  <div className="w-full h-32 rounded-lg overflow-hidden mx-auto mb-3">
+                    <img src={option.img} alt={option.name} className="w-full h-full object-cover" />
                   </div>
-                  <CardTitle className="text-xl">{option.title}</CardTitle>
-                  <CardDescription className="leading-relaxed">{option.desc}</CardDescription>
-                </CardHeader>
+                  <p className="font-medium">{option.name}</p>
+                </CardContent>
               </Card>
             ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={openCalculator}>
+              Собрать комплектацию и получить смету
+            </Button>
           </div>
         </div>
       </section>
 
-      <section id="service" className="py-16 md:py-24 bg-white">
+      <section id="service" className="py-12 md:py-16 bg-slate-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">Сервис и поддержка</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Полный цикл обслуживания от консультации до постгарантийного сервиса
+            <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">Запуск под ключ и поддержка на всей территории России</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Несем ответственность за результат — от подбора до сервисного сопровождения
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
             {[
-              { icon: 'Phone', title: 'Консультация', desc: 'Помощь в подборе оборудования под ваш продукт и требования' },
-              { icon: 'MapPin', title: 'Демозал', desc: 'Бесплатное тестирование вашего продукта на оборудовании' },
-              { icon: 'Truck', title: 'Доставка и монтаж', desc: 'Доставка, установка и настройка оборудования под ключ' },
-              { icon: 'GraduationCap', title: 'Обучение персонала', desc: 'Подробное обучение работе с оборудованием на вашем производстве' },
-              { icon: 'Wrench', title: 'Гарантийный сервис', desc: 'Бесплатное обслуживание в течение всего гарантийного срока' },
-              { icon: 'Headphones', title: 'Техподдержка 24/7', desc: 'Круглосуточная консультация по телефону и удаленное подключение' },
-            ].map((service, idx) => (
-              <Card key={idx} className="hover-scale">
-                <CardHeader>
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                      <Icon name={service.icon} className="w-6 h-6 text-accent" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-xl mb-2">{service.title}</CardTitle>
-                      <CardDescription className="leading-relaxed">{service.desc}</CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
+              { title: 'Гарантия до 2х лет', icon: 'ShieldCheck' },
+              { title: 'Бесплатные ПНР', icon: 'CheckCircle2' },
+              { title: 'Доставка по России и СНГ', icon: 'Truck' },
+              { title: 'Большой склад запчастей', icon: 'Warehouse' },
+              { title: 'Сеть сервисных центров', icon: 'MapPin' },
+              { title: 'Проверенные производители', icon: 'Award' },
+              { title: 'Работа 24/7', icon: 'Clock' },
+              { title: 'CE, ISO 9001', icon: 'Medal' },
+            ].map((item, idx) => (
+              <Card key={idx} className="hover-scale border-2 hover:border-accent transition-all text-center">
+                <CardContent className="pt-6 pb-6">
+                  <Icon name={item.icon} className="w-12 h-12 text-accent mx-auto mb-3" />
+                  <p className="font-medium text-sm">{item.title}</p>
+                </CardContent>
               </Card>
             ))}
+          </div>
+
+          <div className="text-center">
+            <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={openCalculator}>
+              Узнать условия сервиса
+            </Button>
           </div>
         </div>
       </section>
 
-      <section id="faq" className="py-16 md:py-24 bg-gradient-to-br from-white to-primary/5">
+      <section id="faq" className="py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">Часто задаваемые вопросы</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Ответы на популярные вопросы о нашем оборудовании
+            <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">Частые вопросы</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Ответы на популярные вопросы о фасовочном оборудовании
             </p>
           </div>
 
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="space-y-4">
-              <AccordionItem value="item-1" className="bg-white rounded-lg px-6 border">
-                <AccordionTrigger className="text-left font-semibold">
-                  Какая производительность у ваших автоматов?
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
-                  Производительность варьируется от 20 до 60 пакетов в минуту в зависимости от модели и типа продукта. Точные характеристики подбираются под ваши задачи.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="item-2" className="bg-white rounded-lg px-6 border">
-                <AccordionTrigger className="text-left font-semibold">
-                  Можно ли протестировать оборудование перед покупкой?
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
-                  Да, мы предоставляем бесплатное тестирование вашего продукта в демонстрационном зале. Запишитесь на удобное время через форму на сайте.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="item-3" className="bg-white rounded-lg px-6 border">
-                <AccordionTrigger className="text-left font-semibold">
-                  Какие типы пленок поддерживает оборудование?
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
-                  Наше оборудование работает с любыми типами пленок: BOPP, PE, PP, ламинированными материалами, барьерными пленками и даже бумагой.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="item-4" className="bg-white rounded-lg px-6 border">
-                <AccordionTrigger className="text-left font-semibold">
-                  Какой срок поставки оборудования?
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
-                  Стандартные модели доступны со склада в России. Срок поставки оборудования под заказ составляет от 30 до 60 дней в зависимости от комплектации.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="item-5" className="bg-white rounded-lg px-6 border">
-                <AccordionTrigger className="text-left font-semibold">
-                  Предоставляете ли вы обучение персонала?
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
-                  Да, обучение входит в стоимость оборудования. Наш специалист проведет полное обучение вашего персонала на вашем производстве.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="item-6" className="bg-white rounded-lg px-6 border">
-                <AccordionTrigger className="text-left font-semibold">
-                  Какая гарантия на оборудование?
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
-                  Стандартная гарантия составляет 12 месяцев. Также доступна расширенная гарантия до 24 месяцев. В течение всего гарантийного срока обслуживание бесплатное.
-                </AccordionContent>
-              </AccordionItem>
+              {[
+                {
+                  q: 'Какая производительность у автоматов?',
+                  a: 'В зависимости от модели и продукта: от 20 до 60 пакетов в минуту. Для точного расчета необходимо знать вес упаковки, размер пакета и характеристики продукта.'
+                },
+                {
+                  q: 'Какие пленки можно использовать?',
+                  a: 'Наши автоматы работают с BOPP (полипропилен), CPP, PE (полиэтилен), ламинированными пленками, барьерными материалами и крафт-бумагой с ламинацией. Толщина пленки: 40-120 мкм.'
+                },
+                {
+                  q: 'Нужен ли специальный персонал для обслуживания?',
+                  a: 'Нет, наши автоматы просты в управлении. Базовое обучение оператора занимает 2-3 дня. Мы проводим бесплатное обучение при запуске оборудования. Для сложного ремонта есть служба сервиса.'
+                },
+                {
+                  q: 'Как долго длится гарантия?',
+                  a: 'Стандартная гарантия — 12 месяцев. При покупке сервисного пакета можно продлить до 24 месяцев или получить бессрочную гарантию в премиум-пакете.'
+                },
+                {
+                  q: 'Можно ли протестировать оборудование перед покупкой?',
+                  a: 'Да! У нас есть демо-зал, где вы можете протестировать любую модель со своим продуктом и пленкой. Запись — по кнопке "Записаться в демозал" или по телефону 8 800 533-75-22.'
+                },
+                {
+                  q: 'Какие сроки поставки оборудования?',
+                  a: 'Складские модели — 3-7 дней. Оборудование под заказ с дополнительными опциями — 4-8 недель. Возможна ускоренная поставка за дополнительную плату.'
+                },
+                {
+                  q: 'Есть ли лизинг или рассрочка?',
+                  a: 'Да, мы работаем с лизинговыми компаниями. Первый взнос от 10%, срок лизинга до 5 лет. Также доступна рассрочка от производителя на 6-12 месяцев без процентов.'
+                },
+                {
+                  q: 'Что делать, если оборудование сломалось?',
+                  a: 'Позвоните на горячую линию 8 800 533-75-22 или напишите в техподдержку. Мы проведем удаленную диагностику, а при необходимости направим инженера в течение 48 часов (по РФ).'
+                }
+              ].map((item, idx) => (
+                <AccordionItem key={idx} value={`item-${idx}`} className="border-2 rounded-lg px-6 bg-white">
+                  <AccordionTrigger className="text-left font-semibold hover:text-accent">
+                    {item.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    {item.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
             </Accordion>
           </div>
         </div>
       </section>
 
-      <footer className="bg-secondary text-white py-12">
+      <section className="py-12 md:py-16 bg-gradient-to-br from-accent/10 via-primary/5 to-accent/10">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
+            Готовы начать?
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Получите персональный расчет стоимости или запишитесь на демонстрацию оборудования
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={openCalculator}>
+              <Icon name="Calculator" className="w-5 h-5 mr-2" />
+              Получить расчет
+            </Button>
+            <Button size="lg" variant="outline" onClick={openDemo}>
+              <Icon name="Calendar" className="w-5 h-5 mr-2" />
+              Записаться в демозал
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <footer className="bg-secondary text-white py-12 md:py-16">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <img src="https://cdn.poehali.dev/files/fec45e66-45c2-4c6a-8b0f-74188df1e0db.png" alt="Техно-Сиб" className="h-12 mb-4 brightness-0 invert" />
-              <p className="text-sm text-gray-300 leading-relaxed">
-                Официальный поставщик фасовочного оборудования в России. Полный цикл: от консультации до постгарантийного обслуживания.
+              <p className="text-sm text-slate-300">
+                Поставка и сервисное обслуживание фасовочного оборудования
               </p>
             </div>
-
+            <div>
+              <h3 className="font-semibold mb-4">Навигация</h3>
+              <nav className="flex flex-col gap-2">
+                <a href="#packages" className="text-sm text-slate-300 hover:text-white transition-colors">Пакеты</a>
+                <a href="#dosators" className="text-sm text-slate-300 hover:text-white transition-colors">Дозаторы</a>
+                <a href="#products" className="text-sm text-slate-300 hover:text-white transition-colors">Оборудование</a>
+                <a href="#options" className="text-sm text-slate-300 hover:text-white transition-colors">Опции</a>
+                <a href="#service" className="text-sm text-slate-300 hover:text-white transition-colors">Сервис</a>
+                <a href="#faq" className="text-sm text-slate-300 hover:text-white transition-colors">FAQ</a>
+              </nav>
+            </div>
             <div>
               <h3 className="font-semibold mb-4">Контакты</h3>
-              <div className="space-y-2 text-sm text-gray-300">
-                <div className="flex items-center gap-2">
+              <div className="space-y-3">
+                <a href="tel:88005337522" className="flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors">
                   <Icon name="Phone" className="w-4 h-4" />
-                  <span>+7 (495) 123-45-67</span>
-                </div>
-                <div className="flex items-center gap-2">
+                  8 800 533-75-22
+                </a>
+                <a href="mailto:info@paktech.ru" className="flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors">
                   <Icon name="Mail" className="w-4 h-4" />
-                  <span>info@tehno-sib.ru</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Icon name="MapPin" className="w-4 h-4" />
-                  <span>г. Москва, ул. Примерная, д. 1</span>
+                  info@paktech.ru
+                </a>
+                <div className="flex items-start gap-2 text-sm text-slate-300">
+                  <Icon name="MapPin" className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                  <span>Москва, ул. Промышленная, 12</span>
                 </div>
               </div>
             </div>
-
-            <div>
-              <h3 className="font-semibold mb-4">Навигация</h3>
-              <nav className="grid grid-cols-2 gap-2 text-sm text-gray-300">
-                <a href="#packages" className="hover:text-white transition-colors">Пакеты</a>
-                <a href="#dosators" className="hover:text-white transition-colors">Дозаторы</a>
-                <a href="#products" className="hover:text-white transition-colors">Оборудование</a>
-                <a href="#options" className="hover:text-white transition-colors">Опции</a>
-                <a href="#service" className="hover:text-white transition-colors">Сервис</a>
-                <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
-              </nav>
-            </div>
           </div>
-
-          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2024 Техно-Сиб. Все права защищены.</p>
+          <div className="border-t border-slate-700 pt-8 text-center text-sm text-slate-400">
+            2024 Техно-Сиб. Все права защищены.
           </div>
         </div>
       </footer>
 
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>Получить расчет стоимости</DialogTitle>
             <DialogDescription>
-              Заполните форму и мы рассчитаем стоимость оборудования для вашего продукта
+              Заполните форму и наш менеджер свяжется с вами в течение 15 минут
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -612,7 +696,7 @@ export default function Index() {
               <Input 
                 id="modal-phone" 
                 type="tel" 
-                placeholder="+7 (999) 123-45-67"
+                placeholder="+7 (___) ___-__-__"
                 value={formData.phone}
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
                 required
@@ -620,11 +704,11 @@ export default function Index() {
             </div>
 
             <div>
-              <Label htmlFor="modal-email">E-mail</Label>
+              <Label htmlFor="modal-email">Email</Label>
               <Input 
                 id="modal-email" 
                 type="email" 
-                placeholder="mail@example.com"
+                placeholder="your@email.com"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
               />
@@ -636,9 +720,9 @@ export default function Index() {
                 checked={formData.consent}
                 onCheckedChange={(checked) => setFormData({...formData, consent: checked as boolean})}
               />
-              <Label htmlFor="modal-consent" className="text-sm text-muted-foreground leading-tight cursor-pointer">
+              <label htmlFor="modal-consent" className="text-sm text-muted-foreground leading-snug cursor-pointer">
                 Я согласен на обработку персональных данных
-              </Label>
+              </label>
             </div>
 
             <Button type="submit" className="w-full bg-accent hover:bg-accent/90">
@@ -649,11 +733,11 @@ export default function Index() {
       </Dialog>
 
       <Dialog open={isDemoModal} onOpenChange={setIsDemoModal}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>Записаться в демозал</DialogTitle>
             <DialogDescription>
-              Протестируйте оборудование с вашим продуктом бесплатно
+              Протестируйте оборудование со своим продуктом. Бесплатно!
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -669,7 +753,7 @@ export default function Index() {
             </div>
 
             <div>
-              <Label htmlFor="demo-product">Продукт</Label>
+              <Label htmlFor="demo-product">Какой продукт будете тестировать?</Label>
               <Input 
                 id="demo-product" 
                 placeholder="Например: орехи, крупы, специи"
@@ -683,7 +767,7 @@ export default function Index() {
               <Input 
                 id="demo-phone" 
                 type="tel" 
-                placeholder="+7 (999) 123-45-67"
+                placeholder="+7 (___) ___-__-__"
                 value={formData.phone}
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
                 required
@@ -691,11 +775,11 @@ export default function Index() {
             </div>
 
             <div>
-              <Label htmlFor="demo-email">E-mail</Label>
+              <Label htmlFor="demo-email">Email</Label>
               <Input 
                 id="demo-email" 
                 type="email" 
-                placeholder="mail@example.com"
+                placeholder="your@email.com"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
               />
@@ -707,13 +791,13 @@ export default function Index() {
                 checked={formData.consent}
                 onCheckedChange={(checked) => setFormData({...formData, consent: checked as boolean})}
               />
-              <Label htmlFor="demo-consent" className="text-sm text-muted-foreground leading-tight cursor-pointer">
+              <label htmlFor="demo-consent" className="text-sm text-muted-foreground leading-snug cursor-pointer">
                 Я согласен на обработку персональных данных
-              </Label>
+              </label>
             </div>
 
             <Button type="submit" className="w-full bg-accent hover:bg-accent/90">
-              Отправить заявку
+              Записаться
             </Button>
           </form>
         </DialogContent>

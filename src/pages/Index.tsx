@@ -7,10 +7,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
 import { toast } from 'sonner';
 
 export default function Index() {
+  const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     product: '',
     dosage: '',
@@ -24,6 +26,7 @@ export default function Index() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.success('Заявка отправлена! Мы свяжемся с вами в течение 15 минут.');
+    setShowModal(false);
   };
 
   return (
@@ -31,16 +34,15 @@ export default function Index() {
       <header className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Icon name="Package" className="w-8 h-8 text-primary" />
-            <span className="text-2xl font-bold text-primary">ПакТех</span>
+            <img src="https://cdn.poehali.dev/files/fec45e66-45c2-4c6a-8b0f-74188df1e0db.png" alt="ПакТех" className="h-8" />
           </div>
           <nav className="hidden md:flex items-center gap-6">
             <a href="#equipment" className="text-sm font-medium hover:text-primary transition-colors">Оборудование</a>
             <a href="#packages" className="text-sm font-medium hover:text-primary transition-colors">Пакеты</a>
             <a href="#options" className="text-sm font-medium hover:text-primary transition-colors">Опции</a>
             <a href="#service" className="text-sm font-medium hover:text-primary transition-colors">Сервис</a>
-            <a href="#cases" className="text-sm font-medium hover:text-primary transition-colors">Кейсы</a>
-            <Button size="sm" className="bg-accent hover:bg-accent/90">Получить расчет</Button>
+            <a href="#faq" className="text-sm font-medium hover:text-primary transition-colors">FAQ</a>
+            <Button size="sm" className="bg-accent hover:bg-accent/90" onClick={() => setShowModal(true)}>Получить расчет</Button>
           </nav>
         </div>
       </header>
@@ -62,7 +64,7 @@ export default function Index() {
                   { icon: 'Settings', text: 'Автонастройка' },
                   { icon: 'Wind', text: 'MAP/вакуум' },
                   { icon: 'Award', text: 'CE, ISO 9001' },
-                  { icon: 'ShieldCheck', text: 'Гарантия 2 года' },
+                  { icon: 'ShieldCheck', text: 'Гарантия до 2х лет' },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-2 p-3 bg-white rounded-lg shadow-sm border border-border hover-scale">
                     <Icon name={item.icon} className="w-5 h-5 text-accent flex-shrink-0" />
@@ -72,24 +74,20 @@ export default function Index() {
               </div>
 
               <div className="flex flex-wrap gap-3">
-                <Button size="lg" className="bg-accent hover:bg-accent/90">
+                <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={() => setShowModal(true)}>
                   <Icon name="Calculator" className="w-5 h-5 mr-2" />
-                  Получить расчет за 15 минут
+                  Получить расчет
                 </Button>
-                <Button size="lg" variant="outline">
+                <Button size="lg" variant="outline" onClick={() => setShowModal(true)}>
                   <Icon name="Calendar" className="w-5 h-5 mr-2" />
                   Записаться в демозал
-                </Button>
-                <Button size="lg" variant="outline">
-                  <Icon name="Download" className="w-5 h-5 mr-2" />
-                  Скачать каталог
                 </Button>
               </div>
             </div>
 
             <Card className="shadow-xl border-2">
               <CardHeader>
-                <CardTitle>Получить расчет за 15 минут</CardTitle>
+                <CardTitle>Получить расчет</CardTitle>
                 <CardDescription>Заполните форму и получите точный расчет стоимости</CardDescription>
               </CardHeader>
               <CardContent>
@@ -198,17 +196,17 @@ export default function Index() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { name: 'Пакет «подушка»', desc: 'Классический формат для снеков, чипсов, конфет', icon: 'Package' },
-              { name: 'Пакет с боковыми фальцами', desc: 'Увеличенный объем для кофе, круп', icon: 'Box' },
-              { name: 'Пакет-брикет', desc: 'Квадро/стабило с плоским дном для стабильности', icon: 'Cuboid' },
-              { name: 'Саше (3/4-шов)', desc: 'Порционные пакеты для специй, сахара, соусов', icon: 'PackageOpen' },
-              { name: 'Стик (многорядный)', desc: 'Узкие пакеты для жидкостей и порошков', icon: 'AlignVerticalJustifyCenter' },
-              { name: 'Дой-пак', desc: 'Из рулонной пленки с zip-замком и еврослотом', icon: 'ShoppingBag' },
+              { name: 'Пакет «подушка»', desc: 'Классический формат для снеков, чипсов, конфет', img: 'https://placehold.co/120x120/e0e7ff/4f46e5?text=Подушка' },
+              { name: 'Пакет с боковыми фальцами', desc: 'Увеличенный объем для кофе, круп', img: 'https://placehold.co/120x120/e0e7ff/4f46e5?text=Фальцы' },
+              { name: 'Пакет-брикет', desc: 'Квадро/стабило с плоским дном для стабильности', img: 'https://placehold.co/120x120/e0e7ff/4f46e5?text=Брикет' },
+              { name: 'Саше (3/4-шов)', desc: 'Порционные пакеты для специй, сахара, соусов', img: 'https://placehold.co/120x120/e0e7ff/4f46e5?text=Саше' },
+              { name: 'Стик (многорядный)', desc: 'Узкие пакеты для жидкостей и порошков', img: 'https://placehold.co/120x120/e0e7ff/4f46e5?text=Стик' },
+              { name: 'Дой-пак', desc: 'Из рулонной пленки с zip-замком и еврослотом', img: 'https://placehold.co/120x120/e0e7ff/4f46e5?text=Дой-пак' },
             ].map((pkg, idx) => (
               <Card key={idx} className="hover:shadow-lg transition-shadow hover-scale">
                 <CardHeader>
-                  <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name={pkg.icon} className="w-6 h-6 text-accent" />
+                  <div className="w-24 h-24 rounded-lg overflow-hidden mb-4 mx-auto">
+                    <img src={pkg.img} alt={pkg.name} className="w-full h-full object-cover" />
                   </div>
                   <CardTitle className="text-xl">{pkg.name}</CardTitle>
                   <CardDescription>{pkg.desc}</CardDescription>
@@ -221,7 +219,7 @@ export default function Index() {
             <p className="text-sm text-muted-foreground mb-4">
               Материалы: BOPP, многослойные барьерные пленки, ламинированная бумага
             </p>
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" onClick={() => setShowModal(true)}>
               Подобрать формат и цену
             </Button>
           </div>
@@ -241,17 +239,17 @@ export default function Index() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {[
-              { type: 'Весовой линейный', products: 'Крупные фракции, орехи, сухофрукты', icon: 'Scale' },
-              { type: 'Весовой мультиголовочный', products: 'Снеки, пельмени, заморозка, конфеты', icon: 'ScaleIcon' },
-              { type: 'Объемный (чашечный)', products: 'Крупы, рис, сахар', icon: 'Cup' },
-              { type: 'Шнековый', products: 'Порошки, кофе, какао, протеины, специи', icon: 'Cog' },
-              { type: 'Поршневой/насосный', products: 'Соусы, пасты, майонез, шампуни', icon: 'Droplet' },
-              { type: 'Штучный/счетчик', products: 'Таблетки, капсулы, метизы', icon: 'Hash' },
+              { type: 'Весовой линейный', products: 'Крупные фракции, орехи, сухофрукты', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Весовой' },
+              { type: 'Весовой мультиголовочный', products: 'Снеки, пельмени, заморозка, конфеты', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Мульти' },
+              { type: 'Объемный (чашечный)', products: 'Крупы, рис, сахар', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Объемный' },
+              { type: 'Шнековый', products: 'Порошки, кофе, какао, протеины, специи', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Шнековый' },
+              { type: 'Поршневой/насосный', products: 'Соусы, пасты, майонез, шампуни', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Поршневой' },
+              { type: 'Штучный/счетчик', products: 'Таблетки, капсулы, метизы', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Счетчик' },
             ].map((dosator, idx) => (
               <Card key={idx} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name={dosator.icon} className="w-6 h-6 text-primary" />
+                  <div className="w-20 h-20 rounded-lg overflow-hidden mb-4 mx-auto">
+                    <img src={dosator.img} alt={dosator.type} className="w-full h-full object-cover" />
                   </div>
                   <CardTitle className="text-lg">{dosator.type}</CardTitle>
                   <CardDescription className="text-sm">{dosator.products}</CardDescription>
@@ -272,7 +270,7 @@ export default function Index() {
           </Card>
 
           <div className="text-center mt-8">
-            <Button size="lg" className="bg-accent hover:bg-accent/90">
+            <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={() => setShowModal(true)}>
               Подобрать дозатор и получить КП
             </Button>
           </div>
@@ -307,22 +305,8 @@ export default function Index() {
             ))}
           </div>
 
-          <Card className="bg-white/10 border-white/20 backdrop-blur">
-            <CardContent className="pt-6">
-              <div className="flex items-start gap-4">
-                <Icon name="TrendingUp" className="w-8 h-8 flex-shrink-0 text-accent" />
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Реальный результат</h3>
-                  <p className="opacity-90">
-                    На линии орехов снизили перевес на 22% и расход пленки на 12% за 2 недели
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
           <div className="text-center mt-8">
-            <Button size="lg" variant="outline" className="bg-white text-secondary hover:bg-white/90">
+            <Button size="lg" variant="outline" className="bg-white text-secondary hover:bg-white/90" onClick={() => setShowModal(true)}>
               Узнать, как повысить скорость без потери качества
             </Button>
           </div>
@@ -342,20 +326,20 @@ export default function Index() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: 'Газовая среда (MAP)', icon: 'Wind' },
-              { name: 'Откачка воздуха', icon: 'Minus' },
-              { name: 'Впрыск спирта', icon: 'Droplets' },
-              { name: 'Принтеры маркировки', icon: 'Printer' },
-              { name: 'Аппликаторы этикетки', icon: 'Tag' },
-              { name: 'Перфорация пленки', icon: 'CircleDot' },
-              { name: 'Чеквейер', icon: 'Weight' },
-              { name: 'Металлоискатель', icon: 'ScanSearch' },
-              { name: 'Удаленный доступ', icon: 'Monitor' },
+              { name: 'Газовая среда (MAP)', img: 'https://placehold.co/100x100/fef3c7/d97706?text=MAP' },
+              { name: 'Откачка воздуха', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Вакуум' },
+              { name: 'Впрыск спирта', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Спирт' },
+              { name: 'Принтеры маркировки', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Принтер' },
+              { name: 'Аппликаторы этикетки', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Этикетка' },
+              { name: 'Перфорация пленки', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Перфорация' },
+              { name: 'Чеквейер', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Чеквейер' },
+              { name: 'Металлоискатель', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Металл' },
+              { name: 'Удаленный доступ', img: 'https://placehold.co/100x100/fef3c7/d97706?text=Remote' },
             ].map((option, idx) => (
               <Card key={idx} className="hover:shadow-md transition-shadow text-center">
                 <CardContent className="pt-6">
-                  <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                    <Icon name={option.icon} className="w-6 h-6 text-accent" />
+                  <div className="w-16 h-16 rounded-lg overflow-hidden mx-auto mb-3">
+                    <img src={option.img} alt={option.name} className="w-full h-full object-cover" />
                   </div>
                   <p className="font-medium">{option.name}</p>
                 </CardContent>
@@ -364,7 +348,7 @@ export default function Index() {
           </div>
 
           <div className="text-center mt-8">
-            <Button size="lg" className="bg-accent hover:bg-accent/90">
+            <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={() => setShowModal(true)}>
               Собрать комплектацию и получить смету
             </Button>
           </div>
@@ -384,17 +368,17 @@ export default function Index() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { category: 'Снеки/чипсы/кондитерка', speed: 'до 60 пак/мин', type: 'пакет подушка', icon: 'Cookie' },
-              { category: 'Крупы/сахар/рис', speed: 'стабильная геометрия', type: 'пакет-брикет', icon: 'Wheat' },
-              { category: 'Порошки/специи/кофе', speed: 'шнековый дозатор', type: 'барьерные пленки', icon: 'Coffee' },
-              { category: 'Заморозка/пельмени', speed: 'мультиголовочный', type: 'усиленные швы', icon: 'Snowflake' },
-              { category: 'Соусы/майонез', speed: 'поршневой дозатор', type: 'саше/дой-пак', icon: 'Soup' },
-              { category: 'Метизы/таблетки', speed: 'штучный учет', type: 'саше/стик', icon: 'Pill' },
+              { category: 'Снеки/чипсы/кондитерка', speed: 'до 60 пак/мин', type: 'пакет подушка', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Снеки' },
+              { category: 'Крупы/сахар/рис', speed: 'стабильная геометрия', type: 'пакет-брикет', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Крупы' },
+              { category: 'Порошки/специи/кофе', speed: 'шнековый дозатор', type: 'барьерные пленки', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Порошки' },
+              { category: 'Заморозка/пельмени', speed: 'мультиголовочный', type: 'усиленные швы', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Заморозка' },
+              { category: 'Соусы/майонез', speed: 'поршневой дозатор', type: 'саше/дой-пак', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Соусы' },
+              { category: 'Метизы/таблетки', speed: 'штучный учет', type: 'саше/стик', img: 'https://placehold.co/100x100/dbeafe/1e40af?text=Метизы' },
             ].map((industry, idx) => (
               <Card key={idx} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon name={industry.icon} className="w-6 h-6 text-primary" />
+                  <div className="w-20 h-20 rounded-lg overflow-hidden mb-4 mx-auto">
+                    <img src={industry.img} alt={industry.category} className="w-full h-full object-cover" />
                   </div>
                   <CardTitle className="text-xl mb-2">{industry.category}</CardTitle>
                   <div className="space-y-1">
@@ -404,12 +388,6 @@ export default function Index() {
                 </CardHeader>
               </Card>
             ))}
-          </div>
-
-          <div className="text-center mt-8">
-            <Button size="lg" variant="outline">
-              Запросить образцы пакетов и тест
-            </Button>
           </div>
         </div>
       </section>
@@ -427,7 +405,7 @@ export default function Index() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { title: 'Гарантия до 2 лет', icon: 'ShieldCheck' },
+              { title: 'Гарантия до 2х лет', icon: 'ShieldCheck' },
               { title: 'Бесплатные ПНР', icon: 'CheckCircle2' },
               { title: 'Доставка по России и СНГ', icon: 'Truck' },
               { title: 'Большой склад запчастей', icon: 'Warehouse' },
@@ -448,7 +426,7 @@ export default function Index() {
           </div>
 
           <div className="text-center mt-8">
-            <Button size="lg" variant="outline">
+            <Button size="lg" variant="outline" onClick={() => setShowModal(true)}>
               Узнать условия сервиса
             </Button>
           </div>
@@ -484,173 +462,15 @@ export default function Index() {
             ))}
           </div>
 
-          <Card className="max-w-2xl mx-auto shadow-xl border-2">
-            <CardHeader>
-              <CardTitle>Получить расчет и условия лизинга</CardTitle>
-              <CardDescription>Детальная информация о вашем проекте</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <Label>Продукт</Label>
-                    <Input placeholder="Орехи, крупы..." />
-                  </div>
-                  <div>
-                    <Label>Дозировка (г/мл)</Label>
-                    <Input placeholder="100" />
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <Label>Емкость пакета</Label>
-                    <Input placeholder="500" />
-                  </div>
-                  <div>
-                    <Label>Требуемая скорость</Label>
-                    <Input placeholder="40 пак/мин" />
-                  </div>
-                </div>
-
-                <div>
-                  <Label>Тип пленки</Label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Выберите тип пленки" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="bopp">BOPP</SelectItem>
-                      <SelectItem value="barrier">Барьерная многослойная</SelectItem>
-                      <SelectItem value="paper">Ламинированная бумага</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label>Опции</Label>
-                  <div className="grid grid-cols-2 gap-3 mt-2">
-                    {['MAP', 'Вакуум', 'Впрыск спирта', 'Печать', 'Этикетка', 'Перфорация'].map((opt) => (
-                      <div key={opt} className="flex items-center space-x-2">
-                        <Checkbox id={opt} />
-                        <label htmlFor={opt} className="text-sm cursor-pointer">{opt}</label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <Label>Имя</Label>
-                    <Input placeholder="Иван Иванов" />
-                  </div>
-                  <div>
-                    <Label>Телефон</Label>
-                    <Input placeholder="+7 (999) 123-45-67" />
-                  </div>
-                </div>
-
-                <div>
-                  <Label>E-mail</Label>
-                  <Input type="email" placeholder="mail@example.com" />
-                </div>
-
-                <div>
-                  <Label>Файл ТЗ (необязательно)</Label>
-                  <Input type="file" />
-                </div>
-
-                <Button type="submit" className="w-full bg-accent hover:bg-accent/90" size="lg">
-                  Получить расчет и условия лизинга
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      <section id="cases" className="py-16 md:py-24 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
-              Реальные результаты клиентов
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Цифры до/после внедрения
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <Card className="hover:shadow-xl transition-shadow">
-              <CardHeader>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
-                    <Icon name="Package2" className="w-6 h-6 text-accent" />
-                  </div>
-                  <CardTitle className="text-2xl">Орехи и снеки</CardTitle>
-                </div>
-                <CardDescription className="text-base">
-                  Поставили автомат с мультиголовочным дозатором
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Скорость:</span>
-                    <Badge className="bg-accent">58 пак/мин</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Снижение перевеса:</span>
-                    <Badge variant="secondary" className="bg-green-100 text-green-800">-20%</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Окупаемость:</span>
-                    <Badge variant="outline">7 месяцев</Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-xl transition-shadow">
-              <CardHeader>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <Icon name="Wheat" className="w-6 h-6 text-primary" />
-                  </div>
-                  <CardTitle className="text-2xl">Крупы</CardTitle>
-                </div>
-                <CardDescription className="text-base">
-                  Пакет-брикет с объемным дозатором
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Снижение расхода пленки:</span>
-                    <Badge variant="secondary" className="bg-green-100 text-green-800">-10%</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Рост производительности:</span>
-                    <Badge className="bg-accent">+30%</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Качество запайки:</span>
-                    <Badge variant="outline">100% герметичность</Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="text-center mt-8">
-            <Button size="lg" className="bg-accent hover:bg-accent/90">
-              Хочу такой же результат
+          <div className="text-center">
+            <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={() => setShowModal(true)}>
+              Получить расчет и условия лизинга
             </Button>
           </div>
         </div>
       </section>
 
-      <section id="faq" className="py-16 md:py-24">
+      <section id="faq" className="py-16 md:py-24 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
@@ -664,7 +484,7 @@ export default function Index() {
               { q: 'Какие пленки подходят?', a: 'BOPP, барьерные многослойные пленки, ламинированная бумага.' },
               { q: 'Как достигается точность до 1%?', a: 'Подбор дозатора под продукт и автоматическая настройка рецептов.' },
               { q: 'Нужна ли подготовка воздуха?', a: 'Да, требования к компрессору и осушению предоставим в технической документации.' },
-              { q: 'Какие гарантии и сервис?', a: 'Гарантия до 2 лет, сервисная сеть по РФ, большой склад запчастей.' },
+              { q: 'Какие гарантии и сервис?', a: 'Гарантия до 2х лет, большой склад запчастей.' },
               { q: 'Можно протестировать продукт?', a: 'Да, бесплатный тест в демозале. Записывайтесь на удобное время.' },
             ].map((item, idx) => (
               <AccordionItem key={idx} value={`item-${idx}`}>
@@ -683,39 +503,37 @@ export default function Index() {
       <section id="cta" className="py-16 md:py-24 bg-gradient-to-br from-primary via-secondary to-primary text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Получите расчет и образцы пакетов за 24 часа
+            Получите расчет за 24 часа
           </h2>
           <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
             Подберем оборудование, проведем тест в демозале и рассчитаем окупаемость
           </p>
           
           <div className="flex flex-wrap justify-center gap-4 mb-12">
-            <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+            <Button size="lg" className="bg-white text-primary hover:bg-white/90" onClick={() => setShowModal(true)}>
               <Icon name="Send" className="w-5 h-5 mr-2" />
               Оставить заявку
             </Button>
-            <Button size="lg" variant="outline" className="bg-transparent border-2 border-white text-white hover:bg-white/10">
+            <Button size="lg" variant="outline" className="bg-transparent border-2 border-white text-white hover:bg-white/10" onClick={() => setShowModal(true)}>
               <Icon name="Calendar" className="w-5 h-5 mr-2" />
               Записаться в демозал
             </Button>
-            <Button size="lg" variant="outline" className="bg-transparent border-2 border-white text-white hover:bg-white/10">
-              <Icon name="Phone" className="w-5 h-5 mr-2" />
-              Позвонить
+            <Button size="lg" variant="outline" className="bg-transparent border-2 border-white text-white hover:bg-white/10" asChild>
+              <a href="tel:88005337522">
+                <Icon name="Phone" className="w-5 h-5 mr-2" />
+                Позвонить
+              </a>
             </Button>
           </div>
 
           <div className="flex flex-wrap justify-center gap-8 text-sm opacity-90">
             <div className="flex items-center gap-2">
               <Icon name="Phone" className="w-4 h-4" />
-              <span>+7 (495) 123-45-67</span>
+              <a href="tel:88005337522" className="hover:underline">8 800 533-75-22</a>
             </div>
             <div className="flex items-center gap-2">
               <Icon name="Mail" className="w-4 h-4" />
               <span>info@paktech.ru</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Icon name="MapPin" className="w-4 h-4" />
-              <span>Москва, ул. Промышленная, д. 10</span>
             </div>
           </div>
         </div>
@@ -725,9 +543,8 @@ export default function Index() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Icon name="Package" className="w-6 h-6" />
-                <span className="text-xl font-bold">ПакТех</span>
+              <div className="mb-4">
+                <img src="https://cdn.poehali.dev/files/fec45e66-45c2-4c6a-8b0f-74188df1e0db.png" alt="ПакТех" className="h-8 brightness-0 invert" />
               </div>
               <p className="text-sm opacity-80">
                 Профессиональное фасовочное оборудование с 2010 года
@@ -747,7 +564,7 @@ export default function Index() {
               <h3 className="font-bold mb-4">Компания</h3>
               <ul className="space-y-2 text-sm opacity-80">
                 <li><a href="#service" className="hover:opacity-100">Сервис</a></li>
-                <li><a href="#cases" className="hover:opacity-100">Кейсы</a></li>
+                <li><a href="#pricing" className="hover:opacity-100">Цены</a></li>
                 <li><a href="#faq" className="hover:opacity-100">FAQ</a></li>
               </ul>
             </div>
@@ -755,9 +572,10 @@ export default function Index() {
             <div>
               <h3 className="font-bold mb-4">Контакты</h3>
               <ul className="space-y-2 text-sm opacity-80">
-                <li>+7 (495) 123-45-67</li>
+                <li><a href="tel:88005337522" className="hover:opacity-100">8 800 533-75-22</a></li>
                 <li>info@paktech.ru</li>
-                <li>Москва, ул. Промышленная, 10</li>
+                <li>Москва, ш. Энтузиастов, д. 56, стр. 32, офис 115</li>
+                <li>Новосибирск, ул. Электрозаводская, 2 к1, офис 304, 314</li>
               </ul>
             </div>
           </div>
@@ -771,6 +589,103 @@ export default function Index() {
           </div>
         </div>
       </footer>
+
+      <Dialog open={showModal} onOpenChange={setShowModal}>
+        <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Получить расчет</DialogTitle>
+            <DialogDescription>
+              Заполните форму и получите точный расчет стоимости
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Label htmlFor="modal-product">Продукт</Label>
+              <Input 
+                id="modal-product" 
+                placeholder="Например: орехи, крупы, специи"
+                value={formData.product}
+                onChange={(e) => setFormData({...formData, product: e.target.value})}
+              />
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="modal-dosage">Дозировка (г/мл)</Label>
+                <Input 
+                  id="modal-dosage" 
+                  placeholder="100"
+                  value={formData.dosage}
+                  onChange={(e) => setFormData({...formData, dosage: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label htmlFor="modal-speed">Скорость (пак/мин)</Label>
+                <Input 
+                  id="modal-speed" 
+                  placeholder="40"
+                  value={formData.speed}
+                  onChange={(e) => setFormData({...formData, speed: e.target.value})}
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="modal-packageType">Тип пакета</Label>
+              <Select value={formData.packageType} onValueChange={(value) => setFormData({...formData, packageType: value})}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Выберите тип" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="pillow">Пакет «подушка»</SelectItem>
+                  <SelectItem value="gusset">С боковыми фальцами</SelectItem>
+                  <SelectItem value="brick">Пакет-брикет</SelectItem>
+                  <SelectItem value="sachet">Саше</SelectItem>
+                  <SelectItem value="stick">Стик</SelectItem>
+                  <SelectItem value="doypack">Дой-пак</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <Label htmlFor="modal-phone">Телефон</Label>
+              <Input 
+                id="modal-phone" 
+                type="tel" 
+                placeholder="+7 (999) 123-45-67"
+                value={formData.phone}
+                onChange={(e) => setFormData({...formData, phone: e.target.value})}
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="modal-email">E-mail</Label>
+              <Input 
+                id="modal-email" 
+                type="email" 
+                placeholder="mail@example.com"
+                value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
+              />
+            </div>
+
+            <div className="flex items-start space-x-2">
+              <Checkbox 
+                id="modal-consent" 
+                checked={formData.consent}
+                onCheckedChange={(checked) => setFormData({...formData, consent: checked as boolean})}
+              />
+              <label htmlFor="modal-consent" className="text-xs text-muted-foreground leading-tight cursor-pointer">
+                Согласен на обработку персональных данных
+              </label>
+            </div>
+
+            <Button type="submit" className="w-full bg-accent hover:bg-accent/90" size="lg">
+              Получить расчет
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

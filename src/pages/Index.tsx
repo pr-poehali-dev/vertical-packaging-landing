@@ -79,17 +79,23 @@ export default function Index() {
     return specs.length > 0 ? specs : null;
   };
   
-  // Helper function to get first image from product
+  // Helper function to get first image from product - prioritize <picture> tag
   const getProductImage = (product: any) => {
+    // First try to get image from <picture> tag
+    if (product.picture) {
+      return product.picture;
+    }
+    
+    // Fallback to params if picture is not available
     if (product.params && Array.isArray(product.params)) {
       const picturesParam = product.params.find((p: any) => p.name === 'Картинки товара');
       if (picturesParam && picturesParam.value) {
-        // Get first image URL
         const urls = picturesParam.value.split(',').map((url: string) => url.trim());
-        return urls[0] || product.picture;
+        return urls[0];
       }
     }
-    return product.picture;
+    
+    return null;
   };
 
   // Group products by category, filter out products without images
@@ -176,18 +182,17 @@ export default function Index() {
         </div>
       </header>
 
-      <section id="hero" className="py-12 md:py-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-white to-accent/5 z-0"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block z-0 opacity-15">
+      <section id="hero" className="py-12 md:py-16 relative overflow-hidden bg-gradient-to-br from-primary/5 via-white to-accent/5">
+        <div className="absolute inset-0 z-0 opacity-10">
           <img 
             src="https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/7ad4b8f3-9f5e-4a9b-a3a4-a35fa2c8e7b6.jpg" 
             alt="Фасовочное оборудование" 
-            className="w-full h-full object-contain object-right"
+            className="w-full h-full object-cover object-center"
           />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
+            <div className="space-y-6 bg-white/90 backdrop-blur-sm p-6 rounded-lg">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-secondary leading-tight">
                 Вертикальные фасовочные автоматы под ваш продукт
               </h1>
@@ -310,21 +315,21 @@ export default function Index() {
                 icon: 'Package',
                 description: 'Классический формат для сыпучих продуктов',
                 features: ['Быстрая фасовка', 'Экономичное решение', 'Для круп, снеков, специй'],
-                image: 'https://cdn.poehali.dev/files/bc3c44ac-7d26-45db-b6ad-e34b2af0a62b.png'
+                image: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/4d94ba44-d2fa-4fad-bd40-2ffd4daaf2b8.jpg'
               },
               {
                 title: 'Doy-Pack (стой-пак)',
                 icon: 'ShoppingBag',
                 description: 'Пакеты с плоским дном для премиальных товаров',
                 features: ['Устойчивые на полке', 'Зип-лок / клапан дегазации', 'Для кофе, чая, сухофруктов'],
-                image: 'https://cdn.poehali.dev/files/75a6d70f-4d7f-421f-bf77-57126ae41d0f.png'
+                image: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/98b750df-8373-40ff-8f44-0d71e91aa0fe.jpg'
               },
               {
                 title: 'Quad Seal (четырехшовный)',
                 icon: 'Box',
                 description: 'Объемный пакет с боковыми складками',
                 features: ['Большой объем', 'Премиальный вид', 'Для крупы, макарон, кормов'],
-                image: 'https://cdn.poehali.dev/files/7db9bb67-3f5c-4f64-88a2-eea24dd02c77.png'
+                image: 'https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/97c7c704-20df-4e8f-813a-b3a7212ab907.jpg'
               },
             ].map((pkg, idx) => (
               <Card key={idx} className="hover-scale overflow-hidden border-2 hover:border-accent transition-all">
@@ -696,15 +701,17 @@ export default function Index() {
               <div className="space-y-3">
                 <a href="tel:88005337522" className="flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors">
                   <Icon name="Phone" className="w-4 h-4" />
-                  8 800 533-75-22
+                  8-800-533-75-22
                 </a>
-                <a href="mailto:info@paktech.ru" className="flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors">
-                  <Icon name="Mail" className="w-4 h-4" />
-                  info@paktech.ru
-                </a>
-                <div className="flex items-start gap-2 text-sm text-slate-300">
-                  <Icon name="MapPin" className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                  <span>Москва, ул. Промышленная, 12</span>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2 text-sm text-slate-300">
+                    <Icon name="MapPin" className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                    <span>Москва, ш.Энтузиастов 56, стр.32, офис 115</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-sm text-slate-300">
+                    <Icon name="MapPin" className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                    <span>Новосибирск, ул.Электрозаводская, 2 к1, офис 304, 314</span>
+                  </div>
                 </div>
               </div>
             </div>

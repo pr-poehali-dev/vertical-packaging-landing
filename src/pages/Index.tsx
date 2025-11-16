@@ -153,8 +153,7 @@ export default function Index() {
               <img src="https://cdn.poehali.dev/files/fec45e66-45c2-4c6a-8b0f-74188df1e0db.png" alt="Техно-Сиб" className="h-16" />
             </div>
             
-            <div className="md:hidden flex flex-col items-end gap-1">
-              <p className="text-xs font-semibold text-secondary">Вертикальные фасовочные автоматы</p>
+            <div className="md:hidden">
               <Button size="sm" className="bg-accent hover:bg-accent/90 text-xs px-3 py-1" onClick={openCalculator}>
                 Получить расчет
               </Button>
@@ -179,11 +178,11 @@ export default function Index() {
 
       <section id="hero" className="py-12 md:py-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-white to-accent/5 z-0"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block z-0 opacity-20">
+        <div className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block z-0 opacity-15">
           <img 
-            src="https://faspak.ru/upload/iblock/432/hwqnwcsbqxmjocwrqz0vpuqiwhz00qza.jpg" 
+            src="https://cdn.poehali.dev/projects/354ea260-0f68-4fbc-8160-91683cbe426f/files/7ad4b8f3-9f5e-4a9b-a3a4-a35fa2c8e7b6.jpg" 
             alt="Фасовочное оборудование" 
-            className="w-full h-full object-cover object-left"
+            className="w-full h-full object-contain object-right"
           />
         </div>
         <div className="container mx-auto px-4 relative z-10">
@@ -473,7 +472,7 @@ export default function Index() {
                             <CardTitle className="text-xl line-clamp-2 min-h-[3.5rem]">{product.name}</CardTitle>
                             {product.price && (
                               <div className="text-2xl font-bold text-accent mt-2">
-                                {product.price.toLocaleString('ru-RU').replace(/,/g, ' ')} руб.
+                                {new Intl.NumberFormat('ru-RU').format(product.price).replace(/\u00A0/g, ' ')} руб.
                               </div>
                             )}
                           </CardHeader>

@@ -92,8 +92,16 @@ export default function Index() {
     return product.picture;
   };
 
-  // Group products by category
+  // Group products by category, filter out products without images
   const productsByCategory = products.reduce((acc: any, product: any) => {
+    // Get product image
+    const productImage = getProductImage(product);
+    
+    // Skip products without images
+    if (!productImage) {
+      return acc;
+    }
+    
     const category = product.category_name || 'Другое';
     if (!acc[category]) {
       acc[category] = [];
@@ -114,36 +122,45 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-white">
       <header className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden">
-                  <Icon name="Menu" className="w-6 h-6" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left">
-                <SheetHeader>
-                  <SheetTitle>Меню</SheetTitle>
-                </SheetHeader>
-                <nav className="flex flex-col gap-4 mt-6">
-                  <a href="#packages" className="text-lg font-medium hover:text-primary transition-colors">Пакеты</a>
-                  <a href="#dosators" className="text-lg font-medium hover:text-primary transition-colors">Дозаторы</a>
-                  <a href="#products" className="text-lg font-medium hover:text-primary transition-colors">Оборудование</a>
-                  <a href="#options" className="text-lg font-medium hover:text-primary transition-colors">Опции</a>
-                  <a href="#service" className="text-lg font-medium hover:text-primary transition-colors">Сервис</a>
-                  <a href="#faq" className="text-lg font-medium hover:text-primary transition-colors">FAQ</a>
-                  <a href="tel:88005337522" className="text-lg font-medium text-accent hover:text-accent/80 transition-colors flex items-center gap-2">
-                    <Icon name="Phone" className="w-5 h-5" />
-                    8 800 533-75-22
-                  </a>
-                  <Button className="bg-accent hover:bg-accent/90 mt-4" onClick={openCalculator}>Получить расчет</Button>
-                </nav>
-              </SheetContent>
-            </Sheet>
-            <img src="https://cdn.poehali.dev/files/e7ccdbef-3231-40f1-b8df-e1e76e5ed6c3.jpg" alt="Техно-Сиб" className="h-12 object-contain" />
-          </div>
-          <nav className="hidden md:flex items-center gap-6">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="md:hidden">
+                    <Icon name="Menu" className="w-6 h-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left">
+                  <SheetHeader>
+                    <SheetTitle>Меню</SheetTitle>
+                  </SheetHeader>
+                  <nav className="flex flex-col gap-4 mt-6">
+                    <a href="#packages" className="text-lg font-medium hover:text-primary transition-colors">Пакеты</a>
+                    <a href="#dosators" className="text-lg font-medium hover:text-primary transition-colors">Дозаторы</a>
+                    <a href="#products" className="text-lg font-medium hover:text-primary transition-colors">Оборудование</a>
+                    <a href="#options" className="text-lg font-medium hover:text-primary transition-colors">Опции</a>
+                    <a href="#service" className="text-lg font-medium hover:text-primary transition-colors">Сервис</a>
+                    <a href="#faq" className="text-lg font-medium hover:text-primary transition-colors">FAQ</a>
+                    <a href="tel:88005337522" className="text-lg font-medium text-accent hover:text-accent/80 transition-colors flex items-center gap-2">
+                      <Icon name="Phone" className="w-5 h-5" />
+                      8 800 533-75-22
+                    </a>
+                    <Button className="bg-accent hover:bg-accent/90 mt-4" onClick={openCalculator}>Получить расчет</Button>
+                  </nav>
+                </SheetContent>
+              </Sheet>
+              <img src="https://cdn.poehali.dev/files/fec45e66-45c2-4c6a-8b0f-74188df1e0db.png" alt="Техно-Сиб" className="h-16" />
+            </div>
+            
+            <div className="md:hidden flex flex-col items-end gap-1">
+              <p className="text-xs font-semibold text-secondary">Вертикальные фасовочные автоматы</p>
+              <Button size="sm" className="bg-accent hover:bg-accent/90 text-xs px-3 py-1" onClick={openCalculator}>
+                Получить расчет
+              </Button>
+            </div>
+            
+            <nav className="hidden md:flex items-center gap-6">
             <a href="#packages" className="text-sm font-medium hover:text-primary transition-colors">Пакеты</a>
             <a href="#dosators" className="text-sm font-medium hover:text-primary transition-colors">Дозаторы</a>
             <a href="#products" className="text-sm font-medium hover:text-primary transition-colors">Оборудование</a>
@@ -159,8 +176,16 @@ export default function Index() {
         </div>
       </header>
 
-      <section id="hero" className="py-12 md:py-16 bg-gradient-to-br from-primary/5 via-white to-accent/5">
-        <div className="container mx-auto px-4">
+      <section id="hero" className="py-12 md:py-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-white to-accent/5 z-0"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block z-0 opacity-20">
+          <img 
+            src="https://faspak.ru/upload/iblock/432/hwqnwcsbqxmjocwrqz0vpuqiwhz00qza.jpg" 
+            alt="Фасовочное оборудование" 
+            className="w-full h-full object-cover object-left"
+          />
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-secondary leading-tight">
@@ -447,7 +472,7 @@ export default function Index() {
                             <CardTitle className="text-xl line-clamp-2 min-h-[3.5rem]">{product.name}</CardTitle>
                             {product.price && (
                               <div className="text-2xl font-bold text-accent mt-2">
-                                {product.price.toLocaleString('ru-RU')} руб.
+                                {product.price.toLocaleString('ru-RU').replace(/,/g, ' ')} руб.
                               </div>
                             )}
                           </CardHeader>
@@ -650,7 +675,7 @@ export default function Index() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
-              <img src="https://cdn.poehali.dev/files/e7ccdbef-3231-40f1-b8df-e1e76e5ed6c3.jpg" alt="Техно-Сиб" className="h-12 mb-4 object-contain brightness-0 invert" />
+              <img src="https://cdn.poehali.dev/files/fec45e66-45c2-4c6a-8b0f-74188df1e0db.png" alt="Техно-Сиб" className="h-16 mb-4 brightness-0 invert" />
               <p className="text-sm text-slate-300">
                 Поставка и сервисное обслуживание фасовочного оборудования
               </p>
@@ -685,7 +710,7 @@ export default function Index() {
             </div>
           </div>
           <div className="border-t border-slate-700 pt-8 text-center text-sm text-slate-400">
-            2024 Техно-Сиб. Все права защищены.
+            2025 Техно-Сиб. Все права защищены.
           </div>
         </div>
       </footer>

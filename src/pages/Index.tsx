@@ -161,18 +161,19 @@ export default function Index() {
             </div>
             
             <nav className="hidden md:flex items-center gap-6">
-            <a href="#packages" className="text-sm font-medium hover:text-primary transition-colors">Пакеты</a>
-            <a href="#dosators" className="text-sm font-medium hover:text-primary transition-colors">Дозаторы</a>
-            <a href="#products" className="text-sm font-medium hover:text-primary transition-colors">Оборудование</a>
-            <a href="#options" className="text-sm font-medium hover:text-primary transition-colors">Опции</a>
-            <a href="#service" className="text-sm font-medium hover:text-primary transition-colors">Сервис</a>
-            <a href="#faq" className="text-sm font-medium hover:text-primary transition-colors">FAQ</a>
-            <a href="tel:88005337522" className="text-sm font-medium text-accent hover:text-accent/80 transition-colors flex items-center gap-2">
-              <Icon name="Phone" className="w-5 h-5" />
-              8 800 533-75-22
-            </a>
-            <Button size="sm" className="bg-accent hover:bg-accent/90" onClick={openCalculator}>Получить расчет</Button>
-          </nav>
+              <a href="#packages" className="text-sm font-medium hover:text-primary transition-colors">Пакеты</a>
+              <a href="#dosators" className="text-sm font-medium hover:text-primary transition-colors">Дозаторы</a>
+              <a href="#products" className="text-sm font-medium hover:text-primary transition-colors">Оборудование</a>
+              <a href="#options" className="text-sm font-medium hover:text-primary transition-colors">Опции</a>
+              <a href="#service" className="text-sm font-medium hover:text-primary transition-colors">Сервис</a>
+              <a href="#faq" className="text-sm font-medium hover:text-primary transition-colors">FAQ</a>
+              <a href="tel:88005337522" className="text-sm font-medium text-accent hover:text-accent/80 transition-colors flex items-center gap-2">
+                <Icon name="Phone" className="w-5 h-5" />
+                8 800 533-75-22
+              </a>
+              <Button size="sm" className="bg-accent hover:bg-accent/90" onClick={openCalculator}>Получить расчет</Button>
+            </nav>
+          </div>
         </div>
       </header>
 

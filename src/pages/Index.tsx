@@ -56,23 +56,40 @@ export default function Index() {
     setIsDemoModal(true);
   };
 
-  // Helper function to extract technical specs from description
-  const extractTechnicalSpecs = (description: string) => {
-    if (!description) return null;
+  // Helper function to extract specific params from product
+  const extractProductSpecs = (product: any) => {
+    const specs: { label: string; value: string }[] = [];
     
-    // Try to find table in HTML
-    const tableMatch = description.match(/<table[^>]*>(.*?)<\/table>/is);
-    if (tableMatch) {
-      return <div dangerouslySetInnerHTML={{ __html: tableMatch[0] }} className="prose prose-sm max-w-none" />;
+    // Extract specific params from params array
+    if (product.params && Array.isArray(product.params)) {
+      const specsToExtract = [
+        { key: 'Мощность (Вт)', label: 'Мощность' },
+        { key: 'Расчетная производительность (пакетов/мин)', label: 'Производительность' },
+        { key: 'Диапазон дозирования (мл)', label: 'Диапазон дозирования' }
+      ];
+      
+      specsToExtract.forEach(spec => {
+        const param = product.params.find((p: any) => p.name === spec.key);
+        if (param && param.value) {
+          specs.push({ label: spec.label, value: param.value });
+        }
+      });
     }
     
-    // Try to find list items that look like specs
-    const listMatch = description.match(/<ul[^>]*>(.*?)<\/ul>/is);
-    if (listMatch) {
-      return <div dangerouslySetInnerHTML={{ __html: listMatch[0] }} className="prose prose-sm max-w-none" />;
+    return specs.length > 0 ? specs : null;
+  };
+  
+  // Helper function to get first image from product
+  const getProductImage = (product: any) => {
+    if (product.params && Array.isArray(product.params)) {
+      const picturesParam = product.params.find((p: any) => p.name === 'Картинки товара');
+      if (picturesParam && picturesParam.value) {
+        // Get first image URL
+        const urls = picturesParam.value.split(',').map((url: string) => url.trim());
+        return urls[0] || product.picture;
+      }
     }
-    
-    return null;
+    return product.picture;
   };
 
   // Group products by category
@@ -124,7 +141,7 @@ export default function Index() {
                 </nav>
               </SheetContent>
             </Sheet>
-            <img src="https://cdn.poehali.dev/files/fec45e66-45c2-4c6a-8b0f-74188df1e0db.png" alt="Техно-Сиб" className="h-12" />
+            <img src="https://cdn.poehali.dev/files/e7ccdbef-3231-40f1-b8df-e1e76e5ed6c3.jpg" alt="Техно-Сиб" className="h-12 object-contain" />
           </div>
           <nav className="hidden md:flex items-center gap-6">
             <a href="#packages" className="text-sm font-medium hover:text-primary transition-colors">Пакеты</a>
@@ -352,7 +369,7 @@ export default function Index() {
                 accuracy: '±0.5-1%'
               },
             ].map((dosator, idx) => (
-              <Card key={idx} className="hover-scale border-2 hover:border-primary transition-all">
+              <Card key={idx} className="hover-scale border-2 hover:border-primary transition-all flex flex-col">
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <CardTitle className="text-lg">{dosator.title}</CardTitle>
@@ -360,8 +377,8 @@ export default function Index() {
                   </div>
                   <CardDescription>{dosator.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2">
+                <CardContent className="flex-grow flex flex-col">
+                  <ul className="space-y-2 flex-grow">
                     {dosator.features.map((feat, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <Icon name="Check" className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
@@ -369,7 +386,7 @@ export default function Index() {
                       </li>
                     ))}
                   </ul>
-                  <Badge variant="secondary" className="w-full justify-center">
+                  <Badge variant="secondary" className="w-full justify-center mt-4">
                     Точность: {dosator.accuracy}
                   </Badge>
                 </CardContent>
@@ -394,13 +411,13 @@ export default function Index() {
             </div>
           ) : Object.keys(productsByCategory).length > 0 ? (
             <Tabs defaultValue={Object.keys(productsByCategory)[0]} className="w-full">
-              <div className="overflow-x-auto pb-2 mb-8">
-                <TabsList className="inline-flex w-full min-w-max bg-white border-2 border-border p-1 rounded-lg">
+              <div className="mb-8">
+                <TabsList className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 bg-transparent h-auto p-0">
                   {Object.keys(productsByCategory).map((category) => (
                     <TabsTrigger 
                       key={category} 
                       value={category}
-                      className="flex-1 min-w-[150px] data-[state=active]:bg-accent data-[state=active]:text-white px-6 py-3 rounded-md font-medium transition-all"
+                      className="h-auto min-h-[60px] whitespace-normal text-center bg-white border-2 border-border data-[state=active]:bg-accent data-[state=active]:text-white data-[state=active]:border-accent px-3 py-2 rounded-lg font-medium transition-all text-sm leading-tight"
                     >
                       {category}
                     </TabsTrigger>
@@ -411,41 +428,53 @@ export default function Index() {
               {Object.entries(productsByCategory).map(([category, categoryProducts]: [string, any]) => (
                 <TabsContent key={category} value={category} className="mt-0">
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {categoryProducts.map((product: any) => (
-                      <Card key={product.id} className="hover-scale overflow-hidden border-2 hover:border-accent transition-all flex flex-col">
-                        {product.picture && (
-                          <div className="h-64 bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
-                            <img 
-                              src={product.picture} 
-                              alt={product.name} 
-                              className="max-h-full max-w-full object-contain"
-                            />
-                          </div>
-                        )}
-                        <CardHeader className="flex-grow">
-                          <CardTitle className="text-xl line-clamp-2">{product.name}</CardTitle>
-                          {product.price && (
-                            <div className="text-2xl font-bold text-accent mt-2">
-                              {product.price.toLocaleString('ru-RU')} руб.
+                    {categoryProducts.map((product: any) => {
+                      const specs = extractProductSpecs(product);
+                      const productImage = getProductImage(product);
+                      
+                      return (
+                        <Card key={product.id} className="hover-scale overflow-hidden border-2 hover:border-accent transition-all flex flex-col">
+                          {productImage && (
+                            <div className="h-64 bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
+                              <img 
+                                src={productImage} 
+                                alt={product.name} 
+                                className="max-h-full max-w-full object-contain"
+                              />
                             </div>
                           )}
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                          {extractTechnicalSpecs(product.description) && (
-                            <div className="bg-slate-50 p-4 rounded-lg">
-                              <h4 className="font-semibold mb-2 text-sm">Технические характеристики:</h4>
-                              {extractTechnicalSpecs(product.description)}
-                            </div>
-                          )}
-                          <Button 
-                            className="w-full bg-accent hover:bg-accent/90"
-                            onClick={openCalculator}
-                          >
-                            Оставить заявку
-                          </Button>
-                        </CardContent>
-                      </Card>
-                    ))}
+                          <CardHeader>
+                            <CardTitle className="text-xl line-clamp-2 min-h-[3.5rem]">{product.name}</CardTitle>
+                            {product.price && (
+                              <div className="text-2xl font-bold text-accent mt-2">
+                                {product.price.toLocaleString('ru-RU')} руб.
+                              </div>
+                            )}
+                          </CardHeader>
+                          <CardContent className="flex-grow flex flex-col">
+                            {specs && specs.length > 0 && (
+                              <div className="bg-slate-50 p-4 rounded-lg mb-4 flex-grow">
+                                <h4 className="font-semibold mb-3 text-sm">Технические характеристики:</h4>
+                                <ul className="space-y-2">
+                                  {specs.map((spec, idx) => (
+                                    <li key={idx} className="flex items-start text-sm">
+                                      <span className="inline-block w-2 h-2 bg-accent rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
+                                      <span><strong>{spec.label}:</strong> {spec.value}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            <Button 
+                              className="w-full bg-accent hover:bg-accent/90 mt-auto"
+                              onClick={openCalculator}
+                            >
+                              Оставить заявку
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
                   </div>
                 </TabsContent>
               ))}
@@ -621,7 +650,7 @@ export default function Index() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
-              <img src="https://cdn.poehali.dev/files/fec45e66-45c2-4c6a-8b0f-74188df1e0db.png" alt="Техно-Сиб" className="h-12 mb-4 brightness-0 invert" />
+              <img src="https://cdn.poehali.dev/files/e7ccdbef-3231-40f1-b8df-e1e76e5ed6c3.jpg" alt="Техно-Сиб" className="h-12 mb-4 object-contain brightness-0 invert" />
               <p className="text-sm text-slate-300">
                 Поставка и сервисное обслуживание фасовочного оборудования
               </p>

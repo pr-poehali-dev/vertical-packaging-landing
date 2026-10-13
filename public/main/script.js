@@ -10,6 +10,16 @@
     });
   }
 
+  var range = document.getElementById('pk-budget');
+  var out = document.getElementById('pk-budget-out');
+  if (range && out) {
+    var fmt = function () {
+      out.textContent = Number(range.value).toLocaleString('ru-RU').replace(/\u00A0/g, ' ') + ' ₽';
+    };
+    range.addEventListener('input', fmt);
+    fmt();
+  }
+
   var buttons = document.querySelectorAll('.faq-item__btn');
   for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function () {

@@ -12,7 +12,10 @@
   <!-- ============ 1. ШАПКА ============ -->
   <header class="site-header">
     <div class="site-header__inner">
-      <a href="/" class="logo">edukursy<span>.ru</span></a>
+      <a href="/" class="logo">
+        <img src="img/logo.jpg" alt="" class="logo__img" width="36" height="36">
+        <span class="logo__text">edukursy<span>.ru</span></span>
+      </a>
 
       <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-nav">
         <span></span><span></span><span></span>
@@ -21,6 +24,7 @@
       <nav class="main-nav" id="main-nav" aria-label="Основное меню">
         <ul>
           <li><a href="/professions/">Профессии</a></li>
+          <li><a href="/courses/">Курсы</a></li>
           <li><a href="/schools/">Школы</a></li>
           <li><a href="/compare/">Сравнения</a></li>
           <li><a href="/blog/">Блог</a></li>
@@ -29,16 +33,6 @@
       </nav>
     </div>
   </header>
-
-  <!-- ============ 3. РЕКЛАМНЫЙ СЛОТ 1 — лидерборд под шапкой ============ -->
-  <div class="ad-wrap ad-wrap--leaderboard">
-    <aside class="ad-slot ad-slot--leaderboard" aria-label="Реклама">
-      <span class="ad-label">Реклама</span>
-      <!-- AD SLOT: leaderboard_top | 970×90 desktop, адаптивный на мобильном. Сюда вставляется <a href="..." rel="sponsored noopener" target="_blank"><img ...></a> -->
-      <div class="ad-placeholder">Рекламный блок 970×90 / адаптивный</div>
-    </aside>
-    <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
-  </div>
 
   <main>
 
@@ -53,80 +47,153 @@
           <form class="search" action="/search/" method="get" role="search">
             <label for="hero-search" class="visually-hidden">Поиск курса</label>
             <input type="search" id="hero-search" name="q" class="search__input" placeholder="Что хотите освоить?">
-            <button type="submit" class="search__btn" aria-label="Найти">Найти</button>
+            <button type="submit" class="search__btn">Найти</button>
           </form>
         </div>
 
         <ul class="hero__stats">
-          <!-- DATA: stats.courses_total --><li><strong>1 240</strong> курсов</li>
-          <!-- DATA: stats.schools_total --><li><strong>35</strong> школ</li>
-          <!-- DATA: stats.professions_total --><li><strong>48</strong> профессий</li>
+          <li><strong><!-- DATA: stats.courses_total -->1 240</strong> курсов</li>
+          <li><strong><!-- DATA: stats.schools_total -->3</strong> школы</li>
+          <li><strong><!-- DATA: stats.professions_total -->48</strong> профессий</li>
         </ul>
       </div>
 
       <div class="hero__media">
-        <div class="placeholder placeholder--hero">Иллюстрация первого экрана</div>
+        <img src="img/hero.jpg" alt="Девушка проходит онлайн-курс за ноутбуком" class="hero__img" width="900" height="900">
+      </div>
+    </section>
+
+    <!-- ============ ВИДЖЕТ ПОДБОРА КУРСА ============ -->
+    <section class="section section--picker" id="picker">
+      <div class="picker">
+        <div class="picker__head">
+          <h2 class="picker__title">Подберите курс за минуту</h2>
+          <p class="picker__subtitle">Отметьте, что важно, — покажем подходящие программы всех школ каталога.</p>
+        </div>
+
+        <form class="picker__form" action="/courses/" method="get">
+          <!-- DATA: варианты направлений из базы -->
+          <div class="picker__field">
+            <label for="pk-direction" class="picker__label">Направление</label>
+            <select id="pk-direction" name="profession" class="picker__select">
+              <option value="">Любое</option>
+              <option value="programmist">Программирование</option>
+              <option value="dizajner">Дизайн</option>
+              <option value="marketolog">Маркетинг</option>
+              <option value="analitik-dannyh">Аналитика данных</option>
+              <option value="menedzher-proektov">Управление проектами</option>
+              <option value="testirovshchik">Тестирование</option>
+            </select>
+          </div>
+
+          <fieldset class="picker__field">
+            <legend class="picker__label">Ваш уровень</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="level" value="zero" checked><span>С нуля</span></label>
+              <label class="chip"><input type="radio" name="level" value="base"><span>Есть база</span></label>
+              <label class="chip"><input type="radio" name="level" value="pro"><span>Опытный</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="picker__field">
+            <legend class="picker__label">Длительность</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="duration" value="short"><span>До 3 мес</span></label>
+              <label class="chip"><input type="radio" name="duration" value="mid" checked><span>3–9 мес</span></label>
+              <label class="chip"><input type="radio" name="duration" value="long"><span>Больше 9 мес</span></label>
+            </div>
+          </fieldset>
+
+          <div class="picker__field">
+            <label for="pk-budget" class="picker__label">Бюджет до <output id="pk-budget-out" for="pk-budget">150 000 ₽</output></label>
+            <input type="range" id="pk-budget" name="price_max" class="picker__range" min="10000" max="300000" step="5000" value="150000">
+            <div class="picker__range-scale"><span>10 000 ₽</span><span>300 000 ₽</span></div>
+          </div>
+
+          <div class="picker__field picker__field--checks">
+            <label class="check"><input type="checkbox" name="installment" value="1" checked><span>Есть рассрочка</span></label>
+            <label class="check"><input type="checkbox" name="mentor" value="1"><span>С наставником</span></label>
+            <label class="check"><input type="checkbox" name="certificate" value="1"><span>Диплом или сертификат</span></label>
+          </div>
+
+          <div class="picker__submit">
+            <button type="submit" class="btn btn--primary btn--lg btn--block">Показать курсы</button>
+            <p class="picker__note">Найдено <strong><!-- DATA: picker.found_count -->86</strong> курсов</p>
+          </div>
+        </form>
       </div>
     </section>
 
     <!-- ============ 4. ПОПУЛЯРНЫЕ ПРОФЕССИИ ============ -->
     <section class="section section--light" id="professions">
-      <h2 class="section__title">Популярные направления</h2>
+      <h2 class="section__title">Популярные профессии</h2>
 
       <div class="grid profession-grid">
         <!-- DATA: цикл по профессиям, 8-12 штук. Блок-образец: article.profession-card -->
         <article class="profession-card">
-          <a href="/professions/programmist/" class="profession-card__link"><!-- DATA: profession.url -->
-            <div class="profession-card__icon placeholder">Иконка</div><!-- DATA: profession.icon -->
+          <img src="img/prof-dev.jpg" alt="" class="profession-card__img" width="640" height="360" loading="lazy"><!-- DATA: profession.image -->
+          <div class="profession-card__body">
             <h3 class="profession-card__name"><!-- DATA: profession.name -->Программист</h3>
-            <p class="profession-card__count"><!-- DATA: profession.courses_count -->212 курсов</p>
-            <p class="profession-card__price">от <!-- DATA: profession.min_price -->2 900 ₽</p>
-          </a>
+            <p class="profession-card__count"><!-- DATA: profession.courses_count -->212 курсов · 3 школы</p>
+            <p class="profession-card__price">от <!-- DATA: profession.min_price_month -->2 900 ₽/мес</p>
+            <p class="profession-card__total">или от <!-- DATA: profession.min_price -->69 000 ₽</p>
+            <a href="/professions/programmist/" class="btn btn--outline btn--block profession-card__btn">Смотреть курсы</a><!-- DATA: profession.url -->
+          </div>
         </article>
 
         <article class="profession-card">
-          <a href="/professions/dizajner/" class="profession-card__link">
-            <div class="profession-card__icon placeholder">Иконка</div>
+          <img src="img/prof-design.jpg" alt="" class="profession-card__img" width="640" height="360" loading="lazy">
+          <div class="profession-card__body">
             <h3 class="profession-card__name"><!-- DATA: profession.name -->Дизайнер</h3>
-            <p class="profession-card__count"><!-- DATA: profession.courses_count -->164 курса</p>
-            <p class="profession-card__price">от <!-- DATA: profession.min_price -->2 500 ₽</p>
-          </a>
+            <p class="profession-card__count"><!-- DATA: profession.courses_count -->164 курса · 3 школы</p>
+            <p class="profession-card__price">от <!-- DATA: profession.min_price_month -->2 500 ₽/мес</p>
+            <p class="profession-card__total">или от <!-- DATA: profession.min_price -->54 000 ₽</p>
+            <a href="/professions/dizajner/" class="btn btn--outline btn--block profession-card__btn">Смотреть курсы</a>
+          </div>
         </article>
 
         <article class="profession-card">
-          <a href="/professions/marketolog/" class="profession-card__link">
-            <div class="profession-card__icon placeholder">Иконка</div>
+          <img src="img/prof-marketing.jpg" alt="" class="profession-card__img" width="640" height="360" loading="lazy">
+          <div class="profession-card__body">
             <h3 class="profession-card__name"><!-- DATA: profession.name -->Маркетолог</h3>
-            <p class="profession-card__count"><!-- DATA: profession.courses_count -->138 курсов</p>
-            <p class="profession-card__price">от <!-- DATA: profession.min_price -->1 900 ₽</p>
-          </a>
+            <p class="profession-card__count"><!-- DATA: profession.courses_count -->138 курсов · 3 школы</p>
+            <p class="profession-card__price">от <!-- DATA: profession.min_price_month -->1 900 ₽/мес</p>
+            <p class="profession-card__total">или от <!-- DATA: profession.min_price -->42 000 ₽</p>
+            <a href="/professions/marketolog/" class="btn btn--outline btn--block profession-card__btn">Смотреть курсы</a>
+          </div>
         </article>
 
         <article class="profession-card">
-          <a href="/professions/analitik-dannyh/" class="profession-card__link">
-            <div class="profession-card__icon placeholder">Иконка</div>
+          <img src="img/prof-analyst.jpg" alt="" class="profession-card__img" width="640" height="360" loading="lazy">
+          <div class="profession-card__body">
             <h3 class="profession-card__name"><!-- DATA: profession.name -->Аналитик данных</h3>
-            <p class="profession-card__count"><!-- DATA: profession.courses_count -->97 курсов</p>
-            <p class="profession-card__price">от <!-- DATA: profession.min_price -->3 400 ₽</p>
-          </a>
+            <p class="profession-card__count"><!-- DATA: profession.courses_count -->97 курсов · 3 школы</p>
+            <p class="profession-card__price">от <!-- DATA: profession.min_price_month -->3 400 ₽/мес</p>
+            <p class="profession-card__total">или от <!-- DATA: profession.min_price -->81 000 ₽</p>
+            <a href="/professions/analitik-dannyh/" class="btn btn--outline btn--block profession-card__btn">Смотреть курсы</a>
+          </div>
         </article>
 
         <article class="profession-card">
-          <a href="/professions/menedzher-proektov/" class="profession-card__link">
-            <div class="profession-card__icon placeholder">Иконка</div>
+          <img src="img/prof-pm.jpg" alt="" class="profession-card__img" width="640" height="360" loading="lazy">
+          <div class="profession-card__body">
             <h3 class="profession-card__name"><!-- DATA: profession.name -->Менеджер проектов</h3>
-            <p class="profession-card__count"><!-- DATA: profession.courses_count -->74 курса</p>
-            <p class="profession-card__price">от <!-- DATA: profession.min_price -->2 700 ₽</p>
-          </a>
+            <p class="profession-card__count"><!-- DATA: profession.courses_count -->74 курса · 2 школы</p>
+            <p class="profession-card__price">от <!-- DATA: profession.min_price_month -->2 700 ₽/мес</p>
+            <p class="profession-card__total">или от <!-- DATA: profession.min_price -->58 000 ₽</p>
+            <a href="/professions/menedzher-proektov/" class="btn btn--outline btn--block profession-card__btn">Смотреть курсы</a>
+          </div>
         </article>
 
         <article class="profession-card">
-          <a href="/professions/testirovshchik/" class="profession-card__link">
-            <div class="profession-card__icon placeholder">Иконка</div>
+          <img src="img/prof-qa.jpg" alt="" class="profession-card__img" width="640" height="360" loading="lazy">
+          <div class="profession-card__body">
             <h3 class="profession-card__name"><!-- DATA: profession.name -->Тестировщик</h3>
-            <p class="profession-card__count"><!-- DATA: profession.courses_count -->58 курсов</p>
-            <p class="profession-card__price">от <!-- DATA: profession.min_price -->2 200 ₽</p>
-          </a>
+            <p class="profession-card__count"><!-- DATA: profession.courses_count -->58 курсов · 3 школы</p>
+            <p class="profession-card__price">от <!-- DATA: profession.min_price_month -->2 200 ₽/мес</p>
+            <p class="profession-card__total">или от <!-- DATA: profession.min_price -->47 000 ₽</p>
+            <a href="/professions/testirovshchik/" class="btn btn--outline btn--block profession-card__btn">Смотреть курсы</a>
+          </div>
         </article>
         <!-- /DATA: конец цикла по профессиям -->
       </div>
@@ -134,7 +201,7 @@
       <p class="section__more"><a href="/professions/" class="link-arrow">Все профессии →</a></p>
     </section>
 
-    <!-- ============ 5. РЕКЛАМНЫЙ СЛОТ 2 — адаптивный ============ -->
+    <!-- ============ РЕКЛАМНЫЙ СЛОТ 2 — адаптивный ============ -->
     <div class="ad-wrap ad-wrap--inline">
       <aside class="ad-slot ad-slot--inline" aria-label="Реклама">
         <span class="ad-label">Реклама</span>
@@ -144,25 +211,141 @@
       <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
     </div>
 
-    <!-- ============ 6. КАК ЭТО РАБОТАЕТ ============ -->
-    <section class="section" id="how">
+    <!-- ============ ПОПУЛЯРНЫЕ КУРСЫ ============ -->
+    <section class="section" id="courses">
+      <h2 class="section__title">Популярные курсы</h2>
+
+      <div class="grid course-grid">
+        <!-- DATA: цикл по курсам, 6-12 штук. Блок-образец: article.course-card -->
+        <article class="course-card">
+          <img src="img/prof-dev.jpg" alt="" class="course-card__img" width="640" height="360" loading="lazy"><!-- DATA: course.image -->
+          <div class="course-card__body">
+            <div class="course-card__school">
+              <img src="img/school-1.jpg" alt="" class="course-card__logo" width="24" height="24"><!-- DATA: course.school.logo -->
+              <span><!-- DATA: course.school.name -->Школа 1</span>
+            </div>
+            <p class="course-card__rating"><span class="course-card__stars"><!-- DATA: course.rating -->4.81</span> <span class="course-card__reviews"><!-- DATA: course.reviews_count -->640 отзывов</span></p>
+            <h3 class="course-card__title"><!-- DATA: course.name -->Специалист по информационной безопасности</h3>
+            <p class="course-card__meta"><!-- DATA: course.duration -->12 мес · <!-- DATA: course.format -->с наставником</p>
+            <div class="course-card__prices">
+              <p class="course-card__month"><!-- DATA: course.price_month -->4 181 ₽/мес <s><!-- DATA: course.old_price_month -->6 972 ₽/мес</s></p>
+              <p class="course-card__total"><!-- DATA: course.price -->128 000 ₽ <s><!-- DATA: course.old_price -->251 000 ₽</s></p>
+            </div>
+            <a href="/courses/infobez-school-1/" class="btn btn--outline btn--block">Смотреть курс</a><!-- DATA: course.url -->
+          </div>
+        </article>
+
+        <article class="course-card">
+          <img src="img/prof-dev.jpg" alt="" class="course-card__img" width="640" height="360" loading="lazy">
+          <div class="course-card__body">
+            <div class="course-card__school">
+              <img src="img/school-2.jpg" alt="" class="course-card__logo" width="24" height="24">
+              <span><!-- DATA: course.school.name -->Школа 2</span>
+            </div>
+            <p class="course-card__rating"><span class="course-card__stars">4.80</span> <span class="course-card__reviews">213 отзывов</span></p>
+            <h3 class="course-card__title"><!-- DATA: course.name -->Java-разработчик с нуля</h3>
+            <p class="course-card__meta">10 мес · с наставником</p>
+            <div class="course-card__prices">
+              <p class="course-card__month">5 773 ₽/мес <s>7 933 ₽/мес</s></p>
+              <p class="course-card__total">101 150 ₽ <s>139 000 ₽</s></p>
+            </div>
+            <a href="/courses/java-school-2/" class="btn btn--outline btn--block">Смотреть курс</a>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <img src="img/prof-qa.jpg" alt="" class="course-card__img" width="640" height="360" loading="lazy">
+          <div class="course-card__body">
+            <div class="course-card__school">
+              <img src="img/school-3.jpg" alt="" class="course-card__logo" width="24" height="24">
+              <span><!-- DATA: course.school.name -->Школа 3</span>
+            </div>
+            <p class="course-card__rating"><span class="course-card__stars">4.65</span> <span class="course-card__reviews">800 отзывов</span></p>
+            <h3 class="course-card__title"><!-- DATA: course.name -->QA-инженер: первый уровень бесплатно</h3>
+            <p class="course-card__meta">8 мес · записи + ревью</p>
+            <div class="course-card__prices">
+              <p class="course-card__month course-card__month--none">Рассрочки нет</p>
+              <p class="course-card__total">159 500 ₽</p>
+            </div>
+            <a href="/courses/qa-school-3/" class="btn btn--outline btn--block">Смотреть курс</a>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <img src="img/prof-design.jpg" alt="" class="course-card__img" width="640" height="360" loading="lazy">
+          <div class="course-card__body">
+            <div class="course-card__school">
+              <img src="img/school-1.jpg" alt="" class="course-card__logo" width="24" height="24">
+              <span><!-- DATA: course.school.name -->Школа 1</span>
+            </div>
+            <p class="course-card__rating"><span class="course-card__stars">4.74</span> <span class="course-card__reviews">412 отзывов</span></p>
+            <h3 class="course-card__title"><!-- DATA: course.name -->UX/UI-дизайнер с нуля до портфолио</h3>
+            <p class="course-card__meta">9 мес · с наставником</p>
+            <div class="course-card__prices">
+              <p class="course-card__month">3 950 ₽/мес <s>5 640 ₽/мес</s></p>
+              <p class="course-card__total">94 800 ₽ <s>135 400 ₽</s></p>
+            </div>
+            <a href="/courses/uxui-school-1/" class="btn btn--outline btn--block">Смотреть курс</a>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <img src="img/prof-analyst.jpg" alt="" class="course-card__img" width="640" height="360" loading="lazy">
+          <div class="course-card__body">
+            <div class="course-card__school">
+              <img src="img/school-2.jpg" alt="" class="course-card__logo" width="24" height="24">
+              <span><!-- DATA: course.school.name -->Школа 2</span>
+            </div>
+            <p class="course-card__rating"><span class="course-card__stars">4.70</span> <span class="course-card__reviews">298 отзывов</span></p>
+            <h3 class="course-card__title"><!-- DATA: course.name -->Аналитик данных: SQL, Python, BI</h3>
+            <p class="course-card__meta">7 мес · вебинары</p>
+            <div class="course-card__prices">
+              <p class="course-card__month">4 420 ₽/мес <s>6 300 ₽/мес</s></p>
+              <p class="course-card__total">106 000 ₽ <s>151 200 ₽</s></p>
+            </div>
+            <a href="/courses/analytics-school-2/" class="btn btn--outline btn--block">Смотреть курс</a>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <img src="img/prof-marketing.jpg" alt="" class="course-card__img" width="640" height="360" loading="lazy">
+          <div class="course-card__body">
+            <div class="course-card__school">
+              <img src="img/school-3.jpg" alt="" class="course-card__logo" width="24" height="24">
+              <span><!-- DATA: course.school.name -->Школа 3</span>
+            </div>
+            <p class="course-card__rating"><span class="course-card__stars">4.58</span> <span class="course-card__reviews">187 отзывов</span></p>
+            <h3 class="course-card__title"><!-- DATA: course.name -->Интернет-маркетолог</h3>
+            <p class="course-card__meta">6 мес · записи + практика</p>
+            <div class="course-card__prices">
+              <p class="course-card__month">2 990 ₽/мес <s>4 270 ₽/мес</s></p>
+              <p class="course-card__total">53 800 ₽ <s>76 900 ₽</s></p>
+            </div>
+            <a href="/courses/marketing-school-3/" class="btn btn--outline btn--block">Смотреть курс</a>
+          </div>
+        </article>
+        <!-- /DATA: конец цикла по курсам -->
+      </div>
+
+      <p class="section__more"><a href="/courses/" class="link-arrow">Все курсы →</a></p>
+    </section>
+
+    <!-- ============ КАК ЭТО РАБОТАЕТ ============ -->
+    <section class="section section--light" id="how">
       <h2 class="section__title">Как выбрать курс</h2>
 
       <ol class="steps">
         <li class="step">
-          <div class="step__icon placeholder">Иконка</div>
           <span class="step__num">1</span>
           <h3 class="step__title">Выберите профессию</h3>
           <p class="step__text">Откройте направление, которое вам интересно, и посмотрите все курсы по нему в одном списке.</p>
         </li>
         <li class="step">
-          <div class="step__icon placeholder">Иконка</div>
           <span class="step__num">2</span>
           <h3 class="step__title">Сравните курсы и цены</h3>
           <p class="step__text">Программы, длительность и стоимость разных школ стоят рядом — видно, за что вы платите.</p>
         </li>
         <li class="step">
-          <div class="step__icon placeholder">Иконка</div>
           <span class="step__num">3</span>
           <h3 class="step__title">Перейдите на сайт школы</h3>
           <p class="step__text">Когда выбор сделан, переходите на страницу курса и оформляете обучение напрямую у школы.</p>
@@ -170,7 +353,7 @@
       </ol>
     </section>
 
-    <!-- ============ 7. РЕКЛАМНЫЙ СЛОТ 3 — нативный ============ -->
+    <!-- ============ РЕКЛАМНЫЙ СЛОТ 3 — нативный ============ -->
     <div class="ad-wrap ad-wrap--native">
       <aside class="ad-slot ad-slot--native" aria-label="Реклама">
         <span class="ad-label">Реклама</span>
@@ -187,67 +370,47 @@
       <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
     </div>
 
-    <!-- ============ 8. ШКОЛЫ В КАТАЛОГЕ ============ -->
-    <section class="section section--light" id="schools">
+    <!-- ============ ШКОЛЫ В КАТАЛОГЕ ============ -->
+    <section class="section" id="schools">
       <h2 class="section__title">Школы в каталоге</h2>
 
       <div class="grid school-grid">
-        <!-- DATA: цикл по школам, любое количество — 3, 10, 25. Блок-образец: article.school-card -->
+        <!-- DATA: цикл по школам, любое количество. Блок-образец: article.school-card -->
         <article class="school-card">
-          <a href="/schools/school-1/" class="school-card__link"><!-- DATA: school.url -->
-            <div class="school-card__logo placeholder">Логотип школы</div><!-- DATA: school.logo -->
+          <img src="img/school-1.jpg" alt="" class="school-card__logo" width="64" height="64"><!-- DATA: school.logo -->
+          <div class="school-card__body">
             <h3 class="school-card__name"><!-- DATA: school.name -->Школа 1</h3>
-            <p class="school-card__count"><!-- DATA: school.courses_count -->86 курсов</p>
-          </a>
+            <p class="school-card__rating"><!-- DATA: school.rating -->4.78 · <!-- DATA: school.reviews_count -->2 140 отзывов</p>
+            <p class="school-card__count"><!-- DATA: school.courses_count -->86 курсов · от <!-- DATA: school.min_price -->1 900 ₽/мес</p>
+          </div>
+          <a href="/schools/school-1/" class="btn btn--outline school-card__btn">Курсы школы</a><!-- DATA: school.url -->
         </article>
 
         <article class="school-card">
-          <a href="/schools/school-2/" class="school-card__link">
-            <div class="school-card__logo placeholder">Логотип школы</div>
+          <img src="img/school-2.jpg" alt="" class="school-card__logo" width="64" height="64">
+          <div class="school-card__body">
             <h3 class="school-card__name"><!-- DATA: school.name -->Школа 2</h3>
-            <p class="school-card__count"><!-- DATA: school.courses_count -->64 курса</p>
-          </a>
+            <p class="school-card__rating">4.72 · 1 380 отзывов</p>
+            <p class="school-card__count">64 курса · от 2 400 ₽/мес</p>
+          </div>
+          <a href="/schools/school-2/" class="btn btn--outline school-card__btn">Курсы школы</a>
         </article>
 
         <article class="school-card">
-          <a href="/schools/school-3/" class="school-card__link">
-            <div class="school-card__logo placeholder">Логотип школы</div>
+          <img src="img/school-3.jpg" alt="" class="school-card__logo" width="64" height="64">
+          <div class="school-card__body">
             <h3 class="school-card__name"><!-- DATA: school.name -->Школа 3</h3>
-            <p class="school-card__count"><!-- DATA: school.courses_count -->51 курс</p>
-          </a>
-        </article>
-
-        <article class="school-card">
-          <a href="/schools/school-4/" class="school-card__link">
-            <div class="school-card__logo placeholder">Логотип школы</div>
-            <h3 class="school-card__name"><!-- DATA: school.name -->Школа 4</h3>
-            <p class="school-card__count"><!-- DATA: school.courses_count -->42 курса</p>
-          </a>
-        </article>
-
-        <article class="school-card">
-          <a href="/schools/school-5/" class="school-card__link">
-            <div class="school-card__logo placeholder">Логотип школы</div>
-            <h3 class="school-card__name"><!-- DATA: school.name -->Школа 5</h3>
-            <p class="school-card__count"><!-- DATA: school.courses_count -->37 курсов</p>
-          </a>
-        </article>
-
-        <article class="school-card">
-          <a href="/schools/school-6/" class="school-card__link">
-            <div class="school-card__logo placeholder">Логотип школы</div>
-            <h3 class="school-card__name"><!-- DATA: school.name -->Школа 6</h3>
-            <p class="school-card__count"><!-- DATA: school.courses_count -->29 курсов</p>
-          </a>
+            <p class="school-card__rating">4.65 · 960 отзывов</p>
+            <p class="school-card__count">51 курс · от 2 100 ₽/мес</p>
+          </div>
+          <a href="/schools/school-3/" class="btn btn--outline school-card__btn">Курсы школы</a>
         </article>
         <!-- /DATA: конец цикла по школам -->
       </div>
-
-      <p class="section__more"><a href="/schools/" class="link-arrow">Все школы →</a></p>
     </section>
 
-    <!-- ============ 9. КАК МЫ СРАВНИВАЕМ ============ -->
-    <section class="section" id="trust">
+    <!-- ============ КАК МЫ СРАВНИВАЕМ ============ -->
+    <section class="section section--light" id="trust">
       <h2 class="section__title">Как мы сравниваем</h2>
 
       <ul class="grid trust-grid">
@@ -270,7 +433,54 @@
       </ul>
     </section>
 
-    <!-- ============ 10. SEO-ТЕКСТ ============ -->
+    <!-- ============ БЛОГ ============ -->
+    <section class="section" id="blog">
+      <h2 class="section__title">Блог</h2>
+
+      <div class="grid blog-grid">
+        <!-- DATA: цикл по статьям, 3-6 последних. Блок-образец: article.post-card -->
+        <article class="post-card">
+          <a href="/blog/kak-sravnivat-ceny-kursov/" class="post-card__link"><!-- DATA: post.url -->
+            <img src="img/blog-1.jpg" alt="" class="post-card__img" width="640" height="360" loading="lazy"><!-- DATA: post.image -->
+            <div class="post-card__body">
+              <p class="post-card__meta"><span class="post-card__tag"><!-- DATA: post.category -->Выбор курса</span> <time datetime="2025-10-02"><!-- DATA: post.date -->2 октября 2025</time></p>
+              <h3 class="post-card__title"><!-- DATA: post.title -->Как сравнивать цены онлайн-курсов и не переплатить</h3>
+              <p class="post-card__excerpt"><!-- DATA: post.excerpt -->Считаем цену месяца обучения, смотрим на часы практики и разбираемся, что на самом деле входит в стоимость.</p>
+              <span class="post-card__more">Читать →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="post-card">
+          <a href="/blog/smena-professii-posle-30/" class="post-card__link">
+            <img src="img/blog-2.jpg" alt="" class="post-card__img" width="640" height="360" loading="lazy">
+            <div class="post-card__body">
+              <p class="post-card__meta"><span class="post-card__tag">Карьера</span> <time datetime="2025-09-24">24 сентября 2025</time></p>
+              <h3 class="post-card__title">Смена профессии после 30: с чего начать и сколько это займёт</h3>
+              <p class="post-card__excerpt">Реалистичные сроки, первые шаги и как проверить направление до оплаты длинной программы.</p>
+              <span class="post-card__more">Читать →</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="post-card">
+          <a href="/blog/uchitsya-i-rabotat/" class="post-card__link">
+            <img src="img/blog-3.jpg" alt="" class="post-card__img" width="640" height="360" loading="lazy">
+            <div class="post-card__body">
+              <p class="post-card__meta"><span class="post-card__tag">Обучение</span> <time datetime="2025-09-15">15 сентября 2025</time></p>
+              <h3 class="post-card__title">Как учиться онлайн и не бросить на втором месяце</h3>
+              <p class="post-card__excerpt">Сколько часов в неделю закладывать, как выбрать формат под свой график и что делать, если отстали.</p>
+              <span class="post-card__more">Читать →</span>
+            </div>
+          </a>
+        </article>
+        <!-- /DATA: конец цикла по статьям -->
+      </div>
+
+      <p class="section__more"><a href="/blog/" class="link-arrow">Все статьи →</a></p>
+    </section>
+
+    <!-- ============ SEO-ТЕКСТ ============ -->
     <section class="section section--light" id="about-text">
       <h2 class="section__title">Онлайн-образование: как не переплатить</h2>
       <div class="prose">
@@ -282,7 +492,7 @@
       </div>
     </section>
 
-    <!-- ============ 11. FAQ (schema.org FAQPage) ============ -->
+    <!-- ============ FAQ (schema.org FAQPage) ============ -->
     <section class="section" id="faq" itemscope itemtype="https://schema.org/FAQPage">
       <h2 class="section__title">Частые вопросы</h2>
 
@@ -348,7 +558,7 @@
 
   </main>
 
-  <!-- ============ 12. РЕКЛАМНЫЙ СЛОТ 4 — перед подвалом ============ -->
+  <!-- ============ РЕКЛАМНЫЙ СЛОТ 4 — перед подвалом ============ -->
   <div class="ad-wrap ad-wrap--bottom">
     <aside class="ad-slot ad-slot--bottom" aria-label="Реклама">
       <span class="ad-label">Реклама</span>
@@ -358,11 +568,14 @@
     <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
   </div>
 
-  <!-- ============ 13. ПОДВАЛ ============ -->
+  <!-- ============ ПОДВАЛ ============ -->
   <footer class="site-footer">
     <div class="site-footer__top">
       <div class="site-footer__brand">
-        <a href="/" class="logo logo--light">edukursy<span>.ru</span></a>
+        <a href="/" class="logo logo--light">
+          <img src="img/logo.jpg" alt="" class="logo__img" width="36" height="36">
+          <span class="logo__text">edukursy<span>.ru</span></span>
+        </a>
         <p>Сравнение онлайн-курсов ведущих школ: программы, цены и длительность в одном месте.</p>
       </div>
 
@@ -386,6 +599,7 @@
         <h2 class="site-footer__heading">Каталог</h2>
         <ul>
           <li><a href="/professions/">Профессии</a></li>
+          <li><a href="/courses/">Курсы</a></li>
           <li><a href="/schools/">Школы</a></li>
           <li><a href="/compare/">Сравнения</a></li>
           <li><a href="/blog/">Блог</a></li>

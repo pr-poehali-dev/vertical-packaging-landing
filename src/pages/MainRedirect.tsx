@@ -1,9 +1,13 @@
 import { useEffect } from "react";
 
-const MainRedirect = () => {
+interface MainRedirectProps {
+  to?: string;
+}
+
+const MainRedirect = ({ to = "/main/index.html" }: MainRedirectProps) => {
   useEffect(() => {
-    window.location.replace("/main/index.html");
-  }, []);
+    window.location.replace(to + window.location.search);
+  }, [to]);
 
   return null;
 };

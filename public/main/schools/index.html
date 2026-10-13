@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Онлайн-школы: каталог, рейтинг, курсы и цены — edukursy.ru</title>
+  <meta name="description" content="Каталог онлайн-школ: рейтинг по отзывам, число курсов, цены и форматы обучения. Сравните школы в одном месте.">
+  <link rel="canonical" href="https://edukursy.ru/schools/">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- ============ ШАПКА (общая с главной) ============ -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="/" class="logo">
+        <img src="../img/logo.png" alt="" class="logo__img" width="48" height="40">
+        <span class="logo__text">edukursy<span>.ru</span></span>
+      </a>
+
+      <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Основное меню">
+        <ul>
+          <li><a href="/professions/">Профессии</a></li>
+          <li><a href="/courses/">Курсы</a></li>
+          <li><a href="/schools/" aria-current="page">Школы</a></li>
+          <li><a href="/compare/">Сравнения</a></li>
+          <li><a href="/blog/">Блог</a></li>
+          <li><a href="/about/">О проекте</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ ХЛЕБНЫЕ КРОШКИ + ЗАГОЛОВОК ============ -->
+    <section class="page-head">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="/" itemprop="item"><span itemprop="name">Главная</span></a>
+            <meta itemprop="position" content="1">
+          </li>
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span itemprop="name" aria-current="page">Школы</span>
+            <meta itemprop="position" content="2">
+          </li>
+        </ol>
+      </nav>
+
+      <h1 class="page-head__title">Онлайн-школы: каталог и сравнение</h1>
+      <p class="page-head__subtitle"><span class="results-count"><!-- DATA: total_count -->3 школы</span> · <!-- DATA: courses_total -->993 курса в каталоге</p>
+    </section>
+
+    <!-- ============ ДВУХКОЛОНОЧНАЯ ОБЛАСТЬ ============ -->
+    <div class="catalog catalog--narrow">
+
+      <!-- ===== САЙДБАР: короткий ===== -->
+      <aside class="catalog-sidebar" id="filters" aria-label="Фильтры">
+        <div class="filters-head">
+          <p class="filters-head__title">Фильтры</p>
+          <a href="#" class="filters-close" aria-label="Закрыть фильтры">×</a>
+        </div>
+
+        <form class="filters" id="filters-form" method="get" action="/schools/">
+          <div class="filter-group filter-group--static">
+            <label for="school-q" class="filter-group__title">Поиск по названию</label>
+            <div class="filter-group__body">
+              <input type="search" id="school-q" name="q" class="filter-input" placeholder="Название школы" value=""><!-- DATA: request.GET.q -->
+            </div>
+          </div>
+
+          <details class="filter-group" open>
+            <summary class="filter-group__title">Направление</summary>
+            <div class="filter-group__body">
+              <!-- DATA: цикл по направлениям, счётчик = число школ -->
+              <label class="opt"><input type="checkbox" name="area" value="it"><span class="opt__text">IT</span> <span class="opt__count">3</span></label>
+              <label class="opt"><input type="checkbox" name="area" value="design"><span class="opt__text">Дизайн</span> <span class="opt__count">2</span></label>
+              <label class="opt"><input type="checkbox" name="area" value="marketing"><span class="opt__text">Маркетинг</span> <span class="opt__count">1</span></label>
+              <label class="opt"><input type="checkbox" name="area" value="management"><span class="opt__text">Менеджмент</span> <span class="opt__count">1</span></label>
+            </div>
+          </details>
+
+          <details class="filter-group" open>
+            <summary class="filter-group__title">Рейтинг</summary>
+            <div class="filter-group__body">
+              <label class="opt"><input type="radio" name="rating_min" value="" checked><span class="opt__text">Любой</span></label>
+              <label class="opt"><input type="radio" name="rating_min" value="4.5"><span class="opt__text">4.5 и выше</span></label>
+              <label class="opt"><input type="radio" name="rating_min" value="4.7"><span class="opt__text">4.7 и выше</span></label>
+            </div>
+          </details>
+
+          <div class="filter-group filter-group--static">
+            <label class="opt"><input type="checkbox" name="installment" value="1"><span class="opt__text">Есть рассрочка</span></label>
+            <label class="opt"><input type="checkbox" name="license" value="1"><span class="opt__text">Есть образовательная лицензия</span></label>
+          </div>
+
+          <div class="filters-actions">
+            <button type="submit" class="btn btn--primary btn--block">Показать</button>
+            <a href="/schools/" class="filters-reset">Сбросить всё</a>
+          </div>
+        </form>
+
+        <!-- ===== РЕКЛАМНЫЙ БЛОК 2 — сайдбар (на мобильном скрыт) ===== -->
+        <div class="ad-wrap ad-wrap--sidebar">
+          <aside class="ad-slot ad-slot--sidebar" aria-label="Реклама">
+            <span class="ad-label">Реклама</span>
+            <!-- AD SLOT: 2, 300×250 -->
+            <div class="ad-placeholder">Рекламный блок 300×250</div>
+          </aside>
+          <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
+        </div>
+      </aside>
+
+      <!-- ===== СЕТКА ШКОЛ ===== -->
+      <section class="catalog-main" aria-label="Список школ">
+
+        <div class="toolbar">
+          <p class="toolbar__count">Найдено <span class="results-count"><!-- DATA: results_count -->3 школы</span></p>
+          <a href="#filters" class="btn btn--outline filters-open">Фильтры <span class="filters-open__badge"><!-- DATA: active_filters_count -->0</span></a>
+          <div class="sort">
+            <label for="sort" class="sort__label">Сортировка</label>
+            <select id="sort" name="sort" form="filters-form" class="sort__select">
+              <option value="rating" selected>По рейтингу</option>
+              <option value="courses">По числу курсов</option>
+              <option value="price_asc">Сначала дешёвые</option>
+              <option value="name">По алфавиту</option>
+            </select>
+            <noscript><button type="submit" form="filters-form" class="btn btn--outline sort__apply">ОК</button></noscript>
+          </div>
+        </div>
+
+        <div class="catalog-grid catalog-grid--wide">
+          <!-- DATA: цикл по школам, любое количество. Блок-образец: article.school-tile -->
+          <article class="school-tile">
+            <a href="/schools/school-1/" class="school-tile__link"><!-- DATA: school.url -->
+              <div class="school-tile__top">
+                <img src="../img/school-1.jpg" alt="" class="school-tile__logo" width="64" height="64"><!-- DATA: school.logo; если логотипа нет — div.school-tile__logo.card-thumb--empty.card-thumb--tone-N с первой буквой -->
+                <div>
+                  <h2 class="school-tile__name"><!-- DATA: school.name -->Школа 1</h2>
+                  <p class="school-tile__rating"><span class="school-tile__stars"><!-- DATA: school.rating -->4.78</span> · <!-- DATA: school.reviews_count -->2 140 отзывов</p>
+                </div>
+              </div>
+              <p class="school-tile__areas"><!-- DATA: school.areas -->Программирование, дизайн, аналитика</p>
+              <dl class="prof-tile__facts">
+                <div><dt>Курсов</dt><dd><!-- DATA: school.courses_count -->412</dd></div>
+                <div><dt>Цена</dt><dd>от <!-- DATA: school.min_price -->2 900 ₽</dd></div>
+                <div><dt>Формат</dt><dd><!-- DATA: school.formats -->Вебинары, наставник</dd></div>
+                <div><dt>На рынке</dt><dd>с <!-- DATA: school.founded -->2015 года</dd></div>
+              </dl>
+              <span class="prof-tile__more">Курсы и отзывы →</span>
+            </a>
+          </article>
+          <article class="school-tile">
+            <a href="/schools/school-2/" class="school-tile__link">
+              <div class="school-tile__top">
+                <img src="../img/school-2.jpg" alt="" class="school-tile__logo" width="64" height="64">
+                <div>
+                  <h2 class="school-tile__name">Школа 2</h2>
+                  <p class="school-tile__rating"><span class="school-tile__stars">4.72</span> · 1 380 отзывов</p>
+                </div>
+              </div>
+              <p class="school-tile__areas">Программирование, тестирование, менеджмент</p>
+              <dl class="prof-tile__facts">
+                <div><dt>Курсов</dt><dd>338</dd></div>
+                <div><dt>Цена</dt><dd>от 3 500 ₽</dd></div>
+                <div><dt>Формат</dt><dd>Записи, ревью кода</dd></div>
+                <div><dt>На рынке</dt><dd>с 2017 года</dd></div>
+              </dl>
+              <span class="prof-tile__more">Курсы и отзывы →</span>
+            </a>
+          </article>
+          <article class="school-tile">
+            <a href="/schools/school-3/" class="school-tile__link">
+              <div class="school-tile__top">
+                <img src="../img/school-3.jpg" alt="" class="school-tile__logo" width="64" height="64">
+                <div>
+                  <h2 class="school-tile__name">Школа 3</h2>
+                  <p class="school-tile__rating"><span class="school-tile__stars">4.65</span> · 960 отзывов</p>
+                </div>
+              </div>
+              <p class="school-tile__areas">Маркетинг, дизайн, программирование</p>
+              <dl class="prof-tile__facts">
+                <div><dt>Курсов</dt><dd>243</dd></div>
+                <div><dt>Цена</dt><dd>от 2 100 ₽</dd></div>
+                <div><dt>Формат</dt><dd>Записи + практика</dd></div>
+                <div><dt>На рынке</dt><dd>с 2019 года</dd></div>
+              </dl>
+              <span class="prof-tile__more">Курсы и отзывы →</span>
+            </a>
+          </article>
+          <!-- /DATA: конец цикла по школам -->
+
+          <!-- ===== РЕКЛАМНЫЙ БЛОК 1 — нативный, одна ячейка сетки ===== -->
+          <div class="ad-wrap ad-wrap--card">
+            <aside class="ad-slot ad-slot--card" aria-label="Реклама">
+              <span class="ad-label">Реклама</span>
+              <!-- AD SLOT: 1, нативная карточка, одна ячейка сетки. Ссылки с rel="sponsored noopener" -->
+              <div class="card-thumb card-thumb--ad">Изображение рекламодателя</div>
+              <div class="catalog-card__body">
+                <p class="catalog-card__title">Нативная реклама</p>
+                <p class="catalog-card__school">Короткое описание партнёрского материала</p>
+                <p class="ad-card__advertiser">Рекламодатель: <!-- AD: advertiser.name -->название, ИНН</p>
+              </div>
+            </aside>
+            <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
+          </div>
+        </div>
+        <!-- Пагинация: добавить nav.pagination как в /courses/, когда школ станет больше 24 -->
+      </section>
+    </div>
+
+    <!-- ============ ПЕРЕЛИНКОВКА: колонки ссылок ============ -->
+    <section class="link-columns" aria-label="Подборки школ и курсов">
+      <!-- DATA: 4 колонки, в каждой до 8 ссылок + «Все» -->
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Школы в каталоге</h2>
+        <ul class="link-columns__list">
+          <li><a href="/schools/school-1/">Школа 1</a></li>
+          <li><a href="/schools/school-2/">Школа 2</a></li>
+          <li><a href="/schools/school-3/">Школа 3</a></li>
+        </ul>
+      </div>
+
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Школы по направлениям</h2>
+        <ul class="link-columns__list">
+          <li><a href="/schools/?area=it">Школы программирования</a></li>
+          <li><a href="/schools/?area=design">Школы дизайна</a></li>
+          <li><a href="/schools/?area=marketing">Школы маркетинга</a></li>
+          <li><a href="/schools/?area=management">Школы менеджмента</a></li>
+          <li><a href="/schools/?license=1">Школы с лицензией</a></li>
+          <li><a href="/schools/?installment=1">Школы с рассрочкой</a></li>
+        </ul>
+        <a href="/schools/" class="link-columns__all">Все</a>
+      </div>
+
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Профессии</h2>
+        <ul class="link-columns__list">
+          <li><a href="/professions/programmist/">Программист</a></li>
+          <li><a href="/professions/dizajner/">Дизайнер</a></li>
+          <li><a href="/professions/marketolog/">Маркетолог</a></li>
+          <li><a href="/professions/analitik-dannyh/">Аналитик данных</a></li>
+          <li><a href="/professions/menedzher-proektov/">Менеджер проектов</a></li>
+          <li><a href="/professions/testirovshchik/">Тестировщик</a></li>
+        </ul>
+        <a href="/professions/" class="link-columns__all">Все</a>
+      </div>
+
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Курсы</h2>
+        <ul class="link-columns__list">
+          <li><a href="/courses/?sort=popular">Популярные курсы</a></li>
+          <li><a href="/courses/?kind=profession">Программы «Профессия»</a></li>
+          <li><a href="/courses/?duration=0-3">Короткие курсы до 3 месяцев</a></li>
+          <li><a href="/courses/?price_max=50000">Курсы до 50 000 ₽</a></li>
+        </ul>
+        <a href="/courses/" class="link-columns__all">Все</a>
+      </div>
+    </section>
+
+    <!-- ============ SEO-ТЕКСТ ============ -->
+    <section class="section section--light">
+      <h2 class="section__title">Как выбрать онлайн-школу</h2>
+      <div class="prose prose--wide">
+        <p>Онлайн-школ стало так много, что выбор между ними не проще, чем выбор самого курса. На этой странице собраны ведущие онлайн-школы из нашего каталога: видно, сколько у каждой программ, по каким направлениям они учат, сколько стоит обучение и как школу оценивают студенты.</p>
+        <p>Начните с направления. Одни школы специализируются на программировании и аналитике, другие — на дизайне или маркетинге, третьи учат понемногу всему. Узкая специализация часто означает более глубокие программы и сильных наставников из профессии.</p>
+        <p>Рейтинг и число отзывов полезно смотреть вместе. Высокая оценка при десятке отзывов говорит меньше, чем чуть более низкая при тысяче. Читайте и положительные, и критические отзывы: из них видно, как школа работает с обратной связью и решает проблемы студентов.</p>
+        <p>Обратите внимание на формат. Записанные уроки дешевле, но требуют самодисциплины. Вебинары и личный наставник стоят дороже, зато помогают не бросить обучение. Проверьте, есть ли у школы образовательная лицензия: она нужна для выдачи удостоверения о повышении квалификации и для налогового вычета.</p>
+        <p>Наконец, сравните условия оплаты и возврата. Школы в каталоге предлагают разные варианты рассрочки и разные правила возврата денег за непройденную часть программы. Все подробности фиксируются в договоре — прочитайте его до оплаты.</p>
+      </div>
+    </section>
+
+    <!-- ============ FAQ (schema.org FAQPage) ============ -->
+    <section class="section faq-section" itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="section__title">Часто задаваемые вопросы</h2>
+      <div class="faq faq--wide">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q">
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-1" id="faq-q-1"><span class="faq-item__icon" aria-hidden="true">⭐</span><span itemprop="name">Как считается рейтинг школы?</span></button>
+          </h3>
+          <div class="faq-item__a" id="faq-a-1" role="region" aria-labelledby="faq-q-1" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>Рейтинг — средняя оценка по отзывам студентов. Рядом всегда указано число отзывов, чтобы было понятно, на скольких мнениях основана оценка. Место школы в каталоге купить нельзя.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q">
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-2" id="faq-q-2"><span class="faq-item__icon" aria-hidden="true">✍️</span><span itemprop="name">Зачем школе образовательная лицензия?</span></button>
+          </h3>
+          <div class="faq-item__a" id="faq-a-2" role="region" aria-labelledby="faq-q-2" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>С лицензией школа может выдавать документы установленного образца, например удостоверение о повышении квалификации. Также наличие лицензии позволяет оформить налоговый вычет за обучение.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q">
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-3" id="faq-q-3"><span class="faq-item__icon" aria-hidden="true">💳</span><span itemprop="name">Почему у одной школы цены выше, чем у другой?</span></button>
+          </h3>
+          <div class="faq-item__a" id="faq-a-3" role="region" aria-labelledby="faq-q-3" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>Цена зависит от длительности программы, объёма практики, наличия наставника и проверки домашних заданий. Сравнивайте не только итоговую сумму, но и то, что в неё входит.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q">
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-4" id="faq-q-4"><span class="faq-item__icon" aria-hidden="true">🏫</span><span itemprop="name">Почему в каталоге не все онлайн-школы?</span></button>
+          </h3>
+          <div class="faq-item__a" id="faq-a-4" role="region" aria-labelledby="faq-q-4" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>Мы добавляем школы постепенно и проверяем данные о курсах и ценах перед публикацией. Список школ регулярно пополняется.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ ПОДВАЛ (общий с главной) ============ -->
+  <footer class="site-footer">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <a href="/" class="logo logo--light">
+          <img src="../img/logo.png" alt="" class="logo__img" width="48" height="40">
+          <span class="logo__text">edukursy<span>.ru</span></span>
+        </a>
+        <p>Сравнение онлайн-курсов ведущих школ: программы, цены и длительность в одном месте.</p>
+      </div>
+
+      <nav class="site-footer__nav" aria-label="Информация">
+        <h2 class="site-footer__heading">Проект</h2>
+        <ul>
+          <li><a href="/about">О проекте</a></li>
+          <li><a href="/contacts">Контакты</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__nav" aria-label="Документы">
+        <h2 class="site-footer__heading">Документы</h2>
+        <ul>
+          <li><a href="/privacy">Политика конфиденциальности</a></li>
+          <li><a href="/terms">Пользовательское соглашение</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__nav" aria-label="Каталог">
+        <h2 class="site-footer__heading">Каталог</h2>
+        <ul>
+          <li><a href="/professions/">Профессии</a></li>
+          <li><a href="/courses/">Курсы</a></li>
+          <li><a href="/schools/">Школы</a></li>
+          <li><a href="/compare/">Сравнения</a></li>
+          <li><a href="/blog/">Блог</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <p class="site-footer__disclosure">Мы можем получать вознаграждение от школ за переходы по ссылкам. На цену для вас это не влияет.</p>
+    <p class="site-footer__copy">© <!-- DATA: current_year -->2025 edukursy.ru</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

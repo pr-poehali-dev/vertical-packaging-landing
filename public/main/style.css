@@ -1828,3 +1828,369 @@ a.pagination__link:hover {
 .faq--wide .faq-item__a p {
   max-width: 90ch;
 }
+
+/* ============================================================
+   ШКОЛЫ: /schools/ и /schools/<slug>/
+   ============================================================ */
+
+/* ===== Карточка школы в каталоге ===== */
+.school-tile {
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: 16px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.school-tile:hover {
+  border-color: var(--c-primary);
+  box-shadow: 0 8px 24px rgba(20, 40, 90, 0.08);
+}
+.school-tile__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px;
+  color: inherit;
+  text-decoration: none;
+}
+.school-tile__top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.school-tile__logo {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  object-fit: cover;
+}
+.school-tile__name {
+  font-size: 22px;
+  font-weight: 800;
+}
+.school-tile__rating {
+  margin-top: 2px;
+  font-size: 14px;
+  color: var(--c-muted);
+}
+.school-tile__stars,
+.school-hero__stars,
+.review__rating {
+  font-weight: 700;
+  color: var(--c-text);
+}
+.school-tile__stars::before,
+.school-hero__stars::before,
+.review__rating::before {
+  content: "★ ";
+  color: #f5a524;
+}
+.school-tile__areas {
+  margin-top: 14px;
+  font-size: 15px;
+  color: var(--c-muted);
+}
+
+/* ===== Шапка страницы школы ===== */
+.school-hero {
+  padding-bottom: 32px;
+}
+.school-hero__main {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px 20px;
+  align-items: start;
+  margin-top: 16px;
+}
+.school-hero__logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  object-fit: cover;
+  background: #fff;
+}
+.school-hero__title {
+  margin-top: 0;
+}
+.school-hero__rating {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 6px;
+  font-size: 16px;
+}
+.school-hero__reviews {
+  color: var(--c-muted);
+}
+.school-hero__desc {
+  margin-top: 12px;
+  max-width: 70ch;
+  color: var(--c-muted);
+  font-size: 17px;
+}
+.school-hero__cta {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.school-hero__cta .btn {
+  flex: 1 1 220px;
+}
+.school-hero__info {
+  display: contents;
+}
+.school-hero__title,
+.school-hero__rating {
+  grid-column: 2;
+}
+.school-hero__desc {
+  grid-column: 1 / -1;
+}
+.school-hero__logo {
+  grid-row: span 2;
+}
+.school-hero__cta .btn--outline {
+  padding: 16px 24px;
+}
+@media (min-width: 768px) {
+  .school-hero__logo {
+    width: 96px;
+    height: 96px;
+    border-radius: 22px;
+  }
+  .school-hero__info {
+    display: block;
+  }
+  .school-hero__logo {
+    grid-row: auto;
+  }
+  .school-hero__cta .btn {
+    flex: 0 1 auto;
+  }
+}
+@media (min-width: 1200px) {
+  .school-hero__main {
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+  }
+  .school-hero__cta {
+    grid-column: auto;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.school-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 24px 0 0;
+}
+.school-facts div {
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: 12px;
+}
+.school-facts dt {
+  font-size: 13px;
+  color: var(--c-muted);
+}
+.school-facts dd {
+  margin: 4px 0 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* ===== Вкладки-якоря ===== */
+.page-tabs {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--c-border);
+  overflow-x: auto;
+}
+.page-tabs ul {
+  display: flex;
+  gap: 4px;
+  padding: 0 var(--gutter);
+}
+.page-tabs a {
+  display: block;
+  padding: 14px 14px;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--c-muted);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+.page-tabs a:hover {
+  color: var(--c-primary);
+  border-bottom-color: var(--c-primary);
+}
+#school-courses,
+#school-about,
+#school-reviews,
+#school-faq {
+  scroll-margin-top: calc(var(--header-h) + 56px);
+}
+@media (min-width: 768px) {
+  .page-tabs + .catalog .catalog-sidebar {
+    top: calc(var(--header-h) + 64px);
+    max-height: calc(100vh - var(--header-h) - 80px);
+  }
+}
+
+/* ===== Карточка курса школы: доп. поля ===== */
+.catalog-card__kind {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--c-primary);
+}
+.catalog-card__month {
+  margin-top: auto;
+  padding-top: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.catalog-card__month--none {
+  color: var(--c-muted);
+  font-weight: 400;
+}
+.catalog-card__month + .catalog-card__price {
+  margin-top: 0;
+  padding-top: 2px;
+}
+.catalog-card__price s {
+  margin-left: 6px;
+  font-size: 15px;
+  font-weight: 400;
+  color: #9aa1ad;
+}
+
+/* ===== О школе ===== */
+.school-about {
+  display: grid;
+  gap: 32px;
+}
+.school-about .prose--wide {
+  column-count: 1;
+}
+.school-details {
+  margin: 0;
+  padding: 20px 24px;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: 16px;
+}
+.school-details div {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--c-border);
+}
+.school-details div:last-child {
+  border-bottom: 0;
+}
+.school-details dt {
+  font-size: 13px;
+  color: var(--c-muted);
+}
+.school-details dd {
+  margin: 2px 0 0;
+  font-weight: 600;
+}
+@media (min-width: 1200px) {
+  .school-about {
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: 56px;
+    align-items: start;
+  }
+}
+
+/* ===== Отзывы ===== */
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-bottom: 28px;
+}
+.section-head .section__title {
+  margin-bottom: 0;
+}
+.section-head__meta {
+  color: var(--c-muted);
+}
+.section-head__meta strong {
+  color: var(--c-text);
+}
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+.review {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 24px;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: 16px;
+}
+.review__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.review__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #e3ecff;
+  color: #3b5fc4;
+  font-weight: 800;
+  font-size: 18px;
+}
+.review__author {
+  font-weight: 700;
+}
+.review__course {
+  font-size: 14px;
+  color: var(--c-muted);
+}
+.review__rating {
+  margin-left: auto;
+  font-size: 16px;
+}
+.review__body {
+  margin: 16px 0 0;
+}
+.review__body div + div {
+  margin-top: 12px;
+}
+.review__body dt {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-accent);
+}
+.review__body div + div dt {
+  color: #c23d58;
+}
+.review__body dd {
+  margin: 4px 0 0;
+  font-size: 15px;
+}
+.review__date {
+  margin-top: auto;
+  padding-top: 14px;
+  font-size: 13px;
+  color: var(--c-muted);
+}

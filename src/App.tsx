@@ -21,6 +21,8 @@ const App = () => (
           <Route path="/main" element={<MainRedirect />} />
           <Route path="/main/courses" element={<MainRedirect to="/main/courses/index.html" />} />
           <Route path="/main/professions" element={<MainRedirect to="/main/professions/index.html" />} />
+          <Route path="/main/schools" element={<MainRedirect to="/main/schools/index.html" />} />
+          <Route path="/main/schools/school_name" element={<MainRedirect to="/main/schools/school_name/index.html" />} />
           <Route path="/courses" element={<MainRedirect to="/main/courses/index.html" />} />
           <Route path="/professions" element={<MainRedirect to="/main/professions/index.html" />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

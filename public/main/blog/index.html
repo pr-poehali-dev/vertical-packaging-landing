@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Блог об онлайн-обучении: выбор курса, карьера, деньги — edukursy.ru</title>
+  <meta name="description" content="Статьи о выборе онлайн-курсов, смене профессии, налоговом вычете и обучении параллельно с работой.">
+  <!-- DATA: canonical; для ?page=N — свой canonical с page -->
+  <link rel="canonical" href="https://edukursy.ru/blog/">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- ============ ШАПКА (общая с главной) ============ -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="/" class="logo">
+        <img src="../img/logo.png" alt="" class="logo__img" width="48" height="40">
+        <span class="logo__text">edukursy<span>.ru</span></span>
+      </a>
+
+      <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Основное меню">
+        <ul>
+          <li><a href="/professions/">Профессии</a></li>
+          <li><a href="/courses/">Курсы</a></li>
+          <li><a href="/schools/">Школы</a></li>
+          <li><a href="/compare/">Сравнения</a></li>
+          <li><a href="/blog/" aria-current="page">Блог</a></li>
+          <li><a href="/about/">О проекте</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ ЗАГОЛОВОК ============ -->
+    <section class="page-head">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Главная</span></a><meta itemprop="position" content="1"></li>
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name" aria-current="page">Блог</span><meta itemprop="position" content="2"></li>
+        </ol>
+      </nav>
+      <h1 class="page-head__title">Блог об онлайн-обучении</h1>
+      <p class="page-head__subtitle">Честно о выборе курсов, смене профессии и деньгах · <span class="results-count"><!-- DATA: posts_total -->48 статей</span></p>
+
+      <!-- Рубрики — обычные ссылки с параметром ?category=; текущая с aria-current -->
+      <nav class="blog-cats" aria-label="Рубрики блога">
+        <ul>
+          <!-- DATA: цикл по рубрикам, счётчик = число статей -->
+          <li><a href="/blog/" aria-current="page">Все <span>48</span></a></li>
+          <li><a href="/blog/?category=choice">Выбор курса <span>14</span></a></li>
+          <li><a href="/blog/?category=career">Карьера <span>12</span></a></li>
+          <li><a href="/blog/?category=study">Обучение <span>11</span></a></li>
+          <li><a href="/blog/?category=money">Деньги <span>8</span></a></li>
+          <li><a href="/blog/?category=professions">Профессии <span>3</span></a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <!-- ============ ГЛАВНАЯ СТАТЬЯ ============ -->
+    <section class="section blog-featured-wrap" aria-label="Главная статья">
+      <!-- DATA: post = последняя закреплённая статья (is_featured) -->
+      <article class="post-featured">
+        <a href="/blog/kak-sravnivat-ceny-kursov/" class="post-featured__link">
+          <img src="../img/blog-1-wide.jpg" alt="" class="post-featured__img" width="1360" height="768"><!-- DATA: post.cover -->
+          <div class="post-featured__body">
+            <p class="post-card__meta"><span class="post-card__tag"><!-- DATA: post.category.name -->Выбор курса</span> <time datetime="2025-10-02"><!-- DATA: post.published_at -->2 октября 2025</time> <span>· <!-- DATA: post.read_time -->9 мин</span></p>
+            <h2 class="post-featured__title"><!-- DATA: post.title -->Как сравнивать цены онлайн-курсов и не переплатить</h2>
+            <p class="post-featured__excerpt"><!-- DATA: post.excerpt -->Считаем цену месяца обучения, смотрим на часы практики и разбираемся, что на самом деле входит в стоимость курса. С примерами расчёта и чек-листом.</p>
+            <span class="btn btn--primary post-featured__btn">Читать статью</span>
+          </div>
+        </a>
+      </article>
+    </section>
+
+    <!-- ============ ЛЕНТА СТАТЕЙ ============ -->
+    <section class="section section--light blog-list" aria-labelledby="blog-list-title">
+      <h2 class="section__title" id="blog-list-title">Новые статьи</h2>
+
+      <div class="grid blog-grid">
+        <!-- DATA: цикл по статьям, 9-12 на страницу. Блок-образец: article.post-card -->
+          <article class="post-card">
+            <a href="/blog/smena-professii-posle-30/" class="post-card__link"><!-- DATA: post.url -->
+              <img src="../img/blog-2.jpg" alt="" class="post-card__img" width="640" height="360" loading="lazy"><!-- DATA: post.cover; без обложки — div.card-thumb.card-thumb--empty.card-thumb--tone-N с первой буквой рубрики -->
+              <div class="post-card__body">
+                <p class="post-card__meta"><span class="post-card__tag"><!-- DATA: post.category.name -->Карьера</span> <time datetime="2025-09-24"><!-- DATA: post.published_at -->24 сентября 2025</time> <span>· <!-- DATA: post.read_time -->7 мин</span></p>
+                <h2 class="post-card__title"><!-- DATA: post.title -->Смена профессии после 30: с чего начать и сколько это займёт</h2>
+                <p class="post-card__excerpt"><!-- DATA: post.excerpt -->Реалистичные сроки, первые шаги и как проверить направление до оплаты длинной программы.</p>
+                <span class="post-card__more">Читать →</span>
+              </div>
+            </a>
+          </article>
+          <article class="post-card">
+            <a href="/blog/uchitsya-i-rabotat/" class="post-card__link">
+              <img src="../img/blog-3.jpg" alt="" class="post-card__img" width="640" height="360" loading="lazy">
+              <div class="post-card__body">
+                <p class="post-card__meta"><span class="post-card__tag">Обучение</span> <time datetime="2025-09-15">15 сентября 2025</time> <span>· 6 мин</span></p>
+                <h2 class="post-card__title">Как учиться онлайн и не бросить на втором месяце</h2>
+                <p class="post-card__excerpt">Сколько часов в неделю закладывать, как выбрать формат под свой график и что делать, если отстали.</p>
+                <span class="post-card__more">Читать →</span>
+              </div>
+            </a>
+          </article>
+          <article class="post-card">
+            <a href="/blog/nalogovyj-vychet-za-obuchenie/" class="post-card__link">
+              <img src="../img/blog-5.jpg" alt="" class="post-card__img" width="640" height="360" loading="lazy">
+              <div class="post-card__body">
+                <p class="post-card__meta"><span class="post-card__tag">Деньги</span> <time datetime="2025-09-08">8 сентября 2025</time> <span>· 5 мин</span></p>
+                <h2 class="post-card__title">Налоговый вычет за онлайн-курсы: кто может получить и как оформить</h2>
+                <p class="post-card__excerpt">Какие школы подходят, какие документы нужны и сколько денег можно вернуть.</p>
+                <span class="post-card__more">Читать →</span>
+              </div>
+            </a>
+          </article>
+
+        <!-- ===== РЕКЛАМНЫЙ БЛОК 1 — нативный, одна ячейка сетки после 3-й статьи ===== -->
+        <div class="ad-wrap ad-wrap--card">
+          <aside class="ad-slot ad-slot--card" aria-label="Реклама">
+            <span class="ad-label">Реклама</span>
+            <!-- AD SLOT: 1, нативная карточка, одна ячейка сетки. Ссылки с rel="sponsored noopener" -->
+            <div class="card-thumb card-thumb--ad">Изображение рекламодателя</div>
+            <div class="catalog-card__body">
+              <p class="catalog-card__title">Нативная реклама</p>
+              <p class="catalog-card__school">Короткое описание партнёрского материала</p>
+              <p class="ad-card__advertiser">Рекламодатель: <!-- AD: advertiser.name -->название, ИНН</p>
+            </div>
+          </aside>
+          <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
+        </div>
+
+          <article class="post-card">
+            <a href="/blog/pervyj-yazyk-programmirovaniya/" class="post-card__link">
+              <img src="../img/blog-6.jpg" alt="" class="post-card__img" width="640" height="360" loading="lazy">
+              <div class="post-card__body">
+                <p class="post-card__meta"><span class="post-card__tag">Выбор курса</span> <time datetime="2025-08-29">29 августа 2025</time> <span>· 8 мин</span></p>
+                <h2 class="post-card__title">Какой язык программирования выбрать первым</h2>
+                <p class="post-card__excerpt">Сравниваем Python, JavaScript, Java и Go по порогу входа, задачам и числу вакансий.</p>
+                <span class="post-card__more">Читать →</span>
+              </div>
+            </a>
+          </article>
+          <article class="post-card">
+            <a href="/blog/chto-proverit-v-dogovore/" class="post-card__link">
+              <img src="../img/blog-4.jpg" alt="" class="post-card__img" width="640" height="360" loading="lazy">
+              <div class="post-card__body">
+                <p class="post-card__meta"><span class="post-card__tag">Деньги</span> <time datetime="2025-08-20">20 августа 2025</time> <span>· 6 мин</span></p>
+                <h2 class="post-card__title">Что проверить в договоре с онлайн-школой до оплаты</h2>
+                <p class="post-card__excerpt">Возврат денег, рассрочка, академический отпуск и другие пункты, на которые стоит обратить внимание.</p>
+                <span class="post-card__more">Читать →</span>
+              </div>
+            </a>
+          </article>
+          <article class="post-card">
+            <a href="/blog/kak-sostavit-portfolio/" class="post-card__link">
+              <img src="../img/blog-1.jpg" alt="" class="post-card__img" width="640" height="360" loading="lazy">
+              <div class="post-card__body">
+                <p class="post-card__meta"><span class="post-card__tag">Карьера</span> <time datetime="2025-08-12">12 августа 2025</time> <span>· 5 мин</span></p>
+                <h2 class="post-card__title">Портфолио после курсов: что показать работодателю</h2>
+                <p class="post-card__excerpt">Какие проекты брать в портфолио, как их оформить и почему учебный проект — это нормально.</p>
+                <span class="post-card__more">Читать →</span>
+              </div>
+            </a>
+          </article>
+        <!-- /DATA: конец цикла по статьям -->
+      </div>
+
+      <nav class="pagination" aria-label="Страницы блога">
+        <span class="pagination__link pagination__link--nav pagination__link--disabled" aria-disabled="true">← Назад</span>
+        <ul class="pagination__list">
+          <li><a href="/blog/" class="pagination__link is-current" aria-current="page">1</a></li>
+          <li><a href="/blog/?page=2" class="pagination__link">2</a></li>
+          <li><a href="/blog/?page=3" class="pagination__link">3</a></li>
+          <li><span class="pagination__gap">…</span></li>
+          <li><a href="/blog/?page=6" class="pagination__link">6</a></li>
+        </ul>
+        <a href="/blog/?page=2" class="pagination__link pagination__link--nav" rel="next">Вперёд →</a>
+      </nav>
+    </section>
+
+    <!-- ============ РЕКЛАМНЫЙ БЛОК 2 — широкий, перед подборками ============ -->
+    <div class="ad-wrap ad-wrap--inline">
+      <aside class="ad-slot ad-slot--inline" aria-label="Реклама">
+        <span class="ad-label">Реклама</span>
+        <!-- AD SLOT: 2, адаптивный баннер -->
+        <div class="ad-placeholder">Рекламный блок, адаптивный</div>
+      </aside>
+      <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
+    </div>
+
+    <!-- ============ ПЕРЕЛИНКОВКА ============ -->
+    <section class="link-columns" aria-label="Подборки">
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Рубрики</h2>
+        <ul class="link-columns__list">
+          <li><a href="/blog/?category=choice">Выбор курса</a></li>
+          <li><a href="/blog/?category=career">Карьера</a></li>
+          <li><a href="/blog/?category=study">Обучение</a></li>
+          <li><a href="/blog/?category=money">Деньги</a></li>
+          <li><a href="/blog/?category=professions">Профессии</a></li>
+        </ul>
+      </div>
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Популярные статьи</h2>
+        <ul class="link-columns__list">
+          <li><a href="/blog/kak-sravnivat-ceny-kursov/">Как сравнивать цены курсов</a></li>
+          <li><a href="/blog/smena-professii-posle-30/">Смена профессии после 30</a></li>
+          <li><a href="/blog/nalogovyj-vychet-za-obuchenie/">Налоговый вычет за курсы</a></li>
+          <li><a href="/blog/pervyj-yazyk-programmirovaniya/">Первый язык программирования</a></li>
+        </ul>
+      </div>
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Профессии</h2>
+        <ul class="link-columns__list">
+          <li><a href="/professions/backend-razrabotchik/">Backend-разработчик</a></li>
+          <li><a href="/professions/dizajner/">Дизайнер</a></li>
+          <li><a href="/professions/analitik-dannyh/">Аналитик данных</a></li>
+          <li><a href="/professions/testirovshchik/">Тестировщик</a></li>
+        </ul>
+        <a href="/professions/" class="link-columns__all">Все</a>
+      </div>
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Каталог</h2>
+        <ul class="link-columns__list">
+          <li><a href="/courses/">Все курсы</a></li>
+          <li><a href="/schools/">Все школы</a></li>
+          <li><a href="/compare/">Сравнение курсов</a></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ ПОДВАЛ (общий с главной) ============ -->
+  <footer class="site-footer">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <a href="/" class="logo logo--light">
+          <img src="../img/logo.png" alt="" class="logo__img" width="48" height="40">
+          <span class="logo__text">edukursy<span>.ru</span></span>
+        </a>
+        <p>Сравнение онлайн-курсов ведущих школ: программы, цены и длительность в одном месте.</p>
+      </div>
+
+      <nav class="site-footer__nav" aria-label="Информация">
+        <h2 class="site-footer__heading">Проект</h2>
+        <ul>
+          <li><a href="/about">О проекте</a></li>
+          <li><a href="/contacts">Контакты</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__nav" aria-label="Документы">
+        <h2 class="site-footer__heading">Документы</h2>
+        <ul>
+          <li><a href="/privacy">Политика конфиденциальности</a></li>
+          <li><a href="/terms">Пользовательское соглашение</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__nav" aria-label="Каталог">
+        <h2 class="site-footer__heading">Каталог</h2>
+        <ul>
+          <li><a href="/professions/">Профессии</a></li>
+          <li><a href="/courses/">Курсы</a></li>
+          <li><a href="/schools/">Школы</a></li>
+          <li><a href="/compare/">Сравнения</a></li>
+          <li><a href="/blog/">Блог</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <p class="site-footer__disclosure">Мы можем получать вознаграждение от школ за переходы по ссылкам. На цену для вас это не влияет.</p>
+    <p class="site-footer__copy">© <!-- DATA: current_year -->2025 edukursy.ru</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

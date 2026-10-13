@@ -24,6 +24,8 @@ const App = () => (
           <Route path="/main/professions/backend-razrabotchik" element={<MainRedirect to="/main/professions/backend-razrabotchik/index.html" />} />
           <Route path="/main/courses/python-razrabotchik" element={<MainRedirect to="/main/courses/python-razrabotchik/index.html" />} />
           <Route path="/main/compare" element={<MainRedirect to="/main/compare/index.html" />} />
+          <Route path="/main/blog" element={<MainRedirect to="/main/blog/index.html" />} />
+          <Route path="/main/blog/kak-sravnivat-ceny-kursov" element={<MainRedirect to="/main/blog/kak-sravnivat-ceny-kursov/index.html" />} />
           <Route path="/main/schools" element={<MainRedirect to="/main/schools/index.html" />} />
           <Route path="/main/schools/school_name" element={<MainRedirect to="/main/schools/school_name/index.html" />} />
           <Route path="/courses" element={<MainRedirect to="/main/courses/index.html" />} />

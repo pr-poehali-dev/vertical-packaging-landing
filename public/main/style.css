@@ -130,9 +130,8 @@ ol {
   text-decoration: none;
 }
 .logo__img {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: auto;
+  height: 40px;
 }
 .logo__text span {
   color: var(--c-primary);

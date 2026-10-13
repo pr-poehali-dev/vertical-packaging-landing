@@ -56,16 +56,6 @@
       <p class="page-head__subtitle"><span class="results-count"><!-- DATA: total_count -->9 профессий</span> · <!-- DATA: courses_total -->993 курса от <!-- DATA: schools_count -->3 школ</p>
     </section>
 
-    <!-- ============ РЕКЛАМНЫЙ БЛОК 1 — лидерборд ============ -->
-    <div class="ad-wrap ad-wrap--leaderboard">
-      <aside class="ad-slot ad-slot--leaderboard" aria-label="Реклама">
-        <span class="ad-label">Реклама</span>
-        <!-- AD SLOT: 1, 970×90 desktop / адаптивный на мобильном -->
-        <div class="ad-placeholder">Рекламный блок 970×90 / адаптивный</div>
-      </aside>
-      <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
-    </div>
-
     <!-- ============ ДВУХКОЛОНОЧНАЯ ОБЛАСТЬ ============ -->
     <div class="catalog catalog--narrow">
 
@@ -105,11 +95,11 @@
           </div>
         </form>
 
-        <!-- ===== РЕКЛАМНЫЙ БЛОК 3 — сайдбар (на мобильном скрыт) ===== -->
+        <!-- ===== РЕКЛАМНЫЙ БЛОК 2 — сайдбар (на мобильном скрыт) ===== -->
         <div class="ad-wrap ad-wrap--sidebar">
           <aside class="ad-slot ad-slot--sidebar" aria-label="Реклама">
             <span class="ad-label">Реклама</span>
-            <!-- AD SLOT: 3, 300×250 -->
+            <!-- AD SLOT: 2, 300×250 -->
             <div class="ad-placeholder">Рекламный блок 300×250</div>
           </aside>
           <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
@@ -253,11 +243,11 @@
           </article>
           <!-- /DATA: конец цикла по профессиям -->
 
-          <!-- ===== РЕКЛАМНЫЙ БЛОК 2 — нативный, одна ячейка сетки ===== -->
+          <!-- ===== РЕКЛАМНЫЙ БЛОК 1 — нативный, одна ячейка сетки ===== -->
           <div class="ad-wrap ad-wrap--card">
             <aside class="ad-slot ad-slot--card" aria-label="Реклама">
               <span class="ad-label">Реклама</span>
-              <!-- AD SLOT: 2, нативная карточка, одна ячейка сетки. Ссылки с rel="sponsored noopener" -->
+              <!-- AD SLOT: 1, нативная карточка, одна ячейка сетки. Ссылки с rel="sponsored noopener" -->
               <div class="card-thumb card-thumb--ad">Изображение рекламодателя</div>
               <div class="catalog-card__body">
                 <p class="catalog-card__title">Нативная реклама</p>
@@ -272,10 +262,61 @@
       </section>
     </div>
 
+    <!-- ============ ПЕРЕЛИНКОВКА: колонки ссылок ============ -->
+    <section class="link-columns" aria-label="Подборки профессий">
+      <!-- DATA: 4 колонки, в каждой до 8 ссылок + «Все». Колонки и ссылки — из базы -->
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">IT-профессии</h2>
+        <ul class="link-columns__list">
+          <li><a href="/professions/programmist/">Программист</a></li>
+          <li><a href="/professions/testirovshchik/">Тестировщик</a></li>
+          <li><a href="/professions/analitik-dannyh/">Аналитик данных</a></li>
+          <li><a href="/professions/sistemnyj-analitik/">Системный аналитик</a></li>
+          <li><a href="/professions/razrabotka-igr/">Разработчик игр</a></li>
+        </ul>
+        <a href="/professions/?area=it" class="link-columns__all">Все</a>
+      </div>
+
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Дизайн, маркетинг, менеджмент</h2>
+        <ul class="link-columns__list">
+          <li><a href="/professions/dizajner/">Дизайнер</a></li>
+          <li><a href="/professions/marketolog/">Маркетолог</a></li>
+          <li><a href="/professions/menedzher-proektov/">Менеджер проектов</a></li>
+          <li><a href="/professions/produktovyj-menedzher/">Продакт-менеджер</a></li>
+        </ul>
+        <a href="/professions/" class="link-columns__all">Все</a>
+      </div>
+
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Курсы по профессиям</h2>
+        <ul class="link-columns__list">
+          <li><a href="/courses/?profession=programmist">Курсы программирования</a></li>
+          <li><a href="/courses/?profession=dizajner">Курсы дизайна</a></li>
+          <li><a href="/courses/?profession=marketolog">Курсы маркетинга</a></li>
+          <li><a href="/courses/?profession=analitik-dannyh">Курсы аналитики данных</a></li>
+          <li><a href="/courses/?profession=testirovshchik">Курсы тестирования</a></li>
+          <li><a href="/courses/?profession=menedzher-proektov">Курсы управления проектами</a></li>
+          <li><a href="/courses/?kind=profession">Программы «Профессия» с нуля</a></li>
+          <li><a href="/courses/?duration=0-3">Короткие курсы до 3 месяцев</a></li>
+        </ul>
+        <a href="/courses/" class="link-columns__all">Все</a>
+      </div>
+
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Школы в каталоге</h2>
+        <ul class="link-columns__list">
+          <li><a href="/schools/school-1/">Школа 1</a></li>
+          <li><a href="/schools/school-2/">Школа 2</a></li>
+          <li><a href="/schools/school-3/">Школа 3</a></li>
+        </ul>
+      </div>
+    </section>
+
     <!-- ============ SEO-ТЕКСТ ============ -->
     <section class="section section--light">
       <h2 class="section__title">Как выбрать профессию для онлайн-обучения</h2>
-      <div class="prose">
+      <div class="prose prose--wide">
         <p>Выбор профессии — более важное решение, чем выбор школы. Сначала стоит понять, какая работа вам подходит, и только потом сравнивать программы. На этой странице собраны направления, по которым в каталоге есть курсы ведущих онлайн-школ: видно, сколько программ доступно, сколько они стоят и сколько длятся.</p>
         <p>Если вы пока сомневаетесь, начните с того, что вам нравится делать. Тем, кому интересно разбираться в логике и устройстве систем, ближе разработка, тестирование и аналитика. Тем, кто думает визуально, — дизайн. Тем, кому нравится работать с людьми и организовывать процессы, — управление проектами и продуктом. Маркетинг сочетает работу с цифрами и с текстами.</p>
         <p>Обратите внимание на диапазон длительности. Если разница между самым коротким и самым длинным курсом большая, значит, в направлении есть и короткие программы для знакомства, и полноценные программы для смены профессии. Короткий курс — недорогой способ проверить, интересно ли вам направление, прежде чем платить за длинную программу.</p>
@@ -285,12 +326,12 @@
     </section>
 
     <!-- ============ FAQ (schema.org FAQPage) ============ -->
-    <section class="section" itemscope itemtype="https://schema.org/FAQPage">
-      <h2 class="section__title">Частые вопросы</h2>
-      <div class="faq">
+    <section class="section faq-section" itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="section__title">Часто задаваемые вопросы</h2>
+      <div class="faq faq--wide">
         <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <h3 class="faq-item__q">
-            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-1" id="faq-q-1"><span itemprop="name">Можно ли освоить профессию полностью онлайн?</span></button>
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-1" id="faq-q-1"><span class="faq-item__icon" aria-hidden="true">💻</span><span itemprop="name">Можно ли освоить профессию полностью онлайн?</span></button>
           </h3>
           <div class="faq-item__a" id="faq-a-1" role="region" aria-labelledby="faq-q-1" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
             <div itemprop="text"><p>Да, многие люди так и делают. Но результат зависит от регулярности занятий и практики, а не только от программы. Закладывайте несколько часов в неделю на протяжении всего курса.</p></div>
@@ -299,7 +340,7 @@
 
         <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <h3 class="faq-item__q">
-            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-2" id="faq-q-2"><span itemprop="name">Чем «профессия» отличается от отдельного курса?</span></button>
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-2" id="faq-q-2"><span class="faq-item__icon" aria-hidden="true">📚</span><span itemprop="name">Чем «профессия» отличается от отдельного курса?</span></button>
           </h3>
           <div class="faq-item__a" id="faq-a-2" role="region" aria-labelledby="faq-q-2" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
             <div itemprop="text"><p>Профессия — длинная программа с нуля до уровня, достаточного для первых рабочих задач, обычно от полугода. Отдельный курс учит одному навыку или инструменту и подходит тем, у кого уже есть база.</p></div>
@@ -308,7 +349,7 @@
 
         <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <h3 class="faq-item__q">
-            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-3" id="faq-q-3"><span itemprop="name">Что означает цена «от»?</span></button>
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-3" id="faq-q-3"><span class="faq-item__icon" aria-hidden="true">💳</span><span itemprop="name">Что означает цена «от»?</span></button>
           </h3>
           <div class="faq-item__a" id="faq-a-3" role="region" aria-labelledby="faq-q-3" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
             <div itemprop="text"><p>Это минимальная полная стоимость курса по профессии среди школ в каталоге. Цены конкретных программ смотрите на странице профессии, а окончательную стоимость уточняйте на сайте школы.</p></div>
@@ -317,7 +358,7 @@
 
         <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <h3 class="faq-item__q">
-            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-4" id="faq-q-4"><span itemprop="name">Гарантируют ли школы трудоустройство?</span></button>
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-4" id="faq-q-4"><span class="faq-item__icon" aria-hidden="true">💼</span><span itemprop="name">Гарантируют ли школы трудоустройство?</span></button>
           </h3>
           <div class="faq-item__a" id="faq-a-4" role="region" aria-labelledby="faq-q-4" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
             <div itemprop="text"><p>Условия у школ разные, и мы советуем внимательно читать договор. Помощь с резюме и подготовкой к собеседованиям встречается часто, но получить работу всё равно предстоит вам самим.</p></div>

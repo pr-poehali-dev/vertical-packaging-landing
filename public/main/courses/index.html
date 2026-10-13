@@ -57,16 +57,6 @@
       <p class="page-head__subtitle"><span class="results-count"><!-- DATA: total_count -->993 курса</span> от <!-- DATA: schools_count -->3 школ</p>
     </section>
 
-    <!-- ============ РЕКЛАМНЫЙ БЛОК 1 — лидерборд ============ -->
-    <div class="ad-wrap ad-wrap--leaderboard">
-      <aside class="ad-slot ad-slot--leaderboard" aria-label="Реклама">
-        <span class="ad-label">Реклама</span>
-        <!-- AD SLOT: 1, 970×90 desktop / адаптивный на мобильном. Сюда вставляется <a href="..." rel="sponsored noopener" target="_blank"><img ...></a> -->
-        <div class="ad-placeholder">Рекламный блок 970×90 / адаптивный</div>
-      </aside>
-      <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
-    </div>
-
     <!-- ============ ДВУХКОЛОНОЧНАЯ ОБЛАСТЬ ============ -->
     <div class="catalog">
 
@@ -168,11 +158,11 @@
           </div>
         </form>
 
-        <!-- ===== РЕКЛАМНЫЙ БЛОК 3 — сайдбар (на мобильном скрыт) ===== -->
+        <!-- ===== РЕКЛАМНЫЙ БЛОК 2 — сайдбар (на мобильном скрыт) ===== -->
         <div class="ad-wrap ad-wrap--sidebar">
           <aside class="ad-slot ad-slot--sidebar" aria-label="Реклама">
             <span class="ad-label">Реклама</span>
-            <!-- AD SLOT: 3, 300×250. Сюда вставляется <a href="..." rel="sponsored noopener" target="_blank"><img ...></a> -->
+            <!-- AD SLOT: 2, 300×250. Сюда вставляется <a href="..." rel="sponsored noopener" target="_blank"><img ...></a> -->
             <div class="ad-placeholder">Рекламный блок 300×250</div>
           </aside>
           <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
@@ -316,11 +306,11 @@
           </article>
           <!-- /DATA: конец цикла по курсам -->
 
-          <!-- ===== РЕКЛАМНЫЙ БЛОК 2 — нативный, одна ячейка сетки, после 9-й карточки ===== -->
+          <!-- ===== РЕКЛАМНЫЙ БЛОК 1 — нативный, одна ячейка сетки, после 9-й карточки ===== -->
           <div class="ad-wrap ad-wrap--card">
             <aside class="ad-slot ad-slot--card" aria-label="Реклама">
               <span class="ad-label">Реклама</span>
-              <!-- AD SLOT: 2, нативная карточка 16:9 + текст, одна ячейка сетки. Ссылки с rel="sponsored noopener" -->
+              <!-- AD SLOT: 1, нативная карточка 16:9 + текст, одна ячейка сетки. Ссылки с rel="sponsored noopener" -->
               <div class="card-thumb card-thumb--ad">Изображение рекламодателя</div>
               <div class="catalog-card__body">
                 <p class="catalog-card__title">Нативная реклама</p>
@@ -348,15 +338,125 @@
       </section>
     </div>
 
+    <!-- ============ ПЕРЕЛИНКОВКА: колонки ссылок ============ -->
+    <section class="link-columns" aria-label="Подборки курсов">
+      <!-- DATA: 4 колонки, в каждой до 8 ссылок + «Все». Колонки и ссылки — из базы -->
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">По профессиям</h2>
+        <ul class="link-columns__list">
+          <li><a href="/courses/?profession=programmist">Программист</a></li>
+          <li><a href="/courses/?profession=dizajner">Дизайнер</a></li>
+          <li><a href="/courses/?profession=marketolog">Маркетолог</a></li>
+          <li><a href="/courses/?profession=analitik-dannyh">Аналитик данных</a></li>
+          <li><a href="/courses/?profession=razrabotka-igr">Разработчик игр</a></li>
+          <li><a href="/courses/?profession=menedzher-proektov">Менеджер проектов</a></li>
+          <li><a href="/courses/?profession=testirovshchik">Тестировщик</a></li>
+          <li><a href="/courses/?profession=produktovyj-menedzher">Продакт-менеджер</a></li>
+        </ul>
+        <a href="/professions/" class="link-columns__all">Все</a>
+      </div>
+
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Популярные курсы</h2>
+        <ul class="link-columns__list">
+          <li><a href="/courses/school-1/python-razrabotchik/">Python-разработчик</a></li>
+          <li><a href="/courses/school-2/frontend-razrabotchik/">Фронтенд-разработчик</a></li>
+          <li><a href="/courses/school-3/java-osnovy/">Java-разработчик</a></li>
+          <li><a href="/courses/school-1/sql-dlya-nachinayushchih/">SQL для начинающих</a></li>
+          <li><a href="/courses/school-2/uxui-dizajner/">UX/UI-дизайнер</a></li>
+          <li><a href="/courses/school-3/internet-marketolog/">Интернет-маркетолог</a></li>
+          <li><a href="/courses/school-1/qa-inzhener/">QA-инженер</a></li>
+          <li><a href="/courses/school-2/golang-razrabotchik/">Go-разработчик</a></li>
+        </ul>
+        <a href="/courses/?sort=popular" class="link-columns__all">Все</a>
+      </div>
+
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">По цене и длительности</h2>
+        <ul class="link-columns__list">
+          <li><a href="/courses/?price_max=20000">Курсы до 20 000 ₽</a></li>
+          <li><a href="/courses/?price_max=50000">Курсы до 50 000 ₽</a></li>
+          <li><a href="/courses/?price_max=100000">Курсы до 100 000 ₽</a></li>
+          <li><a href="/courses/?duration=0-3">Короткие курсы до 3 месяцев</a></li>
+          <li><a href="/courses/?duration=3-6">Курсы на 3–6 месяцев</a></li>
+          <li><a href="/courses/?duration=6-12">Курсы на 6–12 месяцев</a></li>
+          <li><a href="/courses/?kind=profession">Программы «Профессия»</a></li>
+          <li><a href="/courses/?kind=course">Отдельные курсы</a></li>
+        </ul>
+        <a href="/courses/" class="link-columns__all">Все</a>
+      </div>
+
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Школы в каталоге</h2>
+        <ul class="link-columns__list">
+          <li><a href="/schools/school-1/">Школа 1</a></li>
+          <li><a href="/schools/school-2/">Школа 2</a></li>
+          <li><a href="/schools/school-3/">Школа 3</a></li>
+        </ul>
+      </div>
+    </section>
+
     <!-- ============ SEO-ТЕКСТ ============ -->
     <section class="section section--light">
       <h2 class="section__title">Как выбирать курс в каталоге</h2>
-      <div class="prose">
+      <div class="prose prose--wide">
         <p>В каталоге собраны программы ведущих онлайн-школ: от коротких курсов по одному инструменту до длинных программ для смены профессии. Чтобы не утонуть в списке, начните с профессии — так останутся только курсы нужного направления, и их можно сравнивать между собой.</p>
         <p>Дальше определитесь с форматом. «Профессия» — это длинная программа, которая ведёт с нуля до уровня, достаточного для первых рабочих задач. Обычно она длится от полугода и включает несколько проектов в портфолио. «Отдельный курс» подходит, если вы уже работаете и хотите освоить конкретный навык: новый язык, инструмент аналитики или раздел дизайна.</p>
         <p>Фильтр по цене показывает полную стоимость обучения. Многие школы предлагают рассрочку, и ежемесячный платёж выглядит небольшим, но сравнивать честнее итоговые суммы. Полезно также поделить цену на длительность: так видно, сколько стоит месяц обучения в каждой программе.</p>
         <p>Длительность влияет не только на цену, но и на нагрузку. Если вы учитесь параллельно с работой, заложите 8–10 часов в неделю и выбирайте программу, которую реально пройти в таком темпе. Слишком короткий курс по сложной профессии — повод внимательно посмотреть программу: что именно в него входит.</p>
         <p>Когда список сузился до трёх-четырёх вариантов, откройте страницы курсов и сравните программы по модулям, формат проверки домашних заданий и условия возврата денег. Окончательную цену и условия всегда уточняйте на сайте школы: школы меняют стоимость и запускают акции, а мы обновляем данные регулярно, но не мгновенно.</p>
+      </div>
+    </section>
+
+    <!-- ============ FAQ (schema.org FAQPage) ============ -->
+    <section class="section faq-section" itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="section__title">Часто задаваемые вопросы</h2>
+      <div class="faq faq--wide">
+        <!-- DATA: цикл по вопросам. Иконка — эмодзи из базы или пусто -->
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q">
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-1" id="faq-q-1"><span class="faq-item__icon" aria-hidden="true">🎓</span><span itemprop="name">Как выбрать онлайн-курс в каталоге?</span></button>
+          </h3>
+          <div class="faq-item__a" id="faq-a-1" role="region" aria-labelledby="faq-q-1" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>Выберите профессию в фильтрах слева, задайте бюджет и длительность. Затем сравните 3–4 подходящие программы по составу модулей, формату проверки заданий и итоговой цене.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q">
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-2" id="faq-q-2"><span class="faq-item__icon" aria-hidden="true">💳</span><span itemprop="name">Сколько стоит онлайн-курс?</span></button>
+          </h3>
+          <div class="faq-item__a" id="faq-a-2" role="region" aria-labelledby="faq-q-2" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>Короткие курсы по одному навыку стоят от нескольких тысяч рублей, полные программы для смены профессии — от нескольких десятков тысяч. В каталоге указана полная стоимость; окончательную цену уточняйте на сайте школы.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q">
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-3" id="faq-q-3"><span class="faq-item__icon" aria-hidden="true">⏱️</span><span itemprop="name">Сколько длится обучение?</span></button>
+          </h3>
+          <div class="faq-item__a" id="faq-a-3" role="region" aria-labelledby="faq-q-3" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>Отдельные курсы обычно занимают 1–4 месяца, программы «Профессия» — от полугода до полутора лет. При занятиях параллельно с работой закладывайте 8–10 часов в неделю.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q">
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-4" id="faq-q-4"><span class="faq-item__icon" aria-hidden="true">✍️</span><span itemprop="name">Выдают ли документ об окончании курса?</span></button>
+          </h3>
+          <div class="faq-item__a" id="faq-a-4" role="region" aria-labelledby="faq-q-4" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>Многие школы выдают сертификат или удостоверение о повышении квалификации, если у них есть образовательная лицензия. Условия указаны на странице курса и в договоре со школой.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q">
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-5" id="faq-q-5"><span class="faq-item__icon" aria-hidden="true">↩️</span><span itemprop="name">Можно ли вернуть деньги, если курс не подошёл?</span></button>
+          </h3>
+          <div class="faq-item__a" id="faq-a-5" role="region" aria-labelledby="faq-q-5" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>Обычно да: школы возвращают деньги за непройденную часть программы. Сроки и порядок возврата прописаны в договоре — прочитайте его до оплаты.</p></div>
+          </div>
+        </div>
       </div>
     </section>
 

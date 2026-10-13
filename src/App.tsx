@@ -19,8 +19,11 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/main" element={<MainRedirect />} />
+          <Route path="/main/courses" element={<MainRedirect to="/main/courses/index.html" />} />
+          <Route path="/main/profession" element={<MainRedirect to="/main/profession/index.html" />} />
+          <Route path="/main/professions" element={<MainRedirect to="/main/profession/index.html" />} />
           <Route path="/courses" element={<MainRedirect to="/main/courses/index.html" />} />
-          <Route path="/professions" element={<MainRedirect to="/main/professions/index.html" />} />
+          <Route path="/professions" element={<MainRedirect to="/main/profession/index.html" />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

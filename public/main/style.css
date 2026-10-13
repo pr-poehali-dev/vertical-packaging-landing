@@ -1738,3 +1738,93 @@ a.pagination__link:hover {
   font-weight: 700;
   color: var(--c-primary);
 }
+
+/* ===== Колонки ссылок (перелинковка) ===== */
+.link-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px 40px;
+  padding: 40px var(--gutter) 48px;
+  border-top: 1px solid var(--c-border);
+}
+.link-columns__title {
+  margin-bottom: 14px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.link-columns__list li + li {
+  margin-top: 6px;
+}
+.link-columns__list a {
+  font-size: 15px;
+  color: var(--c-muted);
+  text-decoration: none;
+}
+.link-columns__list a:hover {
+  color: var(--c-primary);
+  text-decoration: underline;
+}
+.link-columns__all {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 15px;
+  color: var(--c-primary);
+  text-decoration: none;
+}
+.link-columns__all:hover {
+  text-decoration: underline;
+}
+
+/* ===== SEO-текст на всю ширину ===== */
+.prose--wide {
+  max-width: none;
+}
+@media (min-width: 1200px) {
+  .prose--wide {
+    column-count: 2;
+    column-gap: 56px;
+  }
+  .prose--wide p {
+    break-inside: avoid;
+  }
+}
+
+/* ===== FAQ на всю ширину, стиль «список с шевроном» ===== */
+.faq--wide {
+  max-width: none;
+  border-top: 1px solid var(--c-border);
+}
+.faq--wide .faq-item__btn {
+  justify-content: flex-start;
+  padding: 16px 0;
+  font-size: 17px;
+}
+.faq--wide .faq-item__btn > span[itemprop] {
+  flex: 1;
+}
+.faq-item__icon {
+  flex-shrink: 0;
+  width: 24px;
+  font-size: 18px;
+  line-height: 1;
+}
+.faq--wide .faq-item__btn::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  margin-right: 6px;
+  border-right: 2px solid #8a909b;
+  border-bottom: 2px solid #8a909b;
+  transform: rotate(45deg) translateY(-3px);
+  transition: transform 0.15s;
+}
+.faq--wide .faq-item__btn[aria-expanded="true"]::after {
+  content: "";
+  transform: rotate(-135deg) translateY(-2px);
+}
+.faq--wide .faq-item__a {
+  padding: 0 0 18px 34px;
+}
+.faq--wide .faq-item__a p {
+  max-width: 90ch;
+}

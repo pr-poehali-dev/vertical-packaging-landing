@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- DATA: title = «<school.name>: курсы, цены и отзывы — edukursy.ru» -->
-  <title>Школа 1: курсы, цены и отзывы — edukursy.ru</title>
-  <meta name="description" content="Все курсы онлайн-школы в одном месте: программы, цены, длительность и отзывы студентов.">
+  <!-- DATA: title = «<school.name>: курсы и цены — edukursy.ru» -->
+  <title>Школа 1: курсы и цены — edukursy.ru</title>
+  <meta name="description" content="Все курсы онлайн-школы в одном месте: программы, цены и длительность.">
   <link rel="canonical" href="https://edukursy.ru/schools/school-1/">
   <link rel="stylesheet" href="../../style.css">
 </head>
@@ -90,7 +90,6 @@
       <ul>
         <li><a href="#school-courses">Курсы</a></li>
         <li><a href="#school-about">О школе</a></li>
-        <li><a href="#school-reviews">Отзывы</a></li>
         <li><a href="#school-faq">Вопросы</a></li>
       </ul>
     </nav>
@@ -305,66 +304,6 @@
       </div>
     </section>
 
-    <!-- ============ ОТЗЫВЫ ============ -->
-    <section class="section" id="school-reviews">
-      <div class="section-head">
-        <h2 class="section__title">Отзывы студентов</h2>
-        <p class="section-head__meta">Средняя оценка <strong><!-- DATA: school.rating -->4.78</strong> по <!-- DATA: school.reviews_count -->2 140 отзывам</p>
-      </div>
-
-      <div class="reviews-grid">
-        <!-- DATA: цикл по отзывам, 3-6 последних. Блок-образец: article.review -->
-        <article class="review" itemprop="review" itemscope itemtype="https://schema.org/Review">
-          <header class="review__head">
-            <div class="review__avatar" aria-hidden="true">А</div>
-            <div>
-              <p class="review__author" itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><!-- DATA: review.author -->Анна</span></p>
-              <p class="review__course"><!-- DATA: review.course -->Аналитик данных</p>
-            </div>
-            <p class="review__rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating"><span itemprop="ratingValue"><!-- DATA: review.rating -->5</span><span class="visually-hidden"> из 5</span><meta itemprop="bestRating" content="5"></p>
-          </header>
-          <dl class="review__body" itemprop="reviewBody">
-            <div><dt>Понравилось</dt><dd><!-- DATA: review.pros -->Понравилось, что задания проверяют живые люди и дают подробную обратную связь. Нагрузка ощутимая: при работе на полный день уходило 10–12 часов в неделю.</dd></div>
-            <div><dt>Не понравилось</dt><dd><!-- DATA: review.cons -->Некоторые записи уроков устарели, интерфейсы инструментов уже другие.</dd></div>
-          </dl>
-          <p class="review__date"><time datetime="2025-09-12"><!-- DATA: review.date -->12 сентября 2025</time></p>
-        </article>
-        <article class="review" itemprop="review" itemscope itemtype="https://schema.org/Review">
-          <header class="review__head">
-            <div class="review__avatar" aria-hidden="true">Д</div>
-            <div>
-              <p class="review__author" itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Дмитрий</span></p>
-              <p class="review__course">Python-разработчик</p>
-            </div>
-            <p class="review__rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating"><span itemprop="ratingValue">4</span><span class="visually-hidden"> из 5</span><meta itemprop="bestRating" content="5"></p>
-          </header>
-          <dl class="review__body" itemprop="reviewBody">
-            <div><dt>Понравилось</dt><dd>Хорошая структура программы и сильный наставник. Итоговый проект пригодился для портфолио.</dd></div>
-            <div><dt>Не понравилось</dt><dd>Поддержка отвечала медленно, иногда приходилось ждать ответа по 2–3 дня.</dd></div>
-          </dl>
-          <p class="review__date"><time datetime="2025-09-12">28 августа 2025</time></p>
-        </article>
-        <article class="review" itemprop="review" itemscope itemtype="https://schema.org/Review">
-          <header class="review__head">
-            <div class="review__avatar" aria-hidden="true">О</div>
-            <div>
-              <p class="review__author" itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Ольга</span></p>
-              <p class="review__course">UX/UI-дизайнер</p>
-            </div>
-            <p class="review__rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating"><span itemprop="ratingValue">5</span><span class="visually-hidden"> из 5</span><meta itemprop="bestRating" content="5"></p>
-          </header>
-          <dl class="review__body" itemprop="reviewBody">
-            <div><dt>Понравилось</dt><dd>Много практики на реальных задачах, удобная платформа. Отдельно понравились разборы работ в прямом эфире.</dd></div>
-            <div><dt>Не понравилось</dt><dd>Цена высокая, хотя рассрочка без переплаты помогла.</dd></div>
-          </dl>
-          <p class="review__date"><time datetime="2025-09-12">3 августа 2025</time></p>
-        </article>
-        <!-- /DATA: конец цикла по отзывам -->
-      </div>
-
-      <p class="section__more"><a href="/schools/school-1/reviews/" class="link-arrow">Все отзывы →</a></p>
-    </section>
-
     <!-- ============ ПЕРЕЛИНКОВКА: колонки ссылок ============ -->
     <section class="link-columns" aria-label="Подборки">
       <div class="link-columns__col">
@@ -442,14 +381,6 @@
           </div>
         </div>
 
-        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-          <h3 class="faq-item__q">
-            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-4" id="faq-q-4"><span class="faq-item__icon" aria-hidden="true">⭐</span><span itemprop="name">Откуда отзывы на этой странице?</span></button>
-          </h3>
-          <div class="faq-item__a" id="faq-a-4" role="region" aria-labelledby="faq-q-4" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <div itemprop="text"><p>Отзывы оставляют студенты школы. Мы публикуем и положительные, и критические отзывы и не удаляем их по просьбе школы.</p></div>
-          </div>
-        </div>
       </div>
     </section>
 

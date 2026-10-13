@@ -2194,3 +2194,458 @@ a.pagination__link:hover {
   font-size: 13px;
   color: var(--c-muted);
 }
+
+/* ============================================================
+   ПРОФЕССИЯ /professions/<slug>/ и КУРС /courses/<school>/<course>/
+   ============================================================ */
+
+.catalog-card__school--logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.catalog-card__school--logo img {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+}
+
+/* ===== Шапка профессии ===== */
+.prof-hero {
+  padding-bottom: 32px;
+}
+.prof-hero__main {
+  display: grid;
+  gap: 24px;
+  margin-top: 12px;
+}
+.prof-hero__area {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--c-primary);
+}
+.prof-hero__lead {
+  margin-top: 12px;
+  max-width: 70ch;
+  font-size: 18px;
+  color: var(--c-muted);
+}
+.prof-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+.prof-hero__actions .btn--outline {
+  padding: 16px 24px;
+}
+.prof-hero__facts {
+  margin: 0;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 1200px) {
+  .prof-hero__main {
+    grid-template-columns: minmax(0, 1fr) 440px;
+    gap: 56px;
+    align-items: center;
+  }
+}
+
+/* ===== Навыки ===== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.skill {
+  padding: 24px;
+  border: 1px solid var(--c-border);
+  border-radius: 16px;
+  background: #fff;
+}
+.skill__num {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--c-primary);
+}
+.skill__title {
+  margin-top: 8px;
+  font-size: 19px;
+  font-weight: 700;
+}
+.skill__text {
+  margin-top: 8px;
+  color: var(--c-muted);
+}
+
+/* ===== Шапка курса ===== */
+.course-hero {
+  padding-bottom: 40px;
+}
+.course-hero__grid {
+  display: grid;
+  gap: 28px;
+  margin-top: 16px;
+}
+.course-hero__school {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 6px;
+  border: 1px solid var(--c-border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--c-text);
+  font-weight: 600;
+  text-decoration: none;
+}
+.course-hero__school:hover {
+  border-color: var(--c-primary);
+}
+.course-hero__school img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+.course-hero__school-rating {
+  font-size: 14px;
+  color: var(--c-muted);
+}
+.course-hero__school-rating::before {
+  content: "★ ";
+  color: #f5a524;
+}
+.course-hero__title {
+  margin-top: 14px;
+}
+.course-hero__lead {
+  margin-top: 12px;
+  max-width: 70ch;
+  font-size: 18px;
+  color: var(--c-muted);
+}
+.course-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+.course-tags li {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #e8efff;
+  color: var(--c-primary-dark);
+  font-size: 14px;
+  font-weight: 600;
+}
+.course-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 12px;
+  margin: 24px 0 0;
+}
+.course-facts div {
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: 12px;
+}
+.course-facts dt {
+  font-size: 13px;
+  color: var(--c-muted);
+}
+.course-facts dd {
+  margin: 4px 0 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+/* ===== Блок цены ===== */
+.price-box {
+  padding: 24px;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(20, 40, 90, 0.08);
+}
+.price-box__label {
+  font-size: 14px;
+  color: var(--c-muted);
+}
+.price-box__price {
+  margin-top: 4px;
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+.price-box__old {
+  margin-top: 6px;
+  color: #9aa1ad;
+}
+.price-box__discount {
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: #e2f5ec;
+  color: #1f8a5b;
+  font-weight: 700;
+  font-size: 14px;
+}
+.price-box__month {
+  margin: 12px 0 20px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--c-bg-light);
+}
+.price-box .btn + .btn {
+  margin-top: 10px;
+}
+.price-box .btn--outline {
+  padding: 14px 18px;
+}
+.price-box__notes {
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--c-muted);
+}
+.price-box__notes li {
+  position: relative;
+  padding-left: 22px;
+}
+.price-box__notes li + li {
+  margin-top: 6px;
+}
+.price-box__notes li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--c-accent);
+  font-weight: 700;
+}
+.price-box__checked {
+  margin-top: 14px;
+  font-size: 12px;
+  color: #8a909b;
+}
+@media (min-width: 1200px) {
+  .course-hero__grid {
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: 56px;
+    align-items: start;
+  }
+  .price-box {
+    position: sticky;
+    top: calc(var(--header-h) + 72px);
+  }
+}
+
+/* ===== УТП ===== */
+.usp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.usp {
+  padding: 24px;
+  border-radius: 16px;
+  background: var(--c-bg-light);
+}
+.usp__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #fff;
+  font-size: 26px;
+}
+.usp__title {
+  margin-top: 14px;
+  font-size: 19px;
+  font-weight: 700;
+}
+.usp__text {
+  margin-top: 8px;
+  color: var(--c-muted);
+}
+
+/* ===== Программа ===== */
+.modules {
+  display: grid;
+  gap: 10px;
+}
+.module details {
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: 14px;
+}
+.module__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  cursor: pointer;
+  list-style: none;
+}
+.module__head::-webkit-details-marker {
+  display: none;
+}
+.module__head::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+  border-right: 2px solid #8a909b;
+  border-bottom: 2px solid #8a909b;
+  transform: rotate(45deg) translateY(-3px);
+}
+.module details[open] .module__head::after {
+  transform: rotate(-135deg) translateY(-2px);
+}
+.module__num {
+  font-weight: 800;
+  color: var(--c-primary);
+}
+.module__title {
+  flex: 1;
+  font-size: 17px;
+  font-weight: 700;
+}
+.module__dur {
+  font-size: 14px;
+  color: var(--c-muted);
+  white-space: nowrap;
+}
+.module__text {
+  padding: 0 20px 18px 54px;
+  color: var(--c-muted);
+  max-width: 90ch;
+}
+@media (max-width: 479.98px) {
+  .module__dur {
+    display: none;
+  }
+}
+
+/* ===== CTA-полоса ===== */
+.course-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  padding: 32px var(--gutter);
+  background: var(--c-primary);
+  color: #fff;
+}
+.course-cta__title {
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 800;
+}
+.course-cta__title span {
+  font-weight: 400;
+  opacity: 0.8;
+}
+.course-cta__sub {
+  margin-top: 4px;
+  color: #dbe5ff;
+}
+.btn--light {
+  background: #fff;
+  color: var(--c-primary-dark);
+}
+.btn--light:hover {
+  background: #e8efff;
+  color: var(--c-primary-dark);
+}
+
+/* ===== О школе на странице курса ===== */
+.course-school {
+  padding: 24px;
+  border: 1px solid var(--c-border);
+  border-radius: 16px;
+}
+.course-school__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.course-school__logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+}
+.course-school__name {
+  font-size: 22px;
+  font-weight: 800;
+}
+.course-school__text {
+  margin-top: 16px;
+  max-width: 70ch;
+  color: var(--c-muted);
+}
+.course-school__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+.course-school__actions .btn {
+  padding: 12px 20px;
+}
+#course-school .school-details {
+  background: var(--c-bg-light);
+}
+
+.catalog-grid--similar {
+  max-width: 1600px;
+}
+#course-usp,
+#course-program,
+#course-school,
+#course-similar,
+#course-faq,
+#prof-courses,
+#prof-about,
+#prof-skills,
+#prof-faq {
+  scroll-margin-top: calc(var(--header-h) + 56px);
+}
+
+/* ===== Липкая кнопка на мобильном ===== */
+.sticky-cta {
+  display: none;
+}
+@media (max-width: 1199.98px) {
+  .sticky-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    position: sticky;
+    bottom: 0;
+    z-index: 90;
+    padding: 10px var(--gutter);
+    background: #fff;
+    border-top: 1px solid var(--c-border);
+    box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.06);
+  }
+  .sticky-cta__price {
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  .sticky-cta__price span {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--c-muted);
+  }
+  .sticky-cta .btn {
+    padding: 12px 18px;
+    white-space: nowrap;
+  }
+}

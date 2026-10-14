@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- DATA: title = «Курсы <profession.name_genitive>: сравнение цен и программ — edukursy.ru» -->
+  <title>Курсы Backend-разработчика: сравнение цен и программ — edukursy.ru</title>
+  <meta name="description" content="Онлайн-курсы Backend-разработчика от ведущих школ: цены, длительность, языки и форматы обучения в одном месте.">
+  <link rel="canonical" href="https://edukursy.ru/professions/backend-razrabotchik/">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+  <!-- ============ ШАПКА (общая с главной) ============ -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="/" class="logo">
+        <img src="../../img/logo.png" alt="" class="logo__img" width="48" height="40">
+        <span class="logo__text">edukursy<span>.ru</span></span>
+      </a>
+
+      <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Основное меню">
+        <ul>
+          <li><a href="/professions/" aria-current="page">Профессии</a></li>
+          <li><a href="/courses/">Курсы</a></li>
+          <li><a href="/schools/">Школы</a></li>
+          <li><a href="/compare/">Сравнения</a></li>
+          <li><a href="/blog/">Блог</a></li>
+          <li><a href="/about/">О проекте</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ ШАПКА ПРОФЕССИИ ============ -->
+    <section class="page-head prof-hero">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="/" itemprop="item"><span itemprop="name">Главная</span></a>
+            <meta itemprop="position" content="1">
+          </li>
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="/professions/" itemprop="item"><span itemprop="name">Профессии</span></a>
+            <meta itemprop="position" content="2">
+          </li>
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span itemprop="name" aria-current="page"><!-- DATA: profession.name -->Backend-разработчик</span>
+            <meta itemprop="position" content="3">
+          </li>
+        </ol>
+      </nav>
+
+      <div class="prof-hero__main">
+        <div class="prof-hero__text">
+          <p class="prof-hero__area"><!-- DATA: profession.area -->IT · Разработка</p>
+          <h1 class="page-head__title">Курсы <!-- DATA: profession.name_genitive -->Backend-разработчика</h1>
+          <p class="prof-hero__lead"><!-- DATA: profession.lead -->Backend-разработчик создаёт серверную часть сайтов и приложений: логику, базы данных, API и интеграции. Пользователь её не видит, но именно она обрабатывает заказы, платежи и данные.</p>
+          <div class="prof-hero__actions">
+            <a href="#prof-courses" class="btn btn--primary btn--lg">Смотреть <!-- DATA: profession.courses_count -->86 курсов</a>
+            <a href="#prof-about" class="btn btn--outline">О профессии</a>
+          </div>
+        </div>
+
+        <dl class="school-facts prof-hero__facts">
+          <div><dt>Курсов в каталоге</dt><dd><!-- DATA: profession.courses_count -->86</dd></div>
+          <div><dt>Школ</dt><dd><!-- DATA: profession.schools_count -->3</dd></div>
+          <div><dt>Цены</dt><dd>от <!-- DATA: profession.min_price -->19 900 ₽</dd></div>
+          <div><dt>Длительность</dt><dd><!-- DATA: profession.duration_range -->2–12 мес</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <nav class="page-tabs" aria-label="Разделы страницы профессии">
+      <ul>
+        <li><a href="#prof-courses">Курсы</a></li>
+        <li><a href="#prof-about">О профессии</a></li>
+        <li><a href="#prof-skills">Чему учат</a></li>
+        <li><a href="#prof-faq">Вопросы</a></li>
+      </ul>
+    </nav>
+
+    <!-- ============ КУРСЫ ПРОФЕССИИ: сайдбар + сетка ============ -->
+    <div class="catalog catalog--narrow" id="prof-courses">
+
+      <aside class="catalog-sidebar" id="filters" aria-label="Фильтры курсов">
+        <div class="filters-head">
+          <p class="filters-head__title">Фильтры</p>
+          <a href="#" class="filters-close" aria-label="Закрыть фильтры">×</a>
+        </div>
+
+        <form class="filters" id="filters-form" method="get" action="/professions/backend-razrabotchik/">
+          <details class="filter-group" open>
+            <summary class="filter-group__title">Язык</summary>
+            <div class="filter-group__body">
+              <!-- DATA: теги/специализации профессии -->
+              <label class="opt"><input type="checkbox" name="tag" value="python"><span class="opt__text">Python</span> <span class="opt__count">31</span></label>
+              <label class="opt"><input type="checkbox" name="tag" value="java"><span class="opt__text">Java</span> <span class="opt__count">22</span></label>
+              <label class="opt"><input type="checkbox" name="tag" value="go"><span class="opt__text">Go</span> <span class="opt__count">14</span></label>
+              <label class="opt"><input type="checkbox" name="tag" value="nodejs"><span class="opt__text">Node.js</span> <span class="opt__count">11</span></label>
+              <label class="opt"><input type="checkbox" name="tag" value="php"><span class="opt__text">PHP</span> <span class="opt__count">8</span></label>
+            </div>
+          </details>
+
+          <details class="filter-group" open>
+            <summary class="filter-group__title">Школа</summary>
+            <div class="filter-group__body">
+              <label class="opt"><input type="checkbox" name="school" value="school-1"><span class="opt__text">Школа 1</span> <span class="opt__count">34</span></label>
+              <label class="opt"><input type="checkbox" name="school" value="school-2"><span class="opt__text">Школа 2</span> <span class="opt__count">29</span></label>
+              <label class="opt"><input type="checkbox" name="school" value="school-3"><span class="opt__text">Школа 3</span> <span class="opt__count">23</span></label>
+            </div>
+          </details>
+
+          <details class="filter-group" open>
+            <summary class="filter-group__title">Цена, ₽</summary>
+            <div class="filter-group__body">
+              <div class="price-range">
+                <label class="price-range__field"><span class="price-range__label">от</span><input type="number" name="price_min" inputmode="numeric" min="0" step="1000" placeholder="0"><span class="price-range__unit">₽</span></label>
+                <label class="price-range__field"><span class="price-range__label">до</span><input type="number" name="price_max" inputmode="numeric" min="0" step="1000" placeholder="300 000"><span class="price-range__unit">₽</span></label>
+              </div>
+            </div>
+          </details>
+
+          <details class="filter-group" open>
+            <summary class="filter-group__title">Формат</summary>
+            <div class="filter-group__body">
+              <label class="opt"><input type="radio" name="kind" value="" checked><span class="opt__text">Любой</span></label>
+              <label class="opt"><input type="radio" name="kind" value="profession"><span class="opt__text">Профессия с нуля</span></label>
+              <label class="opt"><input type="radio" name="kind" value="course"><span class="opt__text">Отдельный курс</span></label>
+            </div>
+          </details>
+
+          <div class="filters-actions">
+            <button type="submit" class="btn btn--primary btn--block">Показать</button>
+            <a href="/professions/backend-razrabotchik/" class="filters-reset">Сбросить всё</a>
+          </div>
+        </form>
+
+        <div class="ad-wrap ad-wrap--sidebar">
+          <aside class="ad-slot ad-slot--sidebar" aria-label="Реклама">
+            <span class="ad-label">Реклама</span>
+            <!-- AD SLOT: 2, 300×250 -->
+            <div class="ad-placeholder">Рекламный блок 300×250</div>
+          </aside>
+          <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
+        </div>
+      </aside>
+
+      <section class="catalog-main" aria-labelledby="courses-title">
+        <div class="toolbar">
+          <h2 class="toolbar__count" id="courses-title">Курсы: <span class="results-count"><!-- DATA: results_count -->86</span></h2>
+          <a href="#filters" class="btn btn--outline filters-open">Фильтры <span class="filters-open__badge"><!-- DATA: active_filters_count -->0</span></a>
+          <div class="sort">
+            <label for="sort" class="sort__label">Сортировка</label>
+            <select id="sort" name="sort" form="filters-form" class="sort__select">
+              <option value="price_asc" selected>Сначала дешёвые</option>
+              <option value="price_desc">Сначала дорогие</option>
+              <option value="popular">Популярные</option>
+              <option value="duration">По длительности</option>
+            </select>
+            <noscript><button type="submit" form="filters-form" class="btn btn--outline sort__apply">ОК</button></noscript>
+          </div>
+        </div>
+
+        <div class="catalog-grid">
+          <!-- DATA: цикл по курсам профессии. Блок-образец: article.catalog-card -->
+          <article class="catalog-card">
+            <a href="/courses/school-1/python-razrabotchik/" class="catalog-card__link"><!-- DATA: course.url -->
+              <img src="../../img/course-preview.svg" alt="Python-разработчик с нуля" class="card-thumb" width="640" height="360" loading="lazy"><!-- DATA: course.image_url -->
+              <div class="catalog-card__body">
+                <p class="catalog-card__kind"><!-- DATA: course.kind -->Профессия</p>
+                <h3 class="catalog-card__title"><!-- DATA: course.name -->Python-разработчик с нуля</h3>
+                <p class="catalog-card__school catalog-card__school--logo"><img src="../../img/school-1.jpg" alt="" width="20" height="20"><!-- DATA: course.school.name -->Школа 1</p>
+                <p class="catalog-card__duration"><!-- DATA: course.duration -->8 месяцев</p>
+                <p class="catalog-card__month"><!-- DATA: course.price_month -->4 900 ₽/мес</p>
+                <p class="catalog-card__price"><!-- DATA: course.price -->98 000 ₽ <s><!-- DATA: course.old_price -->140 000 ₽</s></p>
+              </div>
+            </a>
+          </article>
+          <article class="catalog-card">
+            <a href="/courses/school-2/golang-razrabotchik/" class="catalog-card__link">
+              <div class="card-thumb card-thumb--empty card-thumb--tone-4" aria-hidden="true">Ш</div>
+              <div class="catalog-card__body">
+                <p class="catalog-card__kind">Профессия</p>
+                <h3 class="catalog-card__title">Go-разработчик</h3>
+                <p class="catalog-card__school catalog-card__school--logo"><img src="../../img/school-2.jpg" alt="" width="20" height="20">Школа 2</p>
+                <p class="catalog-card__duration">6 месяцев</p>
+                <p class="catalog-card__month">4 100 ₽/мес</p>
+                <p class="catalog-card__price">49 000 ₽</p>
+              </div>
+            </a>
+          </article>
+          <article class="catalog-card">
+            <a href="/courses/school-3/java-razrabotchik/" class="catalog-card__link">
+              <img src="../../img/course-preview.svg" alt="Java-разработчик с нуля" class="card-thumb" width="640" height="360" loading="lazy">
+              <div class="catalog-card__body">
+                <p class="catalog-card__kind">Профессия</p>
+                <h3 class="catalog-card__title">Java-разработчик с нуля</h3>
+                <p class="catalog-card__school catalog-card__school--logo"><img src="../../img/school-3.jpg" alt="" width="20" height="20">Школа 3</p>
+                <p class="catalog-card__duration">10 месяцев</p>
+                <p class="catalog-card__month">5 770 ₽/мес</p>
+                <p class="catalog-card__price">101 150 ₽ <s>139 000 ₽</s></p>
+              </div>
+            </a>
+          </article>
+          <article class="catalog-card">
+            <a href="/courses/school-1/backend-na-python/" class="catalog-card__link">
+              <div class="card-thumb card-thumb--empty card-thumb--tone-1" aria-hidden="true">Ш</div>
+              <div class="catalog-card__body">
+                <p class="catalog-card__kind">Курс</p>
+                <h3 class="catalog-card__title">Бэкенд на Python: Django и базы данных</h3>
+                <p class="catalog-card__school catalog-card__school--logo"><img src="../../img/school-1.jpg" alt="" width="20" height="20">Школа 1</p>
+                <p class="catalog-card__duration">6 месяцев</p>
+                <p class="catalog-card__month catalog-card__month--none">Без рассрочки</p>
+                <p class="catalog-card__price">46 800 ₽</p>
+              </div>
+            </a>
+          </article>
+          <article class="catalog-card">
+            <a href="/courses/school-2/nodejs-razrabotchik/" class="catalog-card__link">
+              <img src="../../img/course-preview.svg" alt="Node.js-разработчик" class="card-thumb" width="640" height="360" loading="lazy">
+              <div class="catalog-card__body">
+                <p class="catalog-card__kind">Профессия</p>
+                <h3 class="catalog-card__title">Node.js-разработчик</h3>
+                <p class="catalog-card__school catalog-card__school--logo"><img src="../../img/school-2.jpg" alt="" width="20" height="20">Школа 2</p>
+                <p class="catalog-card__duration">7 месяцев</p>
+                <p class="catalog-card__month">3 990 ₽/мес</p>
+                <p class="catalog-card__price">67 000 ₽ <s>89 000 ₽</s></p>
+              </div>
+            </a>
+          </article>
+          <article class="catalog-card">
+            <a href="/courses/school-3/sql-i-bazy-dannyh/" class="catalog-card__link">
+              <div class="card-thumb card-thumb--empty card-thumb--tone-6" aria-hidden="true">Ш</div>
+              <div class="catalog-card__body">
+                <p class="catalog-card__kind">Курс</p>
+                <h3 class="catalog-card__title">SQL и базы данных для разработчиков</h3>
+                <p class="catalog-card__school catalog-card__school--logo"><img src="../../img/school-3.jpg" alt="" width="20" height="20">Школа 3</p>
+                <p class="catalog-card__duration">2 месяца</p>
+                <p class="catalog-card__month catalog-card__month--none">Без рассрочки</p>
+                <p class="catalog-card__price">19 900 ₽</p>
+              </div>
+            </a>
+          </article>
+          <!-- /DATA: конец цикла по курсам -->
+
+          <div class="ad-wrap ad-wrap--card">
+            <aside class="ad-slot ad-slot--card" aria-label="Реклама">
+              <span class="ad-label">Реклама</span>
+              <!-- AD SLOT: 1, нативная карточка, одна ячейка сетки. Ссылки с rel="sponsored noopener" -->
+              <div class="card-thumb card-thumb--ad">Изображение рекламодателя</div>
+              <div class="catalog-card__body">
+                <p class="catalog-card__title">Нативная реклама</p>
+                <p class="catalog-card__school">Короткое описание партнёрского материала</p>
+                <p class="ad-card__advertiser">Рекламодатель: <!-- AD: advertiser.name -->название, ИНН</p>
+              </div>
+            </aside>
+            <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
+          </div>
+        </div>
+
+        <nav class="pagination" aria-label="Страницы курсов профессии">
+          <span class="pagination__link pagination__link--nav pagination__link--disabled" aria-disabled="true">← Назад</span>
+          <ul class="pagination__list">
+            <li><a href="/professions/backend-razrabotchik/" class="pagination__link is-current" aria-current="page">1</a></li>
+            <li><a href="/professions/backend-razrabotchik/?page=2" class="pagination__link">2</a></li>
+            <li><a href="/professions/backend-razrabotchik/?page=3" class="pagination__link">3</a></li>
+            <li><span class="pagination__gap">…</span></li>
+            <li><a href="/professions/backend-razrabotchik/?page=15" class="pagination__link">15</a></li>
+          </ul>
+          <a href="/professions/backend-razrabotchik/?page=2" class="pagination__link pagination__link--nav" rel="next">Вперёд →</a>
+        </nav>
+      </section>
+    </div>
+
+    <!-- ============ О ПРОФЕССИИ ============ -->
+    <section class="section section--light" id="prof-about">
+      <h2 class="section__title">Кто такой Backend-разработчик</h2>
+      <div class="school-about">
+        <div class="prose prose--wide">
+          <!-- DATA: profession.description -->
+          <p>Backend-разработчик отвечает за всё, что происходит «за кулисами» сайта или приложения. Когда пользователь оформляет заказ, сервер проверяет данные, сохраняет их в базу, списывает оплату и отправляет уведомление — эту логику и пишет бэкендер.</p>
+          <p>В работе он проектирует базы данных, пишет API для фронтенда и мобильных приложений, подключает внешние сервисы и следит, чтобы система выдерживала нагрузку. Чаще всего используются Python, Java, Go, PHP и JavaScript (Node.js).</p>
+          <p>Профессия подходит тем, кому интересно разбираться, как устроены системы, и кто готов много работать с логикой и данными. Визуальная часть здесь почти не важна.</p>
+        </div>
+
+        <dl class="school-details">
+          <div><dt>Чем занимается</dt><dd>Серверная логика, базы данных, API</dd></div>
+          <div><dt>Популярные языки</dt><dd>Python, Java, Go, PHP, Node.js</dd></div>
+          <div><dt>Инструменты</dt><dd>SQL, Git, Docker, Linux</dd></div>
+          <div><dt>Сколько учиться с нуля</dt><dd>Обычно 6–12 месяцев</dd></div>
+          <div><dt>Кому подходит</dt><dd>Любит логику, системы и данные</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============ ЧЕМУ УЧАТ ============ -->
+    <section class="section" id="prof-skills">
+      <h2 class="section__title">Чему учат на курсах</h2>
+      <ul class="skills-grid">
+        <!-- DATA: цикл по навыкам профессии -->
+        <li class="skill"><span class="skill__num">01</span><h3 class="skill__title">Язык программирования</h3><p class="skill__text">Синтаксис, структуры данных, ООП и написание чистого, понятного кода.</p></li>
+        <li class="skill"><span class="skill__num">02</span><h3 class="skill__title">Базы данных и SQL</h3><p class="skill__text">Проектирование таблиц, запросы, индексы, работа с PostgreSQL или MySQL.</p></li>
+        <li class="skill"><span class="skill__num">03</span><h3 class="skill__title">Веб-фреймворки и API</h3><p class="skill__text">Django, FastAPI, Spring или аналоги; REST API и обмен данными с фронтендом.</p></li>
+        <li class="skill"><span class="skill__num">04</span><h3 class="skill__title">Git и командная работа</h3><p class="skill__text">Ветки, пул-реквесты, ревью кода и совместная разработка.</p></li>
+        <li class="skill"><span class="skill__num">05</span><h3 class="skill__title">Docker и деплой</h3><p class="skill__text">Контейнеры, запуск приложения на сервере, основы Linux.</p></li>
+        <li class="skill"><span class="skill__num">06</span><h3 class="skill__title">Тестирование</h3><p class="skill__text">Автотесты, отладка и поиск ошибок в серверном коде.</p></li>
+      </ul>
+    </section>
+
+    <!-- ============ ПЕРЕЛИНКОВКА ============ -->
+    <section class="link-columns" aria-label="Подборки">
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Backend по языкам</h2>
+        <ul class="link-columns__list">
+          <li><a href="/professions/backend-razrabotchik/?tag=python">Backend на Python</a></li>
+          <li><a href="/professions/backend-razrabotchik/?tag=java">Backend на Java</a></li>
+          <li><a href="/professions/backend-razrabotchik/?tag=go">Backend на Go</a></li>
+          <li><a href="/professions/backend-razrabotchik/?tag=nodejs">Backend на Node.js</a></li>
+          <li><a href="/professions/backend-razrabotchik/?tag=php">Backend на PHP</a></li>
+        </ul>
+        <a href="#prof-courses" class="link-columns__all">Все</a>
+      </div>
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">По цене и формату</h2>
+        <ul class="link-columns__list">
+          <li><a href="/professions/backend-razrabotchik/?price_max=50000">До 50 000 ₽</a></li>
+          <li><a href="/professions/backend-razrabotchik/?price_max=100000">До 100 000 ₽</a></li>
+          <li><a href="/professions/backend-razrabotchik/?kind=profession">Профессия с нуля</a></li>
+          <li><a href="/professions/backend-razrabotchik/?kind=course">Отдельные курсы</a></li>
+        </ul>
+      </div>
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Похожие профессии</h2>
+        <ul class="link-columns__list">
+          <!-- DATA: связанные профессии -->
+          <li><a href="/professions/frontend-razrabotchik/">Frontend-разработчик</a></li>
+          <li><a href="/professions/fullstack-razrabotchik/">Fullstack-разработчик</a></li>
+          <li><a href="/professions/devops-inzhener/">DevOps-инженер</a></li>
+          <li><a href="/professions/testirovshchik/">Тестировщик</a></li>
+          <li><a href="/professions/analitik-dannyh/">Аналитик данных</a></li>
+        </ul>
+        <a href="/professions/" class="link-columns__all">Все</a>
+      </div>
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Школы</h2>
+        <ul class="link-columns__list">
+          <li><a href="/schools/school-1/">Школа 1</a></li>
+          <li><a href="/schools/school-2/">Школа 2</a></li>
+          <li><a href="/schools/school-3/">Школа 3</a></li>
+        </ul>
+        <a href="/schools/" class="link-columns__all">Все</a>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section section--light faq-section" id="prof-faq" itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="section__title">Часто задаваемые вопросы</h2>
+      <div class="faq faq--wide">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q"><button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-1" id="faq-q-1"><span class="faq-item__icon" aria-hidden="true">💻</span><span itemprop="name">Какой язык выбрать для backend-разработки?</span></button></h3>
+          <div class="faq-item__a" id="faq-a-1" role="region" aria-labelledby="faq-q-1" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>Новичкам чаще советуют Python: у него простой синтаксис и много учебных материалов. Java и Go популярны в крупных компаниях, PHP — в веб-студиях. Посмотрите вакансии в своём городе и выберите язык, который встречается чаще.</p></div>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q"><button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-2" id="faq-q-2"><span class="faq-item__icon" aria-hidden="true">⏱️</span><span itemprop="name">Сколько учиться на Backend-разработчика с нуля?</span></button></h3>
+          <div class="faq-item__a" id="faq-a-2" role="region" aria-labelledby="faq-q-2" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>Полные программы в каталоге длятся от 6 до 12 месяцев при нагрузке 8–10 часов в неделю. Короткие курсы по отдельным темам — от 1 до 3 месяцев.</p></div>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q"><button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-3" id="faq-q-3"><span class="faq-item__icon" aria-hidden="true">🧮</span><span itemprop="name">Нужна ли математика?</span></button></h3>
+          <div class="faq-item__a" id="faq-a-3" role="region" aria-labelledby="faq-q-3" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>Для старта достаточно школьной математики и логического мышления. Углублённые знания нужны в отдельных задачах — например, в высоконагруженных системах или работе с алгоритмами.</p></div>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q"><button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-4" id="faq-q-4"><span class="faq-item__icon" aria-hidden="true">💳</span><span itemprop="name">Сколько стоят курсы Backend-разработчика?</span></button></h3>
+          <div class="faq-item__a" id="faq-a-4" role="region" aria-labelledby="faq-q-4" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>В каталоге цены начинаются от 19 900 ₽ за короткие курсы. Программы «Профессия» с наставником стоят от 49 000 ₽, многие школы дают рассрочку.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ ПОДВАЛ (общий с главной) ============ -->
+  <footer class="site-footer">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <a href="/" class="logo logo--light">
+          <img src="../../img/logo.png" alt="" class="logo__img" width="48" height="40">
+          <span class="logo__text">edukursy<span>.ru</span></span>
+        </a>
+        <p>Сравнение онлайн-курсов ведущих школ: программы, цены и длительность в одном месте.</p>
+      </div>
+
+      <nav class="site-footer__nav" aria-label="Информация">
+        <h2 class="site-footer__heading">Проект</h2>
+        <ul>
+          <li><a href="/about">О проекте</a></li>
+          <li><a href="/contacts">Контакты</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__nav" aria-label="Документы">
+        <h2 class="site-footer__heading">Документы</h2>
+        <ul>
+          <li><a href="/privacy">Политика конфиденциальности</a></li>
+          <li><a href="/terms">Пользовательское соглашение</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__nav" aria-label="Каталог">
+        <h2 class="site-footer__heading">Каталог</h2>
+        <ul>
+          <li><a href="/professions/">Профессии</a></li>
+          <li><a href="/courses/">Курсы</a></li>
+          <li><a href="/schools/">Школы</a></li>
+          <li><a href="/compare/">Сравнения</a></li>
+          <li><a href="/blog/">Блог</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <p class="site-footer__disclosure">Мы можем получать вознаграждение от школ за переходы по ссылкам. На цену для вас это не влияет.</p>
+    <p class="site-footer__copy">© <!-- DATA: current_year -->2025 edukursy.ru</p>
+  </footer>
+
+  <script src="../../script.js"></script>
+</body>
+</html>

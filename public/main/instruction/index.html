@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Инструкция: перенос дизайна edukursy в Django через Cline</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- ============ ШАПКА (общая с главной) ============ -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="/" class="logo">
+        <img src="../img/logo.png" alt="" class="logo__img" width="48" height="40">
+        <span class="logo__text">edukursy<span>.ru</span></span>
+      </a>
+
+      <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Основное меню">
+        <ul>
+          <li><a href="/professions/">Профессии</a></li>
+          <li><a href="/courses/">Курсы</a></li>
+          <li><a href="/schools/">Школы</a></li>
+          <li><a href="/compare/">Сравнения</a></li>
+          <li><a href="/blog/">Блог</a></li>
+          <li><a href="/about/">О проекте</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <ol><li><a href="/main/index.html">Макет</a></li><li><span aria-current="page">Инструкция по переносу</span></li></ol>
+      </nav>
+      <h1 class="page-head__title">Перенос дизайна в Django через Cline</h1>
+      <p class="page-head__subtitle">Все внутренние страницы, кроме главной: профессии, курсы, школы, сравнение, блог. Пошаговые промпты для VS Code + Cline с учётом того, что часть данных в вашей PostgreSQL ещё нет.</p>
+      <div class="ins-download">
+        <a href="/django-export.zip" class="btn btn--primary btn--lg" download>Скачать пакет (ZIP, 0,5 МБ)</a>
+        <p>Папка в проекте: <code>public/django-export/</code> · архив: <code>public/django-export.zip</code></p>
+      </div>
+    </section>
+
+    <div class="article-layout ins-layout">
+      <aside class="article-toc" aria-label="Шаги">
+        <details class="article-toc__box" open>
+          <summary class="article-toc__title">Содержание</summary>
+          <ol>
+            <li><a href="#package">Что в пакете</a></li>
+            <li><a href="#data">Если данных нет в БД</a></li>
+            <li><a href="#cline">Настройка Cline</a></li>
+            <li><a href="#step-0">Шаг 0. Подготовка (вручную, без Cline)</a></li>
+            <li><a href="#step-1">Шаг 1. Аудит проекта и данных (только чтение)</a></li>
+            <li><a href="#step-2">Шаг 2. Модели и миграции</a></li>
+            <li><a href="#step-3">Шаг 3. Статика и базовый шаблон</a></li>
+            <li><a href="#step-4">Шаг 4. Карточки (общие компоненты)</a></li>
+            <li><a href="#step-5">Шаг 5. Профессии: список и страница профессии</a></li>
+            <li><a href="#step-6">Шаг 6. Каталог курсов и страница курса</a></li>
+            <li><a href="#step-7">Шаг 7. Школы: список и страница школы</a></li>
+            <li><a href="#step-8">Шаг 8. Сравнение курсов</a></li>
+            <li><a href="#step-9">Шаг 9. Блог: лента и статья</a></li>
+            <li><a href="#step-10">Шаг 10. Карта сайта, редиректы, финальная проверка</a></li>
+            <li><a href="#step-11">Если что-то пошло не так</a></li>
+          </ol>
+        </details>
+      </aside>
+
+      <div class="ins-body">
+
+      <section class="ins-step" id="package">
+        <h2 class="ins-step__title">Что в пакете</h2>
+        <ul class="ins-files">
+          <li><code>mockups/</code><span>9 HTML-макетов — эталон вёрстки. В каждом динамическом месте стоит метка <code>&lt;!-- DATA: course.price --&gt;</code>, у реклам — <code>&lt;!-- AD SLOT --&gt;</code>.</span></li>
+          <li><code>static/edukursy/</code><span>Готовая статика: один <code>style.css</code> (без сборки, без Tailwind), <code>script.js</code> (меню, фильтры на мобильном, сортировка, FAQ), картинки-заглушки.</span></li>
+          <li><code>DATA_MAP.md</code><span>Карта всех полей по сущностям: школа, профессия, курс, сравнение, блог. Для каждого поля — где используется и что выводить, если его нет.</span></li>
+          <li><code>.clinerules</code><span>Правила для Cline: не переписывать CSS, сохранять разметку, не трогать существующие таблицы, скрывать пустые блоки.</span></li>
+          <li><code>PROMPTS.md</code><span>Все промпты с этой страницы — для работы офлайн.</span></li>
+        </ul>
+
+        <h3 class="ins-sub">Страницы и адреса</h3>
+        <div class="article-table">
+          <table>
+            <thead><tr><th>Страница</th><th>Макет</th><th>Адрес в Django</th></tr></thead>
+            <tbody>
+              <tr><td><a href="/main/professions/index.html" target="_blank">Список профессий</a></td><td><code>mockups/professions/index.html</code></td><td><code>/professions/</code></td></tr>
+              <tr><td><a href="/main/professions/backend-razrabotchik/index.html" target="_blank">Страница профессии</a></td><td><code>mockups/professions/backend-razrabotchik/index.html</code></td><td><code>/professions/&lt;slug&gt;/</code></td></tr>
+              <tr><td><a href="/main/courses/index.html" target="_blank">Каталог курсов</a></td><td><code>mockups/courses/index.html</code></td><td><code>/courses/</code></td></tr>
+              <tr><td><a href="/main/courses/python-razrabotchik/index.html" target="_blank">Страница курса</a></td><td><code>mockups/courses/python-razrabotchik/index.html</code></td><td><code>/courses/&lt;school&gt;/&lt;course&gt;/</code></td></tr>
+              <tr><td><a href="/main/schools/index.html" target="_blank">Список школ</a></td><td><code>mockups/schools/index.html</code></td><td><code>/schools/</code></td></tr>
+              <tr><td><a href="/main/schools/school_name/index.html" target="_blank">Страница школы</a></td><td><code>mockups/schools/school_name/index.html</code></td><td><code>/schools/&lt;slug&gt;/</code></td></tr>
+              <tr><td><a href="/main/compare/index.html" target="_blank">Сравнение курсов</a></td><td><code>mockups/compare/index.html</code></td><td><code>/compare/?courses=…</code></td></tr>
+              <tr><td><a href="/main/blog/index.html" target="_blank">Лента блога</a></td><td><code>mockups/blog/index.html</code></td><td><code>/blog/</code></td></tr>
+              <tr><td><a href="/main/blog/kak-sravnivat-ceny-kursov/index.html" target="_blank">Статья блога</a></td><td><code>mockups/blog/kak-sravnivat-ceny-kursov/index.html</code></td><td><code>/blog/&lt;slug&gt;/</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="ins-step" id="data">
+        <h2 class="ins-step__title">Если данных нет в БД</h2>
+        <p>Макеты содержат больше полей, чем обычно есть в базе: УТП курса, модули программы, рассрочка, наставник, проекты, юрлицо школы и т.д. Поэтому перенос начинается с аудита, а не с вёрстки.</p>
+        <div class="ins-cards">
+          <div class="ins-card"><p class="ins-card__tag ins-card__tag--ok">есть</p><p>Поле уже в модели — Cline подставит его, даже если оно называется иначе (<code>title</code> вместо <code>name</code>).</p></div>
+          <div class="ins-card"><p class="ins-card__tag">вычисл.</p><p>Считается на лету: мин. цена, число курсов, скидка, цена за месяц, время чтения. В БД не хранится.</p></div>
+          <div class="ins-card"><p class="ins-card__tag ins-card__tag--new">новое</p><p>Добавляется полем <code>null=True</code> — миграция пройдёт на заполненной базе, данные внесёте в админке позже.</p></div>
+          <div class="ins-card"><p class="ins-card__tag ins-card__tag--hide">скрыть</p><p>Данных нет и не будет — блок не выводится совсем, вместе с подписью. Никаких «None» и «0 ₽».</p></div>
+        </div>
+        <p class="ins-note">Существующие таблицы и поля не удаляются и не переименовываются — только добавляются новые. Перед шагом 2 сделайте резервную копию БД: <code>pg_dump -Fc имя_бд &gt; backup.dump</code>.</p>
+      </section>
+
+      <section class="ins-step" id="cline">
+        <h2 class="ins-step__title">Настройка Cline</h2>
+        <ol class="ins-list">
+          <li>Положите <code>.clinerules</code> в корень Django-проекта — Cline читает его автоматически при каждом запросе.</li>
+          <li>Каждый шаг запускайте в режиме <strong>Plan</strong>: Cline покажет план и список файлов. Проверьте, затем переключите на <strong>Act</strong>.</li>
+          <li>Один шаг — одна задача (новая задача в Cline). Так контекст не переполняется и модель не «забывает» правила.</li>
+          <li>После каждого шага — коммит в git. Если шаг не удался, откатитесь и повторите промпт с уточнением.</li>
+          <li>Для сверки вёрстки откройте макет из <code>_design/mockups/</code> и свою страницу рядом на ширине 1440 и 390 px.</li>
+        </ol>
+      </section>
+
+      <section class="ins-step" id="step-0">
+        <h2 class="ins-step__title">Шаг 0. Подготовка (вручную, без Cline)</h2>
+        <ol class="ins-list">
+          <li>Распакуйте архив <code>django-export.zip</code>.</li>
+          <li>Скопируйте в корень Django-проекта (рядом с <code>manage.py</code>):<ul><li>папку <code>mockups/</code> и файл <code>DATA_MAP.md</code> → в новую папку <code>_design/</code></li><li>папку <code>static/edukursy/</code> → в вашу папку статики (обычно <code>static/</code>)</li><li>файл <code>.clinerules</code> → в корень проекта</li><li>файл <code>PROMPTS.md</code> → в <code>_design/</code></li></ul></li>
+          <li>Проверьте: файл <code>_design/mockups/courses/index.html</code> открывается в браузере и выглядит как на макете.</li>
+        </ol>
+      </section>
+
+      <section class="ins-step" id="step-1">
+        <h2 class="ins-step__title">Шаг 1. Аудит проекта и данных (только чтение)</h2>
+        <div class="prompt">
+          <div class="prompt__bar"><span>Промпт для Cline</span><button type="button" class="copy-btn" data-target="p1">Копировать</button></div>
+          <pre class="prompt__code" id="p1">Прочитай .clinerules и _design/DATA_MAP.md. Ничего не меняй — только анализ.
+
+1. Изучи структуру Django-проекта: settings (INSTALLED_APPS, TEMPLATES, STATIC*, DATABASES), urls.py, все models.py, существующие шаблоны и base.html.
+2. Покажи мне список существующих моделей и их полей (кратко).
+3. Пройди по каждой строке таблиц в _design/DATA_MAP.md и заполни колонку «В БД?»:
+   - «есть: Model.field», если поле уже есть (учитывай другие названия: title вместо name и т.п.);
+   - «вычисл.» — если считается из других полей;
+   - «новое» — если нужно добавить;
+   - «скрыть» — если данных нет и брать их неоткуда.
+   Если не уверен — запусти `python manage.py shell` и посмотри реальные данные: сколько записей, сколько заполнено (например, Course.objects.exclude(old_price=None).count()).
+4. Сохрани результат в _design/DATA_AUDIT.md: таблица + список новых полей/моделей + список блоков, которые будут скрыты.
+5. Отдельно перечисли конфликты: где у меня структура отличается от макета (например, курс привязан к нескольким профессиям, нет slug у школы и т.п.) и предложи решение.
+
+Жду отчёт, не пиши код.</pre>
+        </div>
+        <p class="ins-note">Проверьте отчёт. Здесь вы решаете, какие поля добавлять, а какие блоки скрыть. Поправьте DATA_AUDIT.md руками, если нужно.</p>
+      </section>
+
+      <section class="ins-step" id="step-2">
+        <h2 class="ins-step__title">Шаг 2. Модели и миграции</h2>
+        <div class="prompt">
+          <div class="prompt__bar"><span>Промпт для Cline</span><button type="button" class="copy-btn" data-target="p2">Копировать</button></div>
+          <pre class="prompt__code" id="p2">По _design/DATA_AUDIT.md добавь недостающие поля и модели.
+
+Правила:
+- Существующие поля и таблицы НЕ удалять и НЕ переименовывать.
+- Все новые поля: null=True, blank=True (кроме slug — если slug нет, добавь поле, заполни data-миграцией через slugify из name/title с проверкой уникальности, только потом сделай unique).
+- Новые модели (если нужны): CourseModule(course FK, order, title, duration, description), CourseUSP(course FK, order, icon, title, text), BlogCategory, BlogPost, Tag, Author, FAQ(page_key, order, question, answer, icon), AdSlot(key, html, is_active).
+- Вычисляемые значения НЕ хранить: делай @property или annotate в QuerySet (например, CourseQuerySet.with_price_per_month()).
+- Добавь get_absolute_url() для School, Profession, Course, BlogPost по URL-схеме:
+  /professions/&lt;slug&gt;/, /courses/&lt;school_slug&gt;/&lt;course_slug&gt;/, /schools/&lt;slug&gt;/, /blog/&lt;slug&gt;/.
+- Зарегистрируй новые модели и поля в admin.py (inline для CourseModule и CourseUSP внутри курса).
+
+Покажи план, после подтверждения: makemigrations, покажи SQL миграции (sqlmigrate), затем migrate. Запусти python manage.py check.</pre>
+        </div>
+      </section>
+
+      <section class="ins-step" id="step-3">
+        <h2 class="ins-step__title">Шаг 3. Статика и базовый шаблон</h2>
+        <div class="prompt">
+          <div class="prompt__bar"><span>Промпт для Cline</span><button type="button" class="copy-btn" data-target="p3">Копировать</button></div>
+          <pre class="prompt__code" id="p3">Создай базовый шаблон для новых страниц по макетам из _design/mockups/.
+
+1. templates/edukursy/base.html:
+   - &lt;head&gt;: {% block title %}, {% block meta_description %}, {% block canonical %}, {% block robots %}{% endblock %}, {% block og %}{% endblock %}, подключение {% static &#x27;edukursy/css/style.css&#x27; %}.
+   - шапка и подвал взять из _design/mockups/courses/index.html (секции «ШАПКА» и «ПОДВАЛ»), пути к картинкам → {% static %}, ссылки меню → {% url %}.
+   - Активный пункт меню: aria-current=&quot;page&quot; через {% block nav_active %} или переменную nav_active в контексте.
+   - {% block content %} внутри &lt;main&gt;.
+   - перед &lt;/body&gt; — {% static &#x27;edukursy/js/script.js&#x27; %}.
+   - год в подвале: {% now &quot;Y&quot; %}.
+2. Вынеси в templates/edukursy/partials/: header.html, footer.html, breadcrumbs.html (принимает список (title, url)), pagination.html (Django Paginator, сохраняет GET-параметры, повтори разметку nav.pagination из макета: «Назад» disabled на первой странице, многоточия), ad_slot.html (принимает key и вариант: card / sidebar / inline / article — разметка из макетов, если AdSlot неактивен или нет — ничего не выводить), faq.html (список вопросов + FAQPage микроразметка).
+3. Если на сайте уже есть свой base.html — НЕ ломай его: новый шаблон сделай отдельным, и сообщи мне, чем они отличаются.
+
+Проверь: python manage.py collectstatic --dry-run без ошибок.</pre>
+        </div>
+      </section>
+
+      <section class="ins-step" id="step-4">
+        <h2 class="ins-step__title">Шаг 4. Карточки (общие компоненты)</h2>
+        <div class="prompt">
+          <div class="prompt__bar"><span>Промпт для Cline</span><button type="button" class="copy-btn" data-target="p4">Копировать</button></div>
+          <pre class="prompt__code" id="p4">Сделай include-шаблоны карточек в templates/edukursy/partials/cards/, разметку бери 1:1 из макетов:
+
+- course_card.html — article.catalog-card (макет: _design/mockups/schools/school_name/index.html и professions/backend-razrabotchik/index.html). Варианты: с картинкой и без (div.card-thumb--empty card-thumb--tone-N, N = (school.id % 6) + 1, буква — первая буква названия школы). Логотип школы рядом с названием, если есть. Рассрочка: если нет price_month — «Без рассрочки». Старая цена — только если есть.
+- school_card.html — карточка школы (макет: schools/index.html).
+- profession_tile.html — плитка профессии (макет: professions/index.html).
+- post_card.html — article.post-card (макет: blog/index.html).
+
+Все блоки, для которых нет данных, оборачивай в {% if %}. Цены форматируй с пробелами между тысячами (сделай фильтр |rub в templatetags/edukursy.py: 98000 → «98 000 ₽»; используй неразрывный пробел).</pre>
+        </div>
+      </section>
+
+      <section class="ins-step" id="step-5">
+        <h2 class="ins-step__title">Шаг 5. Профессии: список и страница профессии</h2>
+        <div class="prompt">
+          <div class="prompt__bar"><span>Промпт для Cline</span><button type="button" class="copy-btn" data-target="p5">Копировать</button></div>
+          <pre class="prompt__code" id="p5">Сделай страницы по макетам:
+- /professions/ → _design/mockups/professions/index.html
+- /professions/&lt;slug&gt;/ → _design/mockups/professions/backend-razrabotchik/index.html
+
+Требования:
+- Class-based views (ListView / DetailView) в отдельном приложении или в существующем каталоге — предложи, где лучше.
+- Список: фильтры GET area, q (поиск по name, icontains), has_courses; агрегаты courses_count, min_price, duration_range через annotate. Только профессии с курсами, если has_courses=1.
+- Страница профессии: курсы этой профессии с фильтрами tag, school, price_min, price_max, kind, сортировка sort (price_asc, price_desc, popular, duration), пагинация 12 на страницу. Счётчики рядом с вариантами фильтров — реальные Count.
+- Нативная рекламная карточка встаёт в сетку после 6-й карточки (forloop.counter == 6), сайдбар-реклама — под фильтрами. Не больше рекламных блоков, чем в макете.
+- Секции «Кто такой…», «Чему учат», «Похожие профессии», FAQ — выводятся только если есть данные.
+- H1: «Курсы {{ name_genitive }}», если нет — «Курсы по профессии {{ name }}».
+- canonical без GET-параметров (кроме page).
+- select_related/prefetch_related — без N+1 (проверь django-debug-toolbar, если установлен, или connection.queries).
+
+После: открой обе страницы, сравни с макетами на ширине 1440 и 390 px, перечисли расхождения и исправь.</pre>
+        </div>
+      </section>
+
+      <section class="ins-step" id="step-6">
+        <h2 class="ins-step__title">Шаг 6. Каталог курсов и страница курса</h2>
+        <div class="prompt">
+          <div class="prompt__bar"><span>Промпт для Cline</span><button type="button" class="copy-btn" data-target="p6">Копировать</button></div>
+          <pre class="prompt__code" id="p6">Сделай страницы:
+- /courses/ → _design/mockups/courses/index.html
+- /courses/&lt;school_slug&gt;/&lt;course_slug&gt;/ → _design/mockups/courses/python-razrabotchik/index.html
+
+Каталог:
+- Фильтры GET: profession, school (multi), price_min, price_max, duration (0-3, 3-6, 6-12, 12-plus по duration_months), kind, sort (price_asc, price_desc, popular, new). Пагинация 12.
+- Сортировка меняется без кнопки (это уже делает script.js через form.submit), в &lt;noscript&gt; оставь кнопку.
+- Активные фильтры («чипы») из макета — с крестиком, ссылка убирает один параметр.
+
+Страница курса:
+- Плашки фактов (Длительность, Нагрузка, Формат, Поддержка, Старт, Документ) — каждая выводится только если есть значение. Если плашек нет совсем — скрыть блок.
+- Блок цены: цена, старая цена + скидка (вычисл.), рассрочка. Кнопки «Перейти на сайт школы» и «Бесплатный вводный урок» ведут на partner_url (fallback: school.partner_url → school.website). Если ссылки нет — кнопки не выводить. У всех ссылок на школу: rel=&quot;sponsored noopener&quot; target=&quot;_blank&quot;.
+- Вкладки (nav.page-tabs) показывают только существующие секции.
+- Секции: УТП (CourseUSP), Программа (CourseModule, details/summary), CTA-полоса, «О школе», «Похожие курсы других школ» (та же профессия, другая школа, 4 шт.), реклама (1 блок), FAQ.
+- Липкая мобильная кнопка .sticky-cta — тоже на partner_url.
+- Микроразметка Course + Offer.</pre>
+        </div>
+      </section>
+
+      <section class="ins-step" id="step-7">
+        <h2 class="ins-step__title">Шаг 7. Школы: список и страница школы</h2>
+        <div class="prompt">
+          <div class="prompt__bar"><span>Промпт для Cline</span><button type="button" class="copy-btn" data-target="p7">Копировать</button></div>
+          <pre class="prompt__code" id="p7">Сделай страницы:
+- /schools/ → _design/mockups/schools/index.html
+- /schools/&lt;slug&gt;/ → _design/mockups/schools/school_name/index.html
+
+Список: фильтры q, area, rating_min, license, installment; сортировка rating, courses, price_asc, name; агрегаты courses_count, min_price. Пагинация 12.
+Страница школы: шапка (логотип, рейтинг, факты), вкладки, курсы школы с фильтрами profession, price_min, price_max, kind и сортировкой; «О школе» (описание + таблица фактов — каждая строка только если есть значение), перелинковка, FAQ. Блока отзывов НЕТ — не добавляй.
+Кнопка «Сайт школы» — school.partner_url или school.website, rel=&quot;sponsored noopener&quot;.</pre>
+        </div>
+      </section>
+
+      <section class="ins-step" id="step-8">
+        <h2 class="ins-step__title">Шаг 8. Сравнение курсов</h2>
+        <div class="prompt">
+          <div class="prompt__bar"><span>Промпт для Cline</span><button type="button" class="copy-btn" data-target="p8">Копировать</button></div>
+          <pre class="prompt__code" id="p8">Сделай /compare/ по макету _design/mockups/compare/index.html.
+
+- Набор курсов: GET ?courses=school-slug/course-slug,school-slug/course-slug (до 4). Параметр add добавляет курс, ссылка × убирает (формирует URL без этого курса). Если курсов 0 — пустое состояние: текст «Добавьте курсы для сравнения» и ссылка в каталог.
+- Список «Добавить курс»: курсы той же профессии, которых нет в сравнении (до 30, по популярности).
+- Таблица: группы строк как в макете. Для каждой строки собери значения; если значения нет — «—» (span.cmp-no). Булевы: «✓ Есть» (span.cmp-yes).
+- Подсветка лучшего (td.is-best + span.cmp-best): мин. цена, мин. цена за месяц обучения, макс. проектов, макс. рейтинг школы. Если значения равны у всех — не подсвечивать.
+- «Только различия» (diff=1): скрыть строки, где у всех курсов одинаковые значения.
+- Итоговые карточки (3 шт.) считаются из тех же данных; если курс один — блок скрыть.
+- Все кнопки «На сайт школы» — partner_url с fallback.
+- &lt;meta name=&quot;robots&quot; content=&quot;noindex, follow&quot;&gt;.
+- Логику сравнения вынеси в отдельный модуль compare.py (функция build_comparison(courses) → строки, лучшие значения, итоги) и покрой простыми тестами.</pre>
+        </div>
+      </section>
+
+      <section class="ins-step" id="step-9">
+        <h2 class="ins-step__title">Шаг 9. Блог: лента и статья</h2>
+        <div class="prompt">
+          <div class="prompt__bar"><span>Промпт для Cline</span><button type="button" class="copy-btn" data-target="p9">Копировать</button></div>
+          <pre class="prompt__code" id="p9">Сделай:
+- /blog/ → _design/mockups/blog/index.html
+- /blog/&lt;slug&gt;/ → _design/mockups/blog/kak-sravnivat-ceny-kursov/index.html
+
+Лента: рубрики (?category=slug, со счётчиками), главная статья (is_featured, иначе самая свежая — и её не дублировать в сетке), сетка 9 на страницу, нативная реклама после 3-й карточки, широкий баннер после пагинации. Рекламных блоков на странице — не больше 2.
+Статья:
+- Тело — post.body через |safe (контент только из админки). Если в проекте есть редактор (CKEditor/TinyMCE) — используй его.
+- Оглавление: распарси &lt;h2&gt; из body (BeautifulSoup или regex), проставь id, если нет (slugify). Если h2 меньше 3 — оглавление скрыть.
+- Время чтения: слова / 200, минимум 1.
+- Реклама: блок 1 вставляется в тело после ~40% h2 (после второго h2 из пяти и т.п.), блок 2 — после статьи. Всего 2.
+- «Курсы по теме» внутри статьи — курсы с общими тегами (до 3), если нет — не выводить.
+- «Читайте также» — 3 статьи той же рубрики, кроме текущей.
+- Микроразметка Article, Open Graph.</pre>
+        </div>
+      </section>
+
+      <section class="ins-step" id="step-10">
+        <h2 class="ins-step__title">Шаг 10. Карта сайта, редиректы, финальная проверка</h2>
+        <div class="prompt">
+          <div class="prompt__bar"><span>Промпт для Cline</span><button type="button" class="copy-btn" data-target="p10">Копировать</button></div>
+          <pre class="prompt__code" id="p10">1. Добавь страницы в sitemap.xml (django.contrib.sitemaps): профессии, курсы, школы, статьи. /compare/ с параметрами — не добавлять.
+2. Проверь robots.txt: не закрыты ли новые разделы.
+3. Если раньше эти разделы жили по другим адресам — сделай 301-редиректы.
+4. Пройди все страницы: /professions/, /professions/&lt;slug&gt;/, /courses/, /courses/&lt;school&gt;/&lt;course&gt;/, /schools/, /schools/&lt;slug&gt;/, /compare/?courses=..., /blog/, /blog/&lt;slug&gt;/.
+   Для каждой: нет ошибок 500, нет «None»/пустых плашек, нет N+1 (число SQL-запросов ≤ 15), вёрстка совпадает с макетом на 1440 и 390 px.
+5. Удали из шаблонов все оставшиеся &lt;!-- DATA --&gt; комментарии.
+6. Составь короткий отчёт: что сделано, какие блоки скрыты из-за отсутствия данных, какие поля нужно заполнить в админке.</pre>
+        </div>
+      </section>
+
+      <section class="ins-step" id="step-11">
+        <h2 class="ins-step__title">Если что-то пошло не так</h2>
+        <ul class="ins-list ins-list--dots">
+          <li><strong>Вёрстка «поехала»</strong> → «Сравни разметку шаблона X с _design/mockups/X/index.html построчно: какие классы и обёртки отличаются? Исправь, CSS не трогай.»</li>
+          <li><strong>Cline хочет переписать CSS</strong> → «Не меняй style.css. Найди класс в макете и используй его.»</li>
+          <li><strong>Ошибка миграции на живой БД</strong> → «Откати последнюю миграцию (migrate app &lt;предыдущий_номер&gt;), сделай поле nullable и раздели на 2 миграции: схема + data-миграция.»</li>
+          <li><strong>Медленная страница</strong> → «Покажи все SQL-запросы этой страницы и убери N+1 через select_related/prefetch_related/annotate.»</li>
+        </ul>
+      </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ ПОДВАЛ (общий с главной) ============ -->
+  <footer class="site-footer">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <a href="/" class="logo logo--light">
+          <img src="../img/logo.png" alt="" class="logo__img" width="48" height="40">
+          <span class="logo__text">edukursy<span>.ru</span></span>
+        </a>
+        <p>Сравнение онлайн-курсов ведущих школ: программы, цены и длительность в одном месте.</p>
+      </div>
+
+      <nav class="site-footer__nav" aria-label="Информация">
+        <h2 class="site-footer__heading">Проект</h2>
+        <ul>
+          <li><a href="/about">О проекте</a></li>
+          <li><a href="/contacts">Контакты</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__nav" aria-label="Документы">
+        <h2 class="site-footer__heading">Документы</h2>
+        <ul>
+          <li><a href="/privacy">Политика конфиденциальности</a></li>
+          <li><a href="/terms">Пользовательское соглашение</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__nav" aria-label="Каталог">
+        <h2 class="site-footer__heading">Каталог</h2>
+        <ul>
+          <li><a href="/professions/">Профессии</a></li>
+          <li><a href="/courses/">Курсы</a></li>
+          <li><a href="/schools/">Школы</a></li>
+          <li><a href="/compare/">Сравнения</a></li>
+          <li><a href="/blog/">Блог</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <p class="site-footer__disclosure">Мы можем получать вознаграждение от школ за переходы по ссылкам. На цену для вас это не влияет.</p>
+    <p class="site-footer__copy">© <!-- DATA: current_year -->2025 edukursy.ru</p>
+  </footer>
+
+  <script src="../script.js"></script>
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var code = document.getElementById(b.dataset.target).innerText;
+        navigator.clipboard.writeText(code).then(function () {
+          b.textContent = 'Скопировано';
+          setTimeout(function () { b.textContent = 'Копировать'; }, 1600);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

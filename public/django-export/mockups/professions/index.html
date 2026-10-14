@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Профессии: онлайн-обучение с нуля, курсы и цены — edukursy.ru</title>
+  <meta name="description" content="Каталог профессий для онлайн-обучения: сколько курсов по каждой профессии в ведущих онлайн-школах, цены и длительность программ.">
+  <link rel="canonical" href="https://edukursy.ru/professions/">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- ============ ШАПКА (общая с главной) ============ -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="/" class="logo">
+        <img src="../img/logo.png" alt="" class="logo__img" width="48" height="40">
+        <span class="logo__text">edukursy<span>.ru</span></span>
+      </a>
+
+      <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Основное меню">
+        <ul>
+          <li><a href="/professions/" aria-current="page">Профессии</a></li>
+          <li><a href="/courses/">Курсы</a></li>
+          <li><a href="/schools/">Школы</a></li>
+          <li><a href="/compare/">Сравнения</a></li>
+          <li><a href="/blog/">Блог</a></li>
+          <li><a href="/about/">О проекте</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ ХЛЕБНЫЕ КРОШКИ + ЗАГОЛОВОК ============ -->
+    <section class="page-head">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="/" itemprop="item"><span itemprop="name">Главная</span></a>
+            <meta itemprop="position" content="1">
+          </li>
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span itemprop="name" aria-current="page">Профессии</span>
+            <meta itemprop="position" content="2">
+          </li>
+        </ol>
+      </nav>
+
+      <h1 class="page-head__title">Профессии: онлайн-обучение с нуля</h1>
+      <p class="page-head__subtitle"><span class="results-count"><!-- DATA: total_count -->9 профессий</span> · <!-- DATA: courses_total -->993 курса от <!-- DATA: schools_count -->3 школ</p>
+    </section>
+
+    <!-- ============ ДВУХКОЛОНОЧНАЯ ОБЛАСТЬ ============ -->
+    <div class="catalog catalog--narrow">
+
+      <!-- ===== САЙДБАР: короткий ===== -->
+      <aside class="catalog-sidebar" id="filters" aria-label="Фильтры">
+        <div class="filters-head">
+          <p class="filters-head__title">Фильтры</p>
+          <a href="#" class="filters-close" aria-label="Закрыть фильтры">×</a>
+        </div>
+
+        <form class="filters" id="filters-form" method="get" action="/professions/">
+          <div class="filter-group filter-group--static">
+            <label for="prof-q" class="filter-group__title">Поиск по названию</label>
+            <div class="filter-group__body">
+              <input type="search" id="prof-q" name="q" class="filter-input" placeholder="Например, аналитик" value=""><!-- DATA: request.GET.q -->
+            </div>
+          </div>
+
+          <details class="filter-group" open>
+            <summary class="filter-group__title">Направление</summary>
+            <div class="filter-group__body">
+              <!-- DATA: цикл по направлениям -->
+              <label class="opt"><input type="checkbox" name="area" value="it" checked><span class="opt__text">IT</span> <span class="opt__count">5</span></label>
+              <label class="opt"><input type="checkbox" name="area" value="design"><span class="opt__text">Дизайн</span> <span class="opt__count">1</span></label>
+              <label class="opt"><input type="checkbox" name="area" value="marketing"><span class="opt__text">Маркетинг</span> <span class="opt__count">1</span></label>
+              <label class="opt"><input type="checkbox" name="area" value="management"><span class="opt__text">Менеджмент</span> <span class="opt__count">2</span></label>
+            </div>
+          </details>
+
+          <div class="filter-group filter-group--static">
+            <label class="opt"><input type="checkbox" name="has_courses" value="1" checked><span class="opt__text">Только с курсами</span></label>
+          </div>
+
+          <div class="filters-actions">
+            <button type="submit" class="btn btn--primary btn--block">Показать</button>
+            <a href="/professions/" class="filters-reset">Сбросить всё</a>
+          </div>
+        </form>
+
+        <!-- ===== РЕКЛАМНЫЙ БЛОК 2 — сайдбар (на мобильном скрыт) ===== -->
+        <div class="ad-wrap ad-wrap--sidebar">
+          <aside class="ad-slot ad-slot--sidebar" aria-label="Реклама">
+            <span class="ad-label">Реклама</span>
+            <!-- AD SLOT: 2, 300×250 -->
+            <div class="ad-placeholder">Рекламный блок 300×250</div>
+          </aside>
+          <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
+        </div>
+      </aside>
+
+      <!-- ===== СЕТКА ПРОФЕССИЙ ===== -->
+      <section class="catalog-main" aria-label="Список профессий">
+
+        <div class="toolbar">
+          <p class="toolbar__count">Найдено <span class="results-count"><!-- DATA: results_count -->9 профессий</span></p>
+          <a href="#filters" class="btn btn--outline filters-open">Фильтры <span class="filters-open__badge"><!-- DATA: active_filters_count -->2</span></a>
+        </div>
+
+        <div class="catalog-grid catalog-grid--wide">
+          <!-- DATA: цикл по профессиям. Блок-образец: article.prof-tile. Иконка: <img> из базы или .prof-tile__icon с первой буквой -->
+          <article class="prof-tile">
+            <a href="/professions/programmist/" class="prof-tile__link"><!-- DATA: profession.url -->
+              <div class="prof-tile__icon prof-tile__icon--tone-1" aria-hidden="true"><!-- DATA: profession.icon или первая буква -->П</div>
+              <h2 class="prof-tile__name"><!-- DATA: profession.name -->Программист</h2>
+              <p class="prof-tile__area"><!-- DATA: profession.area -->IT</p>
+              <dl class="prof-tile__facts">
+                <div><dt>Курсов</dt><dd><!-- DATA: profession.courses_count -->215</dd></div>
+                <div><dt>Цена</dt><dd>от <!-- DATA: profession.min_price -->12 000 ₽</dd></div>
+                <div><dt>Длительность</dt><dd><!-- DATA: profession.duration_range -->2–14 мес</dd></div>
+              </dl>
+              <span class="prof-tile__more">Смотреть курсы →</span>
+            </a>
+          </article>
+
+          <article class="prof-tile">
+            <a href="/professions/dizajner/" class="prof-tile__link">
+              <div class="prof-tile__icon prof-tile__icon--tone-2" aria-hidden="true">Д</div>
+              <h2 class="prof-tile__name">Дизайнер</h2>
+              <p class="prof-tile__area">Дизайн</p>
+              <dl class="prof-tile__facts">
+                <div><dt>Курсов</dt><dd>177</dd></div>
+                <div><dt>Цена</dt><dd>от 9 900 ₽</dd></div>
+                <div><dt>Длительность</dt><dd>2–12 мес</dd></div>
+              </dl>
+              <span class="prof-tile__more">Смотреть курсы →</span>
+            </a>
+          </article>
+
+          <article class="prof-tile">
+            <a href="/professions/menedzher-proektov/" class="prof-tile__link">
+              <div class="prof-tile__icon prof-tile__icon--tone-3" aria-hidden="true">М</div>
+              <h2 class="prof-tile__name">Менеджер проектов</h2>
+              <p class="prof-tile__area">Менеджмент</p>
+              <dl class="prof-tile__facts">
+                <div><dt>Курсов</dt><dd>107</dd></div>
+                <div><dt>Цена</dt><dd>от 14 500 ₽</dd></div>
+                <div><dt>Длительность</dt><dd>3–10 мес</dd></div>
+              </dl>
+              <span class="prof-tile__more">Смотреть курсы →</span>
+            </a>
+          </article>
+
+          <article class="prof-tile">
+            <a href="/professions/razrabotka-igr/" class="prof-tile__link">
+              <div class="prof-tile__icon prof-tile__icon--tone-4" aria-hidden="true">Р</div>
+              <h2 class="prof-tile__name">Разработчик игр</h2>
+              <p class="prof-tile__area">IT</p>
+              <dl class="prof-tile__facts">
+                <div><dt>Курсов</dt><dd>76</dd></div>
+                <div><dt>Цена</dt><dd>от 18 000 ₽</dd></div>
+                <div><dt>Длительность</dt><dd>4–14 мес</dd></div>
+              </dl>
+              <span class="prof-tile__more">Смотреть курсы →</span>
+            </a>
+          </article>
+
+          <article class="prof-tile">
+            <a href="/professions/testirovshchik/" class="prof-tile__link">
+              <div class="prof-tile__icon prof-tile__icon--tone-5" aria-hidden="true">Т</div>
+              <h2 class="prof-tile__name">Тестировщик</h2>
+              <p class="prof-tile__area">IT</p>
+              <dl class="prof-tile__facts">
+                <div><dt>Курсов</dt><dd>58</dd></div>
+                <div><dt>Цена</dt><dd>от 11 000 ₽</dd></div>
+                <div><dt>Длительность</dt><dd>2–8 мес</dd></div>
+              </dl>
+              <span class="prof-tile__more">Смотреть курсы →</span>
+            </a>
+          </article>
+
+          <article class="prof-tile">
+            <a href="/professions/marketolog/" class="prof-tile__link">
+              <div class="prof-tile__icon prof-tile__icon--tone-6" aria-hidden="true">М</div>
+              <h2 class="prof-tile__name">Маркетолог</h2>
+              <p class="prof-tile__area">Маркетинг</p>
+              <dl class="prof-tile__facts">
+                <div><dt>Курсов</dt><dd>41</dd></div>
+                <div><dt>Цена</dt><dd>от 8 500 ₽</dd></div>
+                <div><dt>Длительность</dt><dd>2–9 мес</dd></div>
+              </dl>
+              <span class="prof-tile__more">Смотреть курсы →</span>
+            </a>
+          </article>
+
+          <article class="prof-tile">
+            <a href="/professions/produktovyj-menedzher/" class="prof-tile__link">
+              <div class="prof-tile__icon prof-tile__icon--tone-1" aria-hidden="true">П</div>
+              <h2 class="prof-tile__name">Продакт-менеджер</h2>
+              <p class="prof-tile__area">Менеджмент</p>
+              <dl class="prof-tile__facts">
+                <div><dt>Курсов</dt><dd>33</dd></div>
+                <div><dt>Цена</dt><dd>от 21 000 ₽</dd></div>
+                <div><dt>Длительность</dt><dd>3–9 мес</dd></div>
+              </dl>
+              <span class="prof-tile__more">Смотреть курсы →</span>
+            </a>
+          </article>
+
+          <article class="prof-tile">
+            <a href="/professions/analitik-dannyh/" class="prof-tile__link">
+              <div class="prof-tile__icon prof-tile__icon--tone-2" aria-hidden="true">А</div>
+              <h2 class="prof-tile__name">Аналитик данных</h2>
+              <p class="prof-tile__area">IT</p>
+              <dl class="prof-tile__facts">
+                <div><dt>Курсов</dt><dd>14</dd></div>
+                <div><dt>Цена</dt><dd>от 16 000 ₽</dd></div>
+                <div><dt>Длительность</dt><dd>3–12 мес</dd></div>
+              </dl>
+              <span class="prof-tile__more">Смотреть курсы →</span>
+            </a>
+          </article>
+
+          <article class="prof-tile">
+            <a href="/professions/sistemnyj-analitik/" class="prof-tile__link">
+              <div class="prof-tile__icon prof-tile__icon--tone-3" aria-hidden="true">С</div>
+              <h2 class="prof-tile__name">Системный аналитик</h2>
+              <p class="prof-tile__area">IT</p>
+              <dl class="prof-tile__facts">
+                <div><dt>Курсов</dt><dd>12</dd></div>
+                <div><dt>Цена</dt><dd>от 19 500 ₽</dd></div>
+                <div><dt>Длительность</dt><dd>3–8 мес</dd></div>
+              </dl>
+              <span class="prof-tile__more">Смотреть курсы →</span>
+            </a>
+          </article>
+          <!-- /DATA: конец цикла по профессиям -->
+
+          <!-- ===== РЕКЛАМНЫЙ БЛОК 1 — нативный, одна ячейка сетки ===== -->
+          <div class="ad-wrap ad-wrap--card">
+            <aside class="ad-slot ad-slot--card" aria-label="Реклама">
+              <span class="ad-label">Реклама</span>
+              <!-- AD SLOT: 1, нативная карточка, одна ячейка сетки. Ссылки с rel="sponsored noopener" -->
+              <div class="card-thumb card-thumb--ad">Изображение рекламодателя</div>
+              <div class="catalog-card__body">
+                <p class="catalog-card__title">Нативная реклама</p>
+                <p class="catalog-card__school">Короткое описание партнёрского материала</p>
+                <p class="ad-card__advertiser">Рекламодатель: <!-- AD: advertiser.name -->название, ИНН</p>
+              </div>
+            </aside>
+            <a href="/privacy" class="ad-more">Подробнее о рекламе</a>
+          </div>
+        </div>
+        <!-- Пагинации нет: профессий мало, все на одной странице. Если станет больше 24 — добавить nav.pagination как в /courses/ -->
+      </section>
+    </div>
+
+    <!-- ============ ПЕРЕЛИНКОВКА: колонки ссылок ============ -->
+    <section class="link-columns" aria-label="Подборки профессий">
+      <!-- DATA: 4 колонки, в каждой до 8 ссылок + «Все». Колонки и ссылки — из базы -->
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">IT-профессии</h2>
+        <ul class="link-columns__list">
+          <li><a href="/professions/programmist/">Программист</a></li>
+          <li><a href="/professions/testirovshchik/">Тестировщик</a></li>
+          <li><a href="/professions/analitik-dannyh/">Аналитик данных</a></li>
+          <li><a href="/professions/sistemnyj-analitik/">Системный аналитик</a></li>
+          <li><a href="/professions/razrabotka-igr/">Разработчик игр</a></li>
+        </ul>
+        <a href="/professions/?area=it" class="link-columns__all">Все</a>
+      </div>
+
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Дизайн, маркетинг, менеджмент</h2>
+        <ul class="link-columns__list">
+          <li><a href="/professions/dizajner/">Дизайнер</a></li>
+          <li><a href="/professions/marketolog/">Маркетолог</a></li>
+          <li><a href="/professions/menedzher-proektov/">Менеджер проектов</a></li>
+          <li><a href="/professions/produktovyj-menedzher/">Продакт-менеджер</a></li>
+        </ul>
+        <a href="/professions/" class="link-columns__all">Все</a>
+      </div>
+
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Курсы по профессиям</h2>
+        <ul class="link-columns__list">
+          <li><a href="/courses/?profession=programmist">Курсы программирования</a></li>
+          <li><a href="/courses/?profession=dizajner">Курсы дизайна</a></li>
+          <li><a href="/courses/?profession=marketolog">Курсы маркетинга</a></li>
+          <li><a href="/courses/?profession=analitik-dannyh">Курсы аналитики данных</a></li>
+          <li><a href="/courses/?profession=testirovshchik">Курсы тестирования</a></li>
+          <li><a href="/courses/?profession=menedzher-proektov">Курсы управления проектами</a></li>
+          <li><a href="/courses/?kind=profession">Программы «Профессия» с нуля</a></li>
+          <li><a href="/courses/?duration=0-3">Короткие курсы до 3 месяцев</a></li>
+        </ul>
+        <a href="/courses/" class="link-columns__all">Все</a>
+      </div>
+
+      <div class="link-columns__col">
+        <h2 class="link-columns__title">Школы в каталоге</h2>
+        <ul class="link-columns__list">
+          <li><a href="/schools/school-1/">Школа 1</a></li>
+          <li><a href="/schools/school-2/">Школа 2</a></li>
+          <li><a href="/schools/school-3/">Школа 3</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ SEO-ТЕКСТ ============ -->
+    <section class="section section--light">
+      <h2 class="section__title">Как выбрать профессию для онлайн-обучения</h2>
+      <div class="prose prose--wide">
+        <p>Выбор профессии — более важное решение, чем выбор школы. Сначала стоит понять, какая работа вам подходит, и только потом сравнивать программы. На этой странице собраны направления, по которым в каталоге есть курсы ведущих онлайн-школ: видно, сколько программ доступно, сколько они стоят и сколько длятся.</p>
+        <p>Если вы пока сомневаетесь, начните с того, что вам нравится делать. Тем, кому интересно разбираться в логике и устройстве систем, ближе разработка, тестирование и аналитика. Тем, кто думает визуально, — дизайн. Тем, кому нравится работать с людьми и организовывать процессы, — управление проектами и продуктом. Маркетинг сочетает работу с цифрами и с текстами.</p>
+        <p>Обратите внимание на диапазон длительности. Если разница между самым коротким и самым длинным курсом большая, значит, в направлении есть и короткие программы для знакомства, и полноценные программы для смены профессии. Короткий курс — недорогой способ проверить, интересно ли вам направление, прежде чем платить за длинную программу.</p>
+        <p>Цена «от» — минимальная полная стоимость курса по профессии в каталоге. Полные программы обычно дороже: в них больше практики, проверка заданий и проекты для портфолио. Сравнивайте курсы внутри одной профессии — так разница в цене и наполнении видна лучше всего.</p>
+        <p>Освоить новую профессию онлайн реально, но это требует времени: в среднем от полугода регулярных занятий. Мы не обещаем трудоустройство и доход — честно показываем, какие программы есть, сколько они стоят и что в них входит.</p>
+      </div>
+    </section>
+
+    <!-- ============ FAQ (schema.org FAQPage) ============ -->
+    <section class="section faq-section" itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="section__title">Часто задаваемые вопросы</h2>
+      <div class="faq faq--wide">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q">
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-1" id="faq-q-1"><span class="faq-item__icon" aria-hidden="true">💻</span><span itemprop="name">Можно ли освоить профессию полностью онлайн?</span></button>
+          </h3>
+          <div class="faq-item__a" id="faq-a-1" role="region" aria-labelledby="faq-q-1" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>Да, многие люди так и делают. Но результат зависит от регулярности занятий и практики, а не только от программы. Закладывайте несколько часов в неделю на протяжении всего курса.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q">
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-2" id="faq-q-2"><span class="faq-item__icon" aria-hidden="true">📚</span><span itemprop="name">Чем «профессия» отличается от отдельного курса?</span></button>
+          </h3>
+          <div class="faq-item__a" id="faq-a-2" role="region" aria-labelledby="faq-q-2" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>Профессия — длинная программа с нуля до уровня, достаточного для первых рабочих задач, обычно от полугода. Отдельный курс учит одному навыку или инструменту и подходит тем, у кого уже есть база.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q">
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-3" id="faq-q-3"><span class="faq-item__icon" aria-hidden="true">💳</span><span itemprop="name">Что означает цена «от»?</span></button>
+          </h3>
+          <div class="faq-item__a" id="faq-a-3" role="region" aria-labelledby="faq-q-3" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>Это минимальная полная стоимость курса по профессии среди школ в каталоге. Цены конкретных программ смотрите на странице профессии, а окончательную стоимость уточняйте на сайте школы.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h3 class="faq-item__q">
+            <button type="button" class="faq-item__btn" aria-expanded="false" aria-controls="faq-a-4" id="faq-q-4"><span class="faq-item__icon" aria-hidden="true">💼</span><span itemprop="name">Гарантируют ли школы трудоустройство?</span></button>
+          </h3>
+          <div class="faq-item__a" id="faq-a-4" role="region" aria-labelledby="faq-q-4" hidden itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <div itemprop="text"><p>Условия у школ разные, и мы советуем внимательно читать договор. Помощь с резюме и подготовкой к собеседованиям встречается часто, но получить работу всё равно предстоит вам самим.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ ПОДВАЛ (общий с главной) ============ -->
+  <footer class="site-footer">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <a href="/" class="logo logo--light">
+          <img src="../img/logo.png" alt="" class="logo__img" width="48" height="40">
+          <span class="logo__text">edukursy<span>.ru</span></span>
+        </a>
+        <p>Сравнение онлайн-курсов ведущих школ: программы, цены и длительность в одном месте.</p>
+      </div>
+
+      <nav class="site-footer__nav" aria-label="Информация">
+        <h2 class="site-footer__heading">Проект</h2>
+        <ul>
+          <li><a href="/about">О проекте</a></li>
+          <li><a href="/contacts">Контакты</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__nav" aria-label="Документы">
+        <h2 class="site-footer__heading">Документы</h2>
+        <ul>
+          <li><a href="/privacy">Политика конфиденциальности</a></li>
+          <li><a href="/terms">Пользовательское соглашение</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__nav" aria-label="Каталог">
+        <h2 class="site-footer__heading">Каталог</h2>
+        <ul>
+          <li><a href="/professions/">Профессии</a></li>
+          <li><a href="/courses/">Курсы</a></li>
+          <li><a href="/schools/">Школы</a></li>
+          <li><a href="/compare/">Сравнения</a></li>
+          <li><a href="/blog/">Блог</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <p class="site-footer__disclosure">Мы можем получать вознаграждение от школ за переходы по ссылкам. На цену для вас это не влияет.</p>
+    <p class="site-footer__copy">© <!-- DATA: current_year -->2025 edukursy.ru</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
